@@ -40,10 +40,19 @@ public class Main extends Application {
                            + "fx-border-radius: 10; -fx-background-radius: 10;");
         button1.setFont(new Font("Futura", 20));
         grid.setStyle("-fx-background-color: LightGreen");
+
         //Creating First Scene
         Scene scene = new Scene(grid, 300, 200);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        //Layout for Second Scene
+        GridPane grid2 = new GridPane();
+        scene2 = new Scene(grid2, 900, 600);
+        grid2.setPadding(new Insets(10, 10, 10, 10));
+        grid2.setVgap(8);
+        grid2.setHgap(10);
+        grid2.setStyle("-fx-background-color: LemonChiffon");
     }
 
 
