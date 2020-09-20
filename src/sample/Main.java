@@ -13,6 +13,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import sample.ConfigurationScreen;
+
+
+import java.lang.module.Configuration;
 
 public class Main extends Application {
 
@@ -29,13 +33,21 @@ public class Main extends Application {
         grid.setVgap(8);
         grid.setHgap(10);
 
+        Stage s = new Stage();
+        ConfigurationScreen c = new ConfigurationScreen();
         //Adding 'Start Game Button' + configurations
         Button button1 = new Button("Start Game");
         GridPane.setConstraints(button1, 8, 8);
         grid.getChildren().addAll(button1);
         button1.setOnAction(e -> {
-             primaryStage.setScene(scene2);
-            });
+            try {
+                c.start(s);
+                primaryStage.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        });
         button1.setStyle("-fx-background-color: CornflowerBlue; -fx-text-fill: white;"
                            + "fx-border-radius: 10; -fx-background-radius: 10;");
         button1.setFont(new Font("Futura", 20));
@@ -46,13 +58,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        //Layout for Second Scene
-        GridPane grid2 = new GridPane();
-        scene2 = new Scene(grid2, 900, 600);
-        grid2.setPadding(new Insets(10, 10, 10, 10));
-        grid2.setVgap(8);
-        grid2.setHgap(10);
-        grid2.setStyle("-fx-background-color: LemonChiffon");
     }
 
 
