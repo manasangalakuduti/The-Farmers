@@ -48,10 +48,10 @@ public class Main extends Application {
             }
 
         });
-        button1.setStyle("-fx-background-color: CornflowerBlue; -fx-text-fill: white;"
+        button1.setStyle("-fx-background-color: Chartreuse; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
         button1.setFont(new Font("Futura", 20));
-        grid.setStyle("-fx-background-color: LightGreen");
+        grid.setStyle("-fx-background-color: DeepSkyBlue");
 
         //Creating First Scene
         Scene scene = new Scene(grid, 300, 200);
