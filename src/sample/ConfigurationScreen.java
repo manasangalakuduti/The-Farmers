@@ -13,12 +13,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import sample.Main;
-import sample.FarmUIScreen;
 
 public class ConfigurationScreen extends Application {
 
-    Scene scene2;
+    private Scene scene2;
     @Override
     public void start(Stage stage) throws Exception {
         //"Shorter methods and moving stuff into separate methods
@@ -120,7 +118,8 @@ public class ConfigurationScreen extends Application {
         grid2.getChildren().addAll(b2, b3, nameInput, playerLabel, difficulty,
                 startingSeed, startingSeason, difficultyLabel, seedLabel, seasonLabel);
         b2.setOnAction(e -> {
-            if (nameInput.getText().length() != 0 && nameInput.getText() != "" && !nameInput.getText().startsWith(" ")) {
+            if (nameInput.getText().length() != 0 && nameInput.getText() != ""
+                    && !nameInput.getText().startsWith(" ")) {
                 Stage s1 = new Stage();
                 FarmUIScreen f = new FarmUIScreen();
                 try {
