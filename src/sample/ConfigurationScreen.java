@@ -11,11 +11,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import sample.FarmUIScreen;
+
 
 public class ConfigurationScreen extends Application {
 
-    Scene scene2;
+    private Scene scene2;
     @Override
     public void start(Stage stage) throws Exception {
         //"Shorter methods and moving stuff into separate methods

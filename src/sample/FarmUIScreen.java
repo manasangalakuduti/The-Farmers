@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class FarmUIScreen extends Application {
 
-    Scene scene3;
+    private Scene scene3;
     @Override
     public void start(Stage stage) throws Exception {
 
