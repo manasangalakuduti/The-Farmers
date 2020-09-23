@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="lib">
     <CLASSES>
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/javafx-sdk-14.0.1/lib" />
     </CLASSES>
     <JAVADOC />
@@ -12,5 +13,18 @@
     </SOURCES>
     <jarDirectory url="file://$USER_HOME$/javafx-sdk-14.0.1/lib" recursive="false" />
     <jarDirectory url="file://$USER_HOME$/javafx-sdk-14.0.1/lib" recursive="false" type="SOURCES" />
+=======
+      <root url="file://$PROJECT_DIR$/../../../javafx-sdk-11.0.2/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/../../../javafx-sdk-11.0.2/lib" />
+    </NATIVE>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../../javafx-sdk-11.0.2/lib" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../../javafx-sdk-11.0.2/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../javafx-sdk-11.0.2/lib" recursive="false" type="SOURCES" />
+>>>>>>> f18b9f882a1513c341a58ffd03ca0ecbfc98a45f
   </library>
 </component>

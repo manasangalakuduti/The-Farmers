@@ -1,4 +1,5 @@
 package sample.frontend;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -6,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 
 public class FarmUIScreen extends Application {
 
@@ -28,12 +30,14 @@ public class FarmUIScreen extends Application {
 
 
         //Return Button
-        Button b4 = new Button("Return");
-        b4.setStyle("-fx-background-color: DeepSkyBlue; -fx-text-fill: black;"
+        Button returnButton = new Button("Return");
+        returnButton.setStyle("-fx-background-color: DeepSkyBlue; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
-        grid3.setRowIndex(b4, 0);
-        grid3.setColumnIndex(b4, 81);
-        b4.setOnAction(e -> {
+        grid3.setRowIndex(returnButton, 0);
+        grid3.setColumnIndex(returnButton, 50);
+        returnButton.setMinWidth(60);
+        //Generates a popup for now, but should probably change later
+        returnButton.setOnAction(e -> {
             Stage returnStage = new Stage();
             ConfigurationScreen c = new ConfigurationScreen();
             try {
@@ -43,7 +47,51 @@ public class FarmUIScreen extends Application {
                 ex.printStackTrace();
             }
         });
-        grid3.getChildren().addAll(b4);
+
+
+
+        //Store Button
+        Button storeButton = new Button("Store");
+        returnButton.setStyle("-fx-background-color: DeepSkyBlue; -fx-text-fill: black;"
+                + "fx-border-radius: 10; -fx-background-radius: 10;");
+        grid3.setRowIndex(storeButton, 20);
+        grid3.setColumnIndex(storeButton, 50);
+        storeButton.setMinWidth(60);
+        //Generates a popup for now, but should probably change later
+        storeButton.setOnAction(e -> {
+            Stage storeStage = new Stage();
+            StoreScene s = new StoreScene();
+            try {
+                s.start(storeStage);
+                stage.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        //Creates a new pane with tiles, for plotting purposes
+        GridPane plotFrame = new GridPane();
+
+        plotFrame.setHgap(10);
+        plotFrame.setVgap(10);
+
+        //Adds in the new plots
+
+        for (int i=0; i<5; i++){
+            for (int j=0; j<3; j++) {
+                Plot newPlot = new Plot(i, j, "Dirt");
+                plotFrame.getChildren().addAll(newPlot);
+                plotFrame.setRowIndex(newPlot, j);
+                plotFrame.setColumnIndex(newPlot, i);
+                newPlot.setMinHeight(30);
+                newPlot.setMinWidth(60);
+            }
+        }
+
+
+        grid3.setRowIndex(plotFrame, 45);
+        grid3.setColumnIndex(plotFrame, 33);
+        grid3.getChildren().addAll(plotFrame, returnButton, storeButton);
         stage.setScene(scene3);
         stage.show();
     }
