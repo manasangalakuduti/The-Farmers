@@ -1,4 +1,4 @@
-package sample;
+package sample.frontend;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -22,7 +22,7 @@ public class FarmUIScreen extends Application {
         grid3.setVgap(8);
         grid3.setHgap(10);
         grid3.setStyle("-fx-background-color: LemonChiffon");
-        grid3.setStyle("-fx-background-image: url(/sample/farm.png);"
+        grid3.setStyle("-fx-background-image: url(/sample/media/farm.png);"
                 + "-fx-background-size: 900px 600px;"
                 + "-fx-padding-top: 100%;");
 

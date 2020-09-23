@@ -1,9 +1,7 @@
-package sample;
+package sample.frontend;
 
 import javafx.application.Application;
 
-
-import javafx.geometry.HPos;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

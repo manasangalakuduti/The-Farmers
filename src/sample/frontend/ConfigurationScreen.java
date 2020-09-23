@@ -1,13 +1,10 @@
-package sample;
+package sample.frontend;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
@@ -116,13 +113,15 @@ public class ConfigurationScreen extends Application {
         grid2.setRowIndex(startingSeason, 10);
         grid2.setColumnIndex(startingSeason, 1);
 
-        grid2.setStyle("-fx-background-image: url(/sample/configImage.png);"
+        grid2.setStyle("-fx-background-image: url(/sample/media/configImage"
+                + ".png);"
                 + "-fx-background-size: 900px 600px;");
         grid2.getChildren().addAll(b2, b3, nameInput, playerLabel, difficulty,
                 startingSeed, startingSeason, difficultyLabel, seedLabel, seasonLabel);
         b2.setOnAction(e -> {
-            if (nameInput.getText().length() != 0 && nameInput.getText() != ""
-                    && !nameInput.getText().startsWith(" ")) {
+            nameInput.setText(nameInput.getText().trim());
+            String validation = validateNameInput(nameInput.getText());
+            if (validation == "") {
                 Stage s1 = new Stage();
                 FarmUIScreen f = new FarmUIScreen();
                 try {
@@ -132,10 +131,25 @@ public class ConfigurationScreen extends Application {
                     ex.printStackTrace();
                 }
             } else {
-                stage.show();
+                //set alert type
+                Alert a = new Alert(Alert.AlertType.ERROR);
+
+                // set content text
+                a.setContentText(validation);
+
+                a.show();
             }
         });
         stage.show();
+    }
+
+    //Validate if the textfield for player's name
+    public String validateNameInput(String name) {
+        if (name.length() == 0) {
+            return "Length of name cannot be zero.";
+        } else {
+            return "";
+        }
     }
 
 
