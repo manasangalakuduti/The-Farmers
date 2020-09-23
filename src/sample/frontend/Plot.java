@@ -3,7 +3,7 @@ package sample.frontend;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class Plot extends Button{
+public class Plot extends Button {
     private int xIndex;
     private int yIndex;
     private String seedType;

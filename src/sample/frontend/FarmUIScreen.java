@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
@@ -34,7 +35,7 @@ public class FarmUIScreen extends Application {
         returnButton.setStyle("-fx-background-color: DeepSkyBlue; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
         grid3.setRowIndex(returnButton, 0);
-        grid3.setColumnIndex(returnButton, 50);
+        grid3.setColumnIndex(returnButton, 42);
         returnButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
         returnButton.setOnAction(e -> {
@@ -52,10 +53,11 @@ public class FarmUIScreen extends Application {
 
         //Store Button
         Button storeButton = new Button("Store");
-        returnButton.setStyle("-fx-background-color: DeepSkyBlue; -fx-text-fill: black;"
+        storeButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
-        grid3.setRowIndex(storeButton, 20);
-        grid3.setColumnIndex(storeButton, 50);
+        storeButton.setFont(new Font("Futura", 16));
+        grid3.setRowIndex(storeButton, 42);
+        grid3.setColumnIndex(storeButton, 2);
         storeButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
         storeButton.setOnAction(e -> {
@@ -77,8 +79,8 @@ public class FarmUIScreen extends Application {
 
         //Adds in the new plots
 
-        for (int i=0; i<5; i++){
-            for (int j=0; j<3; j++) {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 3; j++) {
                 Plot newPlot = new Plot(i, j, "Dirt");
                 plotFrame.getChildren().addAll(newPlot);
                 plotFrame.setRowIndex(newPlot, j);
