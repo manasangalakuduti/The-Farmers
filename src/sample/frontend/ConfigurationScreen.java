@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
 
-
 public class ConfigurationScreen extends Application {
 
     private Scene scene2;
