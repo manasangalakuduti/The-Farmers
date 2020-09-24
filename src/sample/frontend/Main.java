@@ -1,5 +1,5 @@
-package sample.frontend;
 
+package sample.frontend;
 import javafx.application.Application;
 
 
@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
 
 
 public class Main extends Application {

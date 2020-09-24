@@ -18,10 +18,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-<<<<<<< HEAD
-    <orderEntry type="library" name="junit-4.12" level="application" />
-    <orderEntry type="library" name="JUnit" level="project" />
-=======
->>>>>>> a0e7e06a37bb911c0f60c851487e236e1c93f83e
   </component>
 </module>
