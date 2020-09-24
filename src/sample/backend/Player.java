@@ -3,11 +3,11 @@ package sample.backend;
 public class Player {
     private double balance;
     private String name;
-    public Player(String name, double balance){
+    public Player(String name, double balance) {
         this.balance = balance;
         this.name = name;
     }
-    public boolean purchaseObject(double price){
+    public boolean purchaseObject(double price) {
         if (balance >= price) {
             balance -= price;
             return true;
