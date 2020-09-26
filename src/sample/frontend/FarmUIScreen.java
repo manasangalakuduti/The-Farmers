@@ -4,14 +4,19 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import sample.backend.Player;
 
 
 public class FarmUIScreen extends Application {
-
+    private Player player;
+    public FarmUIScreen(Player player1){
+        this.player = player1;
+    }
     private Scene scene3;
     @Override
     public void start(Stage stage) throws Exception {
@@ -89,11 +94,19 @@ public class FarmUIScreen extends Application {
                 newPlot.setMinWidth(60);
             }
         }
-
+        //Making label for player money
+        Label moneys = new Label("Balance: $" + player.getBalance());
+        moneys.setFont(new Font("Futura", 15));
+        Label Name = new Label("Player Name: " + player.getName());
+        Name.setFont(new Font("Futura", 15));
+        grid3.setRowIndex(moneys,2);
+        grid3.setColumnIndex(moneys, 25);
+        grid3.setRowIndex(Name,2);
+        grid3.setColumnIndex(Name, 10);
 
         grid3.setRowIndex(plotFrame, 45);
         grid3.setColumnIndex(plotFrame, 33);
-        grid3.getChildren().addAll(plotFrame, returnButton, storeButton);
+        grid3.getChildren().addAll(plotFrame, returnButton, storeButton, moneys, Name);
         stage.setScene(scene3);
         stage.show();
     }

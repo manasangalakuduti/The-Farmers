@@ -11,6 +11,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import javafx.scene.control.Button;
+import sample.backend.Player;
 
 
 public class ConfigurationScreen extends Application {
@@ -122,7 +123,24 @@ public class ConfigurationScreen extends Application {
             String validation = validateNameInput(nameInput.getText());
             if (validation == "") {
                 Stage s1 = new Stage();
-                FarmUIScreen f = new FarmUIScreen();
+                String choice = difficulty.getValue();
+                double initialMoney = 0.0;
+                switch(choice){
+                    case "Easy":
+                        initialMoney = 1000.0;
+                        break;
+                    case "Medium":
+                        initialMoney = 500.0;
+                        break;
+                    case "Hard":
+                        initialMoney = 250.0;
+                        break;
+                    case "Master":
+                        initialMoney = 100.0;
+                        break;
+                }
+                Player player = new Player(nameInput.getText(), initialMoney);
+                FarmUIScreen f = new FarmUIScreen(player);
                 try {
                     f.start(s1);
                     stage.close();
