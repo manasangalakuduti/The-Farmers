@@ -140,7 +140,7 @@ public class ConfigurationScreen extends Application {
                         break;
                 }
                 Player player = new Player(nameInput.getText(), initialMoney);
-                FarmUIScreen f = new FarmUIScreen(player);
+                FarmUIScreen f = new FarmUIScreen(player, startingSeason.getValue());
                 try {
                     f.start(s1);
                     stage.close();
