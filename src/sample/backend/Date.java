@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 
 public class Date {
 
-    public String season;
-    public LocalDateTime date;
+    private String season;
+    private LocalDateTime date;
 
     public Date(String season, LocalDateTime date) {
         this.season = season;

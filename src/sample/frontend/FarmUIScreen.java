@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class FarmUIScreen extends Application {
     private Player player;
     private Date date;
-    public FarmUIScreen(Player player1, String season){
+    public FarmUIScreen(Player player1, String season) {
         this.player = player1;
         this.date = new Date(season, LocalDateTime.now());
     }
@@ -102,21 +102,23 @@ public class FarmUIScreen extends Application {
         //Making label for player money
         Label moneys = new Label("Balance: $" + player.getBalance());
         moneys.setFont(new Font("Futura", 10));
-        Label Name = new Label("Player Name: " + player.getName());
-        Name.setFont(new Font("Futura", 10));
-        grid3.setRowIndex(moneys,2);
+        Label name = new Label("Player Name: " + player.getName());
+        name.setFont(new Font("Futura", 10));
+        grid3.setRowIndex(moneys, 2);
         grid3.setColumnIndex(moneys, 25);
-        grid3.setRowIndex(Name,2);
-        grid3.setColumnIndex(Name, 10);
+        grid3.setRowIndex(name, 2);
+        grid3.setColumnIndex(name, 10);
 
-        Label dateLabel = new Label("Season: " + date.getSeason()+ ". Time: "+ date.getDate());
+        Label dateLabel =
+                new Label("Season: " + date.getSeason() + ". Time: " + date.getDate());
         dateLabel.setFont(new Font("Futura", 10));
-        grid3.setRowIndex(dateLabel,1);
+        grid3.setRowIndex(dateLabel, 1);
         grid3.setColumnIndex(dateLabel, 10);
 
         grid3.setRowIndex(plotFrame, 45);
         grid3.setColumnIndex(plotFrame, 33);
-        grid3.getChildren().addAll(plotFrame, returnButton, storeButton, moneys, Name, dateLabel);
+        grid3.getChildren().addAll(plotFrame, returnButton, storeButton,
+                moneys, name, dateLabel);
         stage.setScene(scene3);
         stage.show();
     }
