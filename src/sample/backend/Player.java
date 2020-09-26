@@ -22,7 +22,10 @@ public class Player {
         System.out.println("Sorry, but you do not have the funds to make that purchase");
         return false;
     }
-    public double getBalance(){
+    public double getBalance() {
         return balance;
+    }
+    public String getName() {
+        return name;
     }
 }

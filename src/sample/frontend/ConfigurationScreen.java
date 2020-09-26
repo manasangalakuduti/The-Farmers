@@ -128,12 +128,16 @@ public class ConfigurationScreen extends Application {
                 switch(choice){
                     case "Easy":
                         initialMoney = 1000.0;
+                        break;
                     case "Medium":
                         initialMoney = 500.0;
+                        break;
                     case "Hard":
                         initialMoney = 250.0;
+                        break;
                     case "Master":
                         initialMoney = 100.0;
+                        break;
                 }
                 Player player = new Player(nameInput.getText(), initialMoney);
                 FarmUIScreen f = new FarmUIScreen(player);
