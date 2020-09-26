@@ -9,13 +9,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import sample.backend.Date;
 import sample.backend.Player;
+
+import java.time.LocalDateTime;
 
 
 public class FarmUIScreen extends Application {
     private Player player;
-    public FarmUIScreen(Player player1){
+    private Date date;
+    public FarmUIScreen(Player player1, String season){
         this.player = player1;
+        this.date = new Date(season, LocalDateTime.now());
     }
     private Scene scene3;
     @Override
@@ -25,7 +30,7 @@ public class FarmUIScreen extends Application {
         StackPane root = new StackPane();
         stage.setTitle("FarmUI Screen");
         GridPane grid3 = new GridPane();
-        scene3 = new Scene(grid3, 900, 600);
+        scene3 = new Scene(grid3, 1920, 600);
         grid3.setPadding(new Insets(10, 10, 10, 10));
         grid3.setVgap(8);
         grid3.setHgap(10);
@@ -96,17 +101,22 @@ public class FarmUIScreen extends Application {
         }
         //Making label for player money
         Label moneys = new Label("Balance: $" + player.getBalance());
-        moneys.setFont(new Font("Futura", 15));
+        moneys.setFont(new Font("Futura", 10));
         Label Name = new Label("Player Name: " + player.getName());
-        Name.setFont(new Font("Futura", 15));
+        Name.setFont(new Font("Futura", 10));
         grid3.setRowIndex(moneys,2);
         grid3.setColumnIndex(moneys, 25);
         grid3.setRowIndex(Name,2);
         grid3.setColumnIndex(Name, 10);
 
+        Label dateLabel = new Label("Season: " + date.getSeason()+ ". Time: "+ date.getDate());
+        dateLabel.setFont(new Font("Futura", 10));
+        grid3.setRowIndex(dateLabel,1);
+        grid3.setColumnIndex(dateLabel, 10);
+
         grid3.setRowIndex(plotFrame, 45);
         grid3.setColumnIndex(plotFrame, 33);
-        grid3.getChildren().addAll(plotFrame, returnButton, storeButton, moneys, Name);
+        grid3.getChildren().addAll(plotFrame, returnButton, storeButton, moneys, Name, dateLabel);
         stage.setScene(scene3);
         stage.show();
     }
