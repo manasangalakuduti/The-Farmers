@@ -11,11 +11,13 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import javafx.scene.control.Button;
+import sample.backend.Player;
 
 
 public class ConfigurationScreen extends Application {
 
     private Scene scene2;
+    private Player player;
     @Override
     public void start(Stage stage) throws Exception {
         //"Shorter methods and moving stuff into separate methods
@@ -122,6 +124,19 @@ public class ConfigurationScreen extends Application {
             String validation = validateNameInput(nameInput.getText());
             if (validation == "") {
                 Stage s1 = new Stage();
+                String choice = difficulty.getValue();
+                double initialMoney = 0.0;
+                switch(choice){
+                    case "Easy":
+                        initialMoney = 1000.0;
+                    case "Medium":
+                        initialMoney = 500.0;
+                    case "Hard":
+                        initialMoney = 250.0;
+                    case "Master":
+                        initialMoney = 100.0;
+                }
+                player = new Player(nameInput.getText(), initialMoney);
                 FarmUIScreen f = new FarmUIScreen();
                 try {
                     f.start(s1);
