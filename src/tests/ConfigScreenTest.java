@@ -22,4 +22,8 @@ public class ConfigScreenTest {
         assertEquals("Length of name cannot be zero.", obj.validateNameInput(""));
     }
 
+    //test for difficulty setting, starting seed setting, starting season
+
+    //make a test runner
+
 }
