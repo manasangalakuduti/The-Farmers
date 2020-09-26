@@ -8,10 +8,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import sample.backend.Player;
 
 
 public class FarmUIScreen extends Application {
-
+    private Player player;
+    public FarmUIScreen(Player player1){
+        this.player = player1;
+    }
     private Scene scene3;
     @Override
     public void start(Stage stage) throws Exception {

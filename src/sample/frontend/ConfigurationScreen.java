@@ -17,7 +17,6 @@ import sample.backend.Player;
 public class ConfigurationScreen extends Application {
 
     private Scene scene2;
-    private Player player;
     @Override
     public void start(Stage stage) throws Exception {
         //"Shorter methods and moving stuff into separate methods
@@ -136,8 +135,8 @@ public class ConfigurationScreen extends Application {
                     case "Master":
                         initialMoney = 100.0;
                 }
-                player = new Player(nameInput.getText(), initialMoney);
-                FarmUIScreen f = new FarmUIScreen();
+                Player player = new Player(nameInput.getText(), initialMoney);
+                FarmUIScreen f = new FarmUIScreen(player);
                 try {
                     f.start(s1);
                     stage.close();
