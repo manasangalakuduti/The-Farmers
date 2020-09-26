@@ -7,6 +7,13 @@ public class Player {
         this.balance = balance;
         this.name = name;
     }
+
+    /**
+     * In later iterations, this will not only modify the price,
+     * but also add to inventory
+     * @param price the cost of the object
+     * @return whether purchase went through
+     */
     public boolean purchaseObject(double price) {
         if (balance >= price) {
             balance -= price;
