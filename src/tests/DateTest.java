@@ -23,7 +23,12 @@ public class DateTest {
 
     @Test
     public void testTimestamp() {
-        assertEquals(LocalDateTime.now(), time.getDate().now());
+        assertEquals(LocalDateTime.now().getMonth(),
+                time.getDate().now().getMonth());
+        assertEquals(LocalDateTime.now().getDayOfMonth(),
+                time.getDate().now().getDayOfMonth());
+        assertEquals(LocalDateTime.now().getYear(),
+                time.getDate().now().getYear());
     }
 
     @Test
