@@ -17,11 +17,9 @@ import sample.backend.Player;
 public class ConfigurationScreen extends Application {
 
     private Scene scene2;
+
     @Override
     public void start(Stage stage) throws Exception {
-        //"Shorter methods and moving stuff into separate methods
-
-        //break things up - good coding practice
         
         //Layout for Second Scene
         StackPane root = new StackPane();
