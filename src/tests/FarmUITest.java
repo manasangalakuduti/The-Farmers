@@ -1,3 +1,5 @@
+package tests;
+
 import sample.backend.Date;
 import sample.backend.Player;
 import org.junit.Before;
