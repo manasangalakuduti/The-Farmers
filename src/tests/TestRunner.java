@@ -9,7 +9,7 @@ public class TestRunner {
     public static void main(String[] args) {
 
         Result result = JUnitCore.runClasses(ConfigScreenTest.class,
-                FarmUITest.class, DateTest.class);
+                FarmUITest.class, DateTest.class, PlotTest.class);
 
         for (Failure failure : result.getFailures()) {
             System.out.println(failure.toString());

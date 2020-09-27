@@ -1,9 +1,9 @@
 package tests;
 
-import sample.backend.Date;
-import sample.backend.Player;
 import org.junit.Before;
 import org.junit.Test;
+import sample.backend.Date;
+import sample.backend.Player;
 
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
@@ -47,6 +47,5 @@ public class FarmUITest {
         assertEquals(LocalDateTime.now().format(format),
                     d.getDate().now().format(format));
     }
-
 
 }

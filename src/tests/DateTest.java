@@ -1,11 +1,12 @@
 package tests;
 
+import org.junit.Before;
+import org.junit.Test;
 import sample.backend.Date;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import org.junit.Before;
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 
