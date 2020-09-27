@@ -37,23 +37,16 @@ public class Plot extends Button {
         return this.seedType;
     }
 
-    private void setSeedType(String seedType) {
+    public void setSeedType(String seedType) {
         this.seedType = seedType;
     }
 
-    private void setxIndex(int xIndex) {
+    public void setxIndex(int xIndex) {
         this.xIndex = xIndex;
     }
 
-    private void setyIndex(int yIndex) {
+    public void setyIndex(int yIndex) {
         this.yIndex = yIndex;
     }
 }
 
-//Adds in the new plots
-//        int num = 0;
-//        for (int i=0; i<5; i++){
-//            for (int j=0; j<3; j++) {
-//                grid3.getChildren().addAll(new Plot(i, j, "Corn"));
-//            }
-//        }
