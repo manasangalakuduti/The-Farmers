@@ -7,7 +7,7 @@ import sample.frontend.Plot;
 import static org.junit.Assert.assertEquals;
 
 
-public class TPlotTest {
+public class PlotTest {
     private Plot obj;
 
     @Before
