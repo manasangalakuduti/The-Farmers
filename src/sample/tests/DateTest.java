@@ -1,4 +1,4 @@
-package tests;
+package sample.tests;
 
 import sample.backend.Date;
 import java.time.LocalDateTime;
