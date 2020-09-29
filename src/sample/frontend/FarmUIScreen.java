@@ -32,8 +32,9 @@ public class FarmUIScreen extends Application {
         GridPane grid3 = new GridPane();
         scene3 = new Scene(grid3, 1920, 600);
         grid3.setPadding(new Insets(10, 10, 10, 10));
-        grid3.setVgap(8);
+        grid3.setVgap(10);
         grid3.setHgap(10);
+
         grid3.setStyle("-fx-background-color: LemonChiffon");
         grid3.setStyle("-fx-background-image: url(/sample/media/farm.png);"
                 + "-fx-background-size: 900px 600px;"
@@ -45,7 +46,7 @@ public class FarmUIScreen extends Application {
         returnButton.setStyle("-fx-background-color: DeepSkyBlue; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
         grid3.setRowIndex(returnButton, 0);
-        grid3.setColumnIndex(returnButton, 42);
+        grid3.setColumnIndex(returnButton, 107);
         returnButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
         returnButton.setOnAction(e -> {
@@ -65,9 +66,9 @@ public class FarmUIScreen extends Application {
         Button storeButton = new Button("Store");
         storeButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
-        storeButton.setFont(new Font("Futura", 16));
-        grid3.setRowIndex(storeButton, 42);
-        grid3.setColumnIndex(storeButton, 2);
+        storeButton.setFont(new Font("Futura", 15));
+        grid3.setRowIndex(storeButton, 24);
+        grid3.setColumnIndex(storeButton, 70);
         storeButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
         storeButton.setOnAction(e -> {
@@ -75,7 +76,25 @@ public class FarmUIScreen extends Application {
             StoreScene s = new StoreScene();
             try {
                 s.start(storeStage);
-                stage.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        //Inventory Button
+        Button inventoryButton = new Button("Inventory");
+        inventoryButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
+                + "fx-border-radius: 10; -fx-background-radius: 10;");
+        inventoryButton.setFont(new Font("Futura", 15));
+        grid3.setRowIndex(inventoryButton, 27);
+        grid3.setColumnIndex(inventoryButton, 0);
+        inventoryButton.setMinWidth(80);
+        //Generates a popup for now, but should probably change later
+        inventoryButton.setOnAction(e -> {
+            Stage storeStage = new Stage();
+            InventoryScene s = new InventoryScene();
+            try {
+                s.start(storeStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -95,30 +114,30 @@ public class FarmUIScreen extends Application {
                 plotFrame.getChildren().addAll(newPlot);
                 plotFrame.setRowIndex(newPlot, j);
                 plotFrame.setColumnIndex(newPlot, i);
-                newPlot.setMinHeight(30);
-                newPlot.setMinWidth(60);
+                newPlot.setMinHeight(50);
+                newPlot.setMinWidth(100);
             }
         }
         //Making label for player money
         Label moneys = new Label("Balance: $" + player.getBalance());
-        moneys.setFont(new Font("Futura", 10));
+        moneys.setFont(new Font("Futura", 12));
         Label name = new Label("Player Name: " + player.getName());
-        name.setFont(new Font("Futura", 10));
-        grid3.setRowIndex(moneys, 2);
-        grid3.setColumnIndex(moneys, 25);
+        name.setFont(new Font("Futura", 12));
+        grid3.setRowIndex(moneys, 4);
+        grid3.setColumnIndex(moneys, 20);
         grid3.setRowIndex(name, 2);
-        grid3.setColumnIndex(name, 10);
+        grid3.setColumnIndex(name, 20);
 
         Label dateLabel =
-                new Label("Season: " + date.getSeason() + ". Time: " + date.getDate());
-        dateLabel.setFont(new Font("Futura", 10));
-        grid3.setRowIndex(dateLabel, 1);
-        grid3.setColumnIndex(dateLabel, 10);
+                new Label("Season: " + date.getSeason());
+        dateLabel.setFont(new Font("Futura", 12));
+        grid3.setRowIndex(dateLabel, 0);
+        grid3.setColumnIndex(dateLabel, 20);
 
-        grid3.setRowIndex(plotFrame, 45);
-        grid3.setColumnIndex(plotFrame, 33);
+        grid3.setRowIndex(plotFrame, 27);
+        grid3.setColumnIndex(plotFrame, 85);
         grid3.getChildren().addAll(plotFrame, returnButton, storeButton,
-                moneys, name, dateLabel);
+                moneys, name, dateLabel, inventoryButton);
         stage.setScene(scene3);
         stage.show();
     }
