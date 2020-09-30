@@ -37,9 +37,9 @@ public class CropInfoScreen extends Application {
 
 
 
-        Scene scene = new Scene(bPane, Main.X_WIDTH, Main.Y_WIDTH);
+        Scene scene = new Scene(bPane, Main.X_WIDTH/ 2, Main.Y_WIDTH / 2);
         stage.setScene(scene);
-        stage.show();
+        stage.showAndWait();
 
 
 

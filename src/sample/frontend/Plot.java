@@ -14,7 +14,6 @@ public class Plot extends Button {
     private String seedType;
     Map<String, String> map = Map.of("Dirt", "sample/media/dirt.png", "test","test");
 
-
     public Plot(int xIndex, int yIndex, String seedType) {
         //super(seedType, new ImageView(new Image(new File("sample/media/dirt.png").toURI().toString())));
         this.xIndex = xIndex;
