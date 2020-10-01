@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Scene scene2;
+    public static final int X_WIDTH = 900;
+    public static final int Y_WIDTH = 600;
+
 
 
     @Override
@@ -49,7 +52,7 @@ public class Main extends Application {
         grid.setStyle("-fx-background-color: DeepSkyBlue");
 
         //Creating First Scene
-        Scene scene = new Scene(grid, 300, 200);
+        Scene scene = new Scene(grid, X_WIDTH, Y_WIDTH);
         primaryStage.setScene(scene);
         primaryStage.show();
 
