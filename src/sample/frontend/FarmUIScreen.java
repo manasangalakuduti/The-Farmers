@@ -2,11 +2,13 @@ package sample.frontend;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.backend.Date;
@@ -29,14 +31,13 @@ public class FarmUIScreen extends Application {
         //Layout for Third Scene
         StackPane root = new StackPane();
         stage.setTitle("FarmUI Screen");
-        GridPane grid3 = new GridPane();
-        scene3 = new Scene(grid3, 1920, 600);
-        grid3.setPadding(new Insets(10, 10, 10, 10));
-        grid3.setVgap(10);
-        grid3.setHgap(10);
+        BorderPane bPane = new BorderPane();
+        scene3 = new Scene(bPane, Main.X_WIDTH, Main.Y_WIDTH);
+        bPane.setPadding(new Insets(10, 10, 10, 10));
 
-        grid3.setStyle("-fx-background-color: LemonChiffon");
-        grid3.setStyle("-fx-background-image: url(/sample/media/farm.png);"
+
+        bPane.setStyle("-fx-background-color: LemonChiffon");
+        bPane.setStyle("-fx-background-image: url(/sample/media/farm.png);"
                 + "-fx-background-size: 900px 600px;"
                 + "-fx-padding-top: 100%;");
 
@@ -45,8 +46,7 @@ public class FarmUIScreen extends Application {
         Button returnButton = new Button("Return");
         returnButton.setStyle("-fx-background-color: DeepSkyBlue; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
-        grid3.setRowIndex(returnButton, 0);
-        grid3.setColumnIndex(returnButton, 107);
+
         returnButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
         returnButton.setOnAction(e -> {
@@ -67,8 +67,7 @@ public class FarmUIScreen extends Application {
         storeButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
         storeButton.setFont(new Font("Futura", 15));
-        grid3.setRowIndex(storeButton, 24);
-        grid3.setColumnIndex(storeButton, 70);
+
         storeButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
         storeButton.setOnAction(e -> {
@@ -86,8 +85,7 @@ public class FarmUIScreen extends Application {
         inventoryButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
         inventoryButton.setFont(new Font("Futura", 15));
-        grid3.setRowIndex(inventoryButton, 27);
-        grid3.setColumnIndex(inventoryButton, 0);
+
         inventoryButton.setMinWidth(80);
         //Generates a popup for now, but should probably change later
         inventoryButton.setOnAction(e -> {
@@ -103,41 +101,70 @@ public class FarmUIScreen extends Application {
         //Creates a new pane with tiles, for plotting purposes
         GridPane plotFrame = new GridPane();
 
-        plotFrame.setHgap(10);
-        plotFrame.setVgap(10);
+        plotFrame.setHgap(30);
+        plotFrame.setVgap(45);
+        plotFrame.setAlignment(Pos.BOTTOM_CENTER);
+        plotFrame.setPadding(new Insets(50, 50, 50, 50));
 
         //Adds in the new plots
 
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 3; j++) {
+
+
                 Plot newPlot = new Plot(i, j, "Dirt");
+
+
                 plotFrame.getChildren().addAll(newPlot);
                 plotFrame.setRowIndex(newPlot, j);
                 plotFrame.setColumnIndex(newPlot, i);
-                newPlot.setMinHeight(50);
-                newPlot.setMinWidth(100);
+                newPlot.setMinHeight(30);
+                newPlot.setMinWidth(60);
+                newPlot.setMaxHeight(30);
+                newPlot.setMaxWidth(60);
+
+                Image image = new Image("sample/media/dirt.png", newPlot.getWidth(), newPlot.getHeight(),
+                        false, true, true);
+                BackgroundImage bImage = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+                        new BackgroundSize(newPlot.getWidth(), newPlot.getHeight(), true, true, true, false));
+
+                Background backGround = new Background(bImage);
+                newPlot.setBackground(backGround);
+
+                newPlot.setBorder(new Border(new BorderStroke(Color.BLACK,
+                        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
             }
         }
+
         //Making label for player money
         Label moneys = new Label("Balance: $" + player.getBalance());
         moneys.setFont(new Font("Futura", 12));
         Label name = new Label("Player Name: " + player.getName());
         name.setFont(new Font("Futura", 12));
-        grid3.setRowIndex(moneys, 4);
-        grid3.setColumnIndex(moneys, 20);
-        grid3.setRowIndex(name, 2);
-        grid3.setColumnIndex(name, 20);
 
-        Label dateLabel =
-                new Label("Season: " + date.getSeason());
+
+        Label dateLabel = new Label("Season: " + date.getSeason());
         dateLabel.setFont(new Font("Futura", 12));
-        grid3.setRowIndex(dateLabel, 0);
-        grid3.setColumnIndex(dateLabel, 20);
 
-        grid3.setRowIndex(plotFrame, 27);
-        grid3.setColumnIndex(plotFrame, 85);
-        grid3.getChildren().addAll(plotFrame, returnButton, storeButton,
-                moneys, name, dateLabel, inventoryButton);
+        VBox leftSide = new VBox();
+        leftSide.setSpacing(20);
+        leftSide.getChildren().addAll(moneys, name, dateLabel);
+
+        VBox rightSide = new VBox();
+        rightSide.setSpacing(20);
+        rightSide.setAlignment(Pos.TOP_RIGHT);
+        rightSide.getChildren().addAll(storeButton, inventoryButton, returnButton);
+
+
+
+        bPane.setCenter(plotFrame);
+        bPane.setLeft(leftSide);
+        bPane.setRight(rightSide);
+
+
+
+
         stage.setScene(scene3);
         stage.show();
     }

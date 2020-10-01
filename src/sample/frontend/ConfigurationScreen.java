@@ -26,7 +26,7 @@ public class ConfigurationScreen extends Application {
         stage.setTitle("Configuration Screen");
 
         GridPane grid2 = new GridPane();
-        scene2 = new Scene(grid2, 900, 600);
+        scene2 = new Scene(grid2, Main.X_WIDTH, Main.Y_WIDTH);
         grid2.setPadding(new Insets(10, 10, 10, 10));
         grid2.setVgap(8);
         grid2.setHgap(10);
