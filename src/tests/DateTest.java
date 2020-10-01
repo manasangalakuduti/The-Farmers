@@ -29,17 +29,14 @@ public class DateTest {
 
     @Test
     public void testTimestamp() {
-<<<<<<< HEAD
         int currY = time.getDate().getDayOfYear();
         assertEquals(curDay, time.getDate().getDayOfYear());
-=======
         assertEquals(LocalDateTime.now().getMonth(),
                 time.getDate().now().getMonth());
         assertEquals(LocalDateTime.now().getDayOfMonth(),
                 time.getDate().now().getDayOfMonth());
         assertEquals(LocalDateTime.now().getYear(),
                 time.getDate().now().getYear());
->>>>>>> ff1fdc12936fb4272686ba0ec669d2434bdc65f4
     }
 
     @Test
