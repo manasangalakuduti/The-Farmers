@@ -3,9 +3,11 @@ package sample.backend;
 public class Player {
     private double balance;
     private String name;
+    //private Inventory playerInventory; //player inventory
     public Player(String name, double balance) {
         this.balance = balance;
         this.name = name;
+        //this.playerInventory = new Inventory();
     }
 
     /**
