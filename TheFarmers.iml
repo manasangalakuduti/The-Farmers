@@ -25,5 +25,6 @@
     </orderEntry>
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="checkstyle-8.24-all" level="project" />
+    <orderEntry type="library" name="lib1" level="project" />
   </component>
 </module>

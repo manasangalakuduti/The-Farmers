@@ -6,11 +6,11 @@ import java.util.HashSet;
 
 public class Inventory {
 
-    private final int MAX_CAPACITY = 1000;
+    private final int maxCapacity = 1000;
     private int currOccupied;
     private static String[] items = {"Tomato", "Soybeans", "Tractor", "Trowel",
-            "Corn",
-            "Peas", "Fertilizer"};
+        "Corn",
+        "Peas", "Fertilizer"};
     private static HashSet<String> validItems =
             new HashSet<>(Arrays.asList(items));
 
@@ -33,7 +33,7 @@ public class Inventory {
             System.out.println(String.format("%s is not a valid item for "
                     + "inventory", itemName));
         }
-        if (quantity + currOccupied <= MAX_CAPACITY) {
+        if (quantity + currOccupied <= maxCapacity) {
             inventoryMap.put(itemName,
                     inventoryMap.getOrDefault(itemName, 0) + quantity);
         }
@@ -76,7 +76,8 @@ public class Inventory {
             if (currCapacity + quantity*item.getSpace() <= MAX_CAPACITY) {
                 //update the inventory hashmap
                 inventoryMap.put(item,
-                        quantity*item.getSpace() + inventoryMap.getOrDefault(inventoryMap.get(item), 0.0));
+                        quantity*item.getSpace() +
+                        inventoryMap.getOrDefault(inventoryMap.get(item), 0.0));
                 currCapacity += quantity*item.getSpace();
             } else {
                 throw new InventoryOverflowException("Cannot add to inventory"
