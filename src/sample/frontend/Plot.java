@@ -12,10 +12,10 @@ public class Plot extends Button {
     private int xIndex;
     private int yIndex;
     private String seedType;
-    Map<String, String> map = Map.of("Dirt", "sample/media/dirt.png", "test","test");
-
+    private Map<String, String> map = Map.of("Dirt", "sample/media/dirt.png", "test", "test");
     public Plot(int xIndex, int yIndex, String seedType) {
-        //super(seedType, new ImageView(new Image(new File("sample/media/dirt.png").toURI().toString())));
+        //super(seedType, new ImageView
+        //(new Image(new File("sample/media/dirt.png").toURI().toString())));
         this.xIndex = xIndex;
         this.yIndex = yIndex;
         this.seedType = seedType;
@@ -28,10 +28,10 @@ public class Plot extends Button {
                 ex.printStackTrace();
             }
         });
-
         Image image = new Image(map.get(seedType), this.getWidth(), this.getHeight(),
                 false, true, true);
-        BackgroundImage bImage = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
+        BackgroundImage bImage = new BackgroundImage(image, BackgroundRepeat.REPEAT,
+                BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
                 new BackgroundSize(this.getWidth(), this.getHeight(), true, true, true, false));
 
         Background backGround = new Background(bImage);
