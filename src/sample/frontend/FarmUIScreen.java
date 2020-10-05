@@ -123,10 +123,14 @@ public class FarmUIScreen extends Application {
                 newPlot.setMaxHeight(30);
                 newPlot.setMaxWidth(60);
 
-                Image image = new Image("sample/media/dirt.png", newPlot.getWidth(), newPlot.getHeight(),
+                Image image = new Image("sample/media/dirt.png",
+                        newPlot.getWidth(), newPlot.getHeight(),
                         false, true, true);
-                BackgroundImage bImage = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
-                        new BackgroundSize(newPlot.getWidth(), newPlot.getHeight(), true, true, true, false));
+                BackgroundImage bImage = new BackgroundImage(image,
+                        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.CENTER,
+                        new BackgroundSize(newPlot.getWidth(),
+                                newPlot.getHeight(), true, true, true, false));
 
                 Background backGround = new Background(bImage);
                 newPlot.setBackground(backGround);
