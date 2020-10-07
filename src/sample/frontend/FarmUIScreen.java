@@ -44,7 +44,7 @@ public class FarmUIScreen extends Application {
 
         //Return Button
         Button returnButton = new Button("Return");
-        returnButton.setStyle("-fx-background-color: DeepSkyBlue; -fx-text-fill: black;"
+        returnButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
 
         returnButton.setMinWidth(60);
@@ -143,13 +143,13 @@ public class FarmUIScreen extends Application {
 
         //Making label for player money
         Label moneys = new Label("Balance: $" + player.getBalance());
-        moneys.setFont(new Font("Futura", 12));
+        moneys.setFont(new Font("Futura", 20));
         Label name = new Label("Player Name: " + player.getName());
-        name.setFont(new Font("Futura", 12));
+        name.setFont(new Font("Futura", 20));
 
 
         Label dateLabel = new Label("Season: " + date.getSeason());
-        dateLabel.setFont(new Font("Futura", 12));
+        dateLabel.setFont(new Font("Futura", 20));
 
         VBox leftSide = new VBox();
         leftSide.setSpacing(20);
