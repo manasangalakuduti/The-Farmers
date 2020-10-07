@@ -1,12 +1,12 @@
 package sample.backend;
 
 public class Player {
-    private double balance;
-    private String name;
+    private static double balance;
+    private static String name;
     //private Inventory playerInventory; //player inventory
-    public Player(String name, double balance) {
-        this.balance = balance;
-        this.name = name;
+    public static void initialize(String name, double balance) {
+        Player.balance = balance;
+        Player.name = name;
         //this.playerInventory = new Inventory();
     }
 
@@ -16,7 +16,7 @@ public class Player {
      * @param price the cost of the object
      * @return whether purchase went through
      */
-    public boolean purchaseObject(double price) {
+    public static boolean purchaseObject(double price) {
         if (balance >= price) {
             balance -= price;
             return true;
@@ -24,10 +24,10 @@ public class Player {
         System.out.println("Sorry, but you do not have the funds to make that purchase");
         return false;
     }
-    public double getBalance() {
+    public static double getBalance() {
         return balance;
     }
-    public String getName() {
+    public static String getName() {
         return name;
     }
 }

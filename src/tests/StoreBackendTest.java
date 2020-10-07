@@ -13,7 +13,7 @@ public class StoreBackendTest {
          obj = new StoreBackend("WalMart");
     }
 
-    @Test
+    /*@Test
     public void testSellSuccess(){
         Player p1 = new Player("Bob", 33.35);
         String item = "Tomato";
@@ -52,5 +52,5 @@ public class StoreBackendTest {
         String item = "Tomato";
         int qty = 100;
         obj.sell(item, qty);
-    }
+    }*/
 }

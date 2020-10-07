@@ -18,10 +18,10 @@ import java.time.LocalDateTime;
 
 
 public class FarmUIScreen extends Application {
-    private Player player;
+    //private Player player;
     private Date date;
-    public FarmUIScreen(Player player1, String season) {
-        this.player = player1;
+    public FarmUIScreen(/*Player player1,*/ String season) {
+        //this.player = player1;
         this.date = new Date(season, LocalDateTime.now());
     }
     private Scene scene3;
@@ -142,9 +142,9 @@ public class FarmUIScreen extends Application {
         }
 
         //Making label for player money
-        Label moneys = new Label("Balance: $" + player.getBalance());
+        Label moneys = new Label("Balance: $" + Player.getBalance());
         moneys.setFont(new Font("Futura", 12));
-        Label name = new Label("Player Name: " + player.getName());
+        Label name = new Label("Player Name: " + Player.getName());
         name.setFont(new Font("Futura", 12));
 
 
