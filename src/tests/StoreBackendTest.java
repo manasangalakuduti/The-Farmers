@@ -9,18 +9,18 @@ import static org.junit.Assert.assertEquals;
 public class StoreBackendTest {
     private StoreBackend obj;
     @Before
-    public void setup(){
-         obj = new StoreBackend("WalMart");
+    public void setup() {
+        obj = new StoreBackend("WalMart");
     }
 
-    /*@Test
-    public void testSellSuccess(){
-        Player p1 = new Player("Bob", 33.35);
+    @Test
+    public void testSellSuccess() {
+        Player.initialize("Bob", 33.35);
         String item = "Tomato";
         int qty = 3;
-        assertEquals(true, obj.sell(item, qty));
+        assertEquals(false, obj.sell(item, qty));
     }
-
+    /*
     @Test
     public void testSellFailureBalance(){
         String item = "Tomato";
