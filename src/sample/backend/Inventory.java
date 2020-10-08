@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 public class Inventory {
 
-    private final int maxCapacity = 1000;
+    public static final int maxCapacity = 1000;
     private int currOccupied;
     private static String[] items = {"Tomato", "Soybeans", "Tractor", "Trowel",
         "Corn",
