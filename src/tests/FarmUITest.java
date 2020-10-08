@@ -11,31 +11,31 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.assertEquals;
 public class FarmUITest {
-    private Player obj;
+    //private Player obj;
     @Before
     public void setup() {
-        obj = new Player("Bob", 33.01);
+        Player.initialize("Bob", 33.01);
     }
 
     @Test
     public void testPlayerConstructorName() {
-        assertEquals("Bob", obj.getName());
+        assertEquals("Bob", Player.getName());
     }
 
     @Test
     public void testPurchaseSuccess() {
-        assertEquals(true, obj.purchaseObject(30));
+        assertEquals(true, Player.purchaseObject(30));
     }
 
     @Test
     public void testPurchaseFailure() {
-        assertEquals(false, obj.purchaseObject(35));
+        assertEquals(false, Player.purchaseObject(35));
     }
 
     @Test
     public void updateBalanceAfterPurchase() {
-        obj.purchaseObject(30);
-        double resBalance = obj.getBalance();
+        Player.purchaseObject(30);
+        double resBalance = Player.getBalance();
         DecimalFormat f = new DecimalFormat("##.00");
         assertEquals("3.01", f.format(resBalance));
     }

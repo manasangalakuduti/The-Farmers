@@ -4,7 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import sample.backend.Date;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.assertEquals;
@@ -14,15 +16,21 @@ import static org.junit.Assert.assertEquals;
 public class DateTest {
 
     private Date time;
+    private int curDay;
     //private LocalDateTime datetime;
 
     @Before
     public void setup() {
-        time = new Date("Fall", LocalDateTime.now());
+        LocalDateTime ref = LocalDateTime.of(LocalDate.of(2020, 9, 28), LocalTime.of(19, 30, 0, 0));
+        int curDay = ref.getDayOfYear();
+        System.out.println("CurDay" + curDay);
+        time = new Date("Fall", ref);
     }
 
     @Test
     public void testTimestamp() {
+        int currY = time.getDate().getDayOfYear();
+        assertEquals(curDay, time.getDate().getDayOfYear());
         assertEquals(LocalDateTime.now().getMonth(),
                 time.getDate().now().getMonth());
         assertEquals(LocalDateTime.now().getDayOfMonth(),
