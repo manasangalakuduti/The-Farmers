@@ -11,7 +11,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import javafx.scene.control.Button;
+import sample.backend.Market;
+import sample.backend.Date;
 import sample.backend.Player;
+
+import java.time.LocalDateTime;
 
 
 public class ConfigurationScreen extends Application {
@@ -137,6 +141,8 @@ public class ConfigurationScreen extends Application {
                     initialMoney = 100.0;
                     break;
                 }
+                Date season = new Date(startingSeason.getValue(), LocalDateTime.now());
+                Market m = new Market(season, choice);
                 Player player = new Player(nameInput.getText(), initialMoney);
                 FarmUIScreen f = new FarmUIScreen(player, startingSeason.getValue());
                 try {
