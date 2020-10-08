@@ -142,12 +142,18 @@ public class FarmUIScreen extends Application {
         }
 
         //Making label for player money
+<<<<<<< HEAD
 
+=======
+>>>>>>> a80133b97e91e527a8b23984447031216367c0f9
         Label moneys = new Label("Balance: $" + Player.getBalance());
         moneys.setFont(new Font("Futura", 20));
         Label name = new Label("Player Name: " + Player.getName());
         name.setFont(new Font("Futura", 20));
+<<<<<<< HEAD
 
+=======
+>>>>>>> a80133b97e91e527a8b23984447031216367c0f9
 
         Label dateLabel = new Label("Season: " + date.getSeason());
         dateLabel.setFont(new Font("Futura", 20));
