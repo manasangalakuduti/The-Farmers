@@ -141,10 +141,15 @@ public class ConfigurationScreen extends Application {
                     initialMoney = 100.0;
                     break;
                 }
+<<<<<<< HEAD
                 Date season = new Date(startingSeason.getValue(), LocalDateTime.now());
                 Market m = new Market(season, choice);
                 Player player = new Player(nameInput.getText(), initialMoney);
                 FarmUIScreen f = new FarmUIScreen(player, startingSeason.getValue());
+=======
+                Player.initialize(nameInput.getText(), initialMoney);
+                FarmUIScreen f = new FarmUIScreen(/*player, */startingSeason.getValue());
+>>>>>>> b45d5649e0a4f570e3eac76ac30f44726b1ab0e2
                 try {
                     f.start(s1);
                     stage.close();
