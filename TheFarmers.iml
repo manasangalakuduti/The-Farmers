@@ -4,6 +4,14 @@
     <option name="configuration">
       <map />
     </option>
+<<<<<<< HEAD
+=======
+  </component>
+  <component name="FacetManager">
+    <facet type="Python" name="Python">
+      <configuration sdkName="" />
+    </facet>
+>>>>>>> 102bf5dae2f436d61f1335c81e702f2702ca05e7
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -23,5 +31,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>
