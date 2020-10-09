@@ -1,12 +1,13 @@
 package sample.backend;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
 public class Inventory {
 
-    private final int maxCapacity = 1000;
+    public static final int MAXCAPACITY = 1000;
     private int currOccupied;
     private static String[] items = {"Tomato", "Soybeans", "Tractor", "Trowel",
         "Corn",
@@ -33,9 +34,10 @@ public class Inventory {
             System.out.println(String.format("%s is not a valid item for "
                     + "inventory", itemName));
         }
-        if (quantity + currOccupied <= maxCapacity) {
+        if (quantity + currOccupied <= MAXCAPACITY) {
             inventoryMap.put(itemName,
                     inventoryMap.getOrDefault(itemName, 0) + quantity);
+            currOccupied = currOccupied + quantity;
         }
     }
 
@@ -46,6 +48,7 @@ public class Inventory {
         }
         if (quantity <= inventoryMap.get(itemName)) {
             inventoryMap.put(itemName, inventoryMap.get(itemName) - quantity);
+            currOccupied = currOccupied - quantity;
         } else {
             System.out.println(String.format("Cannot remove %d of %s because "
                     + "your inventory contains %d of %s", quantity, itemName,
@@ -60,10 +63,66 @@ public class Inventory {
     public boolean hasItem(String itemName) {
         return inventoryMap.containsKey(itemName);
     }
-
+    //How much space is occupied
     public int getCurrOccupied() {
         return currOccupied;
     }
+
+    //Seed types, anything in inventory
+    public String[] itemTypes() {
+        return items;
+    }
+    //Quantity of seeds, and anything in inventory
+    public int[] quantities() {
+        Collection<Integer> vals = inventoryMap.values();
+        Integer[] quantities = (Integer[]) vals.toArray();
+        int[] qty = new int[quantities.length];
+        for (int i = 0; i < quantities.length; i++) {
+            qty[i] = quantities[i];
+        }
+        return qty;
+    }
+    /*
+    //map inventory item to amount of space taken up by a given item
+    private HashMap<InventoryItem, Double> inventoryMap;
+    public Inventory() {
+        inventoryMap = new HashMap<>();
+        currCapacity = 0;
+    }
+    public void addToInventory(InventoryItem item, double quantity) {
+        try {
+            if (currCapacity + quantity*item.getSpace() <= MAX_CAPACITY) {
+                //update the inventory hashmap
+                inventoryMap.put(item,
+                        quantity*item.getSpace() +
+                        inventoryMap.getOrDefault(inventoryMap.get(item), 0.0));
+                currCapacity += quantity*item.getSpace();
+            } else {
+                throw new InventoryOverflowException("Cannot add to inventory"
+                        + " because you will have an overflow");
+            }
+        } catch (InventoryOverflowException overflow) {
+            System.out.println(overflow.getMessage());
+        }
+    }
+    public void removeFromInventory(InventoryItem item, double quantity) {
+        try {
+            if (!inventoryMap.containsKey(item)) {
+                System.out.println("Item does not exist");
+            }
+
+            if (quantity > Math.floor(inventoryMap.get(item)/item.getSpace())) {
+                throw new InventoryUnderflowException(String.format("You "
+                        + "don't have enough of %s to get %f of it",
+                        item.getName(), quantity));
+            } else {
+
+                //update inventory after removing an item
+                inventoryMap.put(item,
+                        inventoryMap.get(item) - quantity*item.getSpace());
+                currCapacity -= quantity*item.getSpace();
+            }
+>>>>>>> 205c3ce1f8a955c4ee76be5ee1f69baabfa0d940
 
 
 }

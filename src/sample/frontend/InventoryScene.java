@@ -2,10 +2,15 @@ package sample.frontend;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import sample.backend.Player;
 
 public class InventoryScene extends Application {
 
@@ -28,6 +33,25 @@ public class InventoryScene extends Application {
         Scene scene = new Scene(grid, 900, 600);
 
 
+        Label seedType0 = new Label(Player.itemTypes()[0] + " "
+                + (Player.getQuantityOf(Player.itemTypes()[0])));
+        Label seedType1 = new Label(Player.itemTypes()[1]  + " "
+                + (Player.getQuantityOf(Player.itemTypes()[1])));
+        Label seedType2 = new Label(Player.itemTypes()[4]  + " "
+                + (Player.getQuantityOf(Player.itemTypes()[4])));
+        Label seedType3 = new Label(Player.itemTypes()[5]  + " "
+                + (Player.getQuantityOf(Player.itemTypes()[5])));
+        seedType0.setFont(new Font("Futura", 12));
+        seedType0.setStyle("-fx-text-fill: green;");
+
+        VBox box = new VBox();
+        box.setSpacing(20);
+        box.setAlignment(Pos.CENTER);
+        box.getChildren().addAll(seedType0, seedType1, seedType2, seedType3);
+
+        grid.setRowIndex(seedType0, 40);
+        grid.setColumnIndex(seedType0, 20);
+
         //Return Button
         Button returnButton = new Button("Close");
         returnButton.setStyle("-fx-background-color: DeepSkyBlue; -fx-text-fill: black;"
@@ -43,7 +67,8 @@ public class InventoryScene extends Application {
                 ex.printStackTrace();
             }
         });
-        grid.getChildren().addAll(returnButton);
+        grid.getChildren().addAll(returnButton, seedType0, seedType1,
+                seedType2, seedType3);
         storeStage.setScene(scene);
         storeStage.show();
     }
