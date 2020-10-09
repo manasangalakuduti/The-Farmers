@@ -1,12 +1,13 @@
 package sample.backend;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
 public class Inventory {
 
-    private final int maxCapacity = 1000;
+    public static final int MAXCAPACITY = 1000;
     private int currOccupied;
     private static String[] items = {"Tomato", "Soybeans", "Tractor", "Trowel",
         "Corn",
@@ -33,9 +34,10 @@ public class Inventory {
             System.out.println(String.format("%s is not a valid item for "
                     + "inventory", itemName));
         }
-        if (quantity + currOccupied <= maxCapacity) {
+        if (quantity + currOccupied <= MAXCAPACITY) {
             inventoryMap.put(itemName,
                     inventoryMap.getOrDefault(itemName, 0) + quantity);
+            currOccupied = currOccupied + quantity;
         }
     }
 
@@ -46,6 +48,7 @@ public class Inventory {
         }
         if (quantity <= inventoryMap.get(itemName)) {
             inventoryMap.put(itemName, inventoryMap.get(itemName) - quantity);
+            currOccupied = currOccupied - quantity;
         } else {
             System.out.println(String.format("Cannot remove %d of %s because "
                     + "your inventory contains %d of %s", quantity, itemName,
@@ -60,9 +63,23 @@ public class Inventory {
     public boolean hasItem(String itemName) {
         return inventoryMap.containsKey(itemName);
     }
-
+    //How much space is occupied
     public int getCurrOccupied() {
         return currOccupied;
+    }
+    //Seed types, anything in inventory
+    public String[] itemTypes() {
+        return items;
+    }
+    //Quantity of seeds, and anything in inventory
+    public int[] quantities() {
+        Collection<Integer> vals = inventoryMap.values();
+        Integer[] quantities = (Integer[]) vals.toArray();
+        int[] qty = new int[quantities.length];
+        for (int i = 0; i < quantities.length; i++) {
+            qty[i] = quantities[i];
+        }
+        return qty;
     }
     /*
     //map inventory item to amount of space taken up by a given item

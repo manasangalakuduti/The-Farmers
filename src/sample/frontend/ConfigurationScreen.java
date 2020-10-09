@@ -146,6 +146,7 @@ public class ConfigurationScreen extends Application {
 //                Player player = new Player(nameInput.getText(), initialMoney);
 //                FarmUIScreen f = new FarmUIScreen(player, startingSeason.getValue());
                 Player.initialize(nameInput.getText(), initialMoney);
+                Player.updateInventory(startingSeed.getValue(), 5);
                 FarmUIScreen f = new FarmUIScreen(/*player, */startingSeason.getValue());
                 try {
                     f.start(s1);

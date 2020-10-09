@@ -24,17 +24,17 @@ public class FarmUITest {
 
     @Test
     public void testPurchaseSuccess() {
-        assertEquals(true, Player.purchaseObject(30));
+        assertEquals(true, Player.updateBalance(30));
     }
 
     @Test
     public void testPurchaseFailure() {
-        assertEquals(false, Player.purchaseObject(35));
+        assertEquals(false, Player.updateBalance(35));
     }
 
     @Test
     public void updateBalanceAfterPurchase() {
-        Player.purchaseObject(30);
+        Player.updateBalance(30);
         double resBalance = Player.getBalance();
         DecimalFormat f = new DecimalFormat("##.00");
         assertEquals("3.01", f.format(resBalance));
