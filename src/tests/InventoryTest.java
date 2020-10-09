@@ -18,6 +18,23 @@ public class InventoryTest {
     public void testCurrCapacityInitial() {
         assertEquals(0, inventory.getCurrOccupied());
     }
+    @Test
+    public void testHasValidItem() {
+        assertEquals(true, inventory.hasItem("Tractor"));
+    }
+
+    @Test
+    public void testHasInvalidItem() {
+        assertEquals(false, inventory.hasItem("COVID-19"));
+    }
+
+    @Test
+    public void testInventoryAdd() {
+        inventory.addToInventory("Tractor", 950);
+        assertEquals(950, inventory.getQuantity("Tractor"));
+    }
+
+
 
     //check add and remove configurations. Use setters and getters to check
     // has or quantity
