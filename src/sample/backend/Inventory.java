@@ -122,7 +122,7 @@ public class Inventory {
                         inventoryMap.get(item) - quantity*item.getSpace());
                 currCapacity -= quantity*item.getSpace();
             }
->>>>>>> 205c3ce1f8a955c4ee76be5ee1f69baabfa0d940
+     */
 
 
 }
