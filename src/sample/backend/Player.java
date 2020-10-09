@@ -17,7 +17,7 @@ public class Player {
      * @return whether purchase went through
      */
     public static boolean updateBalance(double price) {
-        if (balance >= price) {
+        if (balance >= price || price < 0) {
             balance -= price;
             return true;
         }
@@ -31,7 +31,12 @@ public class Player {
         return name;
     }
     public static void updateInventory(String item, int qty) {
-        playerInventory.addToInventory(item, qty);
+        if (qty > 0) {
+            playerInventory.addToInventory(item, qty);
+        } else {
+            playerInventory.removeFromInventory(item, -qty);
+        }
+
     }
     public static boolean hasItem(String item) {
         return playerInventory.hasItem(item);
@@ -40,7 +45,7 @@ public class Player {
         return playerInventory.getQuantity(item);
     }
     public static boolean hasRoom(int space) {
-        return playerInventory.getCurrOccupied() + space <= Inventory.maxCapacity;
+        return playerInventory.getCurrOccupied() + space <= Inventory.MAXCAPACITY;
     }
     public static int[] quantities() {
         return playerInventory.quantities();

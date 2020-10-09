@@ -12,8 +12,10 @@ public class StoreBackend {
     }
     public void purchase(String item, int qty) {
         double subtotal = 100.1; //Use MARKET to get the subtotal that COULD be sold HERE
-        if (Player.hasItem(item) && Player.getQuantityOf(item) >= qty) { //Player has enough of the item
-            if (storeInventory.getCurrOccupied() + qty <= Inventory.maxCapacity) { //Store has enough room
+        if (Player.hasItem(item)
+                && Player.getQuantityOf(item) >= qty) { //Player has enough of the item
+            if (storeInventory.getCurrOccupied() + qty
+                    <= Inventory.MAXCAPACITY) { //Store has enough room
                 storeInventory.addToInventory(item, qty);
                 Player.updateBalance(-subtotal);
                 Player.updateInventory(item, -qty);
@@ -24,10 +26,11 @@ public class StoreBackend {
     }
     public boolean sell(String item, int qty) {
         double price = 100.1; //Use MARKET to get the price HERE
-        if (storeInventory.hasItem(item) && storeInventory.getQuantity(item) >= qty) { //Store has enough of the item
+        if (storeInventory.hasItem(item)
+                && storeInventory.getQuantity(item) >= qty) { //Store has enough of the item
             if (Player.hasRoom(qty)) { //Player has enough room for the new items
                 if (Player.getBalance() >= price) { // Player has enough MONEY
-                    storeInventory.addToInventory(item, -qty);
+                    storeInventory.removeFromInventory(item, qty);
                     Player.updateBalance(price);
                     return true;
                 }
@@ -38,7 +41,7 @@ public class StoreBackend {
     public void restock() {
         for (String item : storeInventory.itemTypes()) {
             storeInventory.addToInventory(item, -1 * storeInventory.getQuantity(item));
-            storeInventory.addToInventory(item, 10 + (int)(Math.random() * 30));
+            storeInventory.addToInventory(item, 10 + (int) (Math.random() * 30));
         }
     }
 }
