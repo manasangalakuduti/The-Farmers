@@ -1,8 +1,12 @@
 package tests;
 import org.junit.Before;
 import org.junit.Test;
+import sample.backend.Date;
+import sample.backend.Market;
 import sample.backend.Player;
 import sample.backend.StoreBackend;
+
+import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,7 +14,7 @@ public class StoreBackendTest {
     private StoreBackend obj;
     @Before
     public void setup() {
-        obj = new StoreBackend("WalMart");
+        obj = new StoreBackend("WalMart", new Market(new Date("Fall", LocalDateTime.now()), "Hard"));
     }
 
     @Test

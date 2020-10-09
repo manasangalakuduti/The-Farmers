@@ -57,4 +57,9 @@ public class DateTest {
 
         assertEquals(season, time.getSeason());
     }
+
+    @Test
+    public void testGetSeason() {
+        System.out.println(time.getSeason());
+    }
 }

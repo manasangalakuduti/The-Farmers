@@ -3,15 +3,15 @@ package sample.backend;
 public class StoreBackend {
     private String name;
     private Inventory storeInventory;
-    // Make an instance of the Market class HERE!
-    public StoreBackend(String name) { // Pass a MARKET instance parameter HERE
+    private Market market;
+    public StoreBackend(String name, Market market) {
         this.name = name;
+        this.market = market;
         storeInventory = new Inventory();
         restock();
-        //Set the market instance HERE
     }
     public void purchase(String item, int qty) {
-        double subtotal = 100.1; //Use MARKET to get the subtotal that COULD be sold HERE
+        double subtotal = market.getPrice(item, qty);
         if (Player.hasItem(item)
                 && Player.getQuantityOf(item) >= qty) { //Player has enough of the item
             if (storeInventory.getCurrOccupied() + qty
@@ -25,7 +25,7 @@ public class StoreBackend {
                 + " space or you don't have enough to sell");
     }
     public boolean sell(String item, int qty) {
-        double price = 100.1; //Use MARKET to get the price HERE
+        double price = market.getPrice(item, qty);
         if (storeInventory.hasItem(item)
                 && storeInventory.getQuantity(item) >= qty) { //Store has enough of the item
             if (Player.hasRoom(qty)) { //Player has enough room for the new items
