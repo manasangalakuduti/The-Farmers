@@ -42,4 +42,10 @@ public class Player {
     public static boolean hasRoom(int space) {
         return playerInventory.getCurrOccupied() + space <= Inventory.maxCapacity;
     }
+    public static int[] quantities() {
+        return playerInventory.quantities();
+    }
+    public static String[] itemTypes() {
+        return playerInventory.itemTypes();
+    }
 }

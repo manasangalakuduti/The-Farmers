@@ -1,6 +1,7 @@
 package sample.backend;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -63,6 +64,18 @@ public class Inventory {
 
     public int getCurrOccupied() {
         return currOccupied;
+    }
+    public String[] itemTypes() {
+        return items;
+    }
+    public int[] quantities() {
+        Collection<Integer> vals = inventoryMap.values();
+        Integer[] quantities = (Integer[]) vals.toArray();
+        int[] qty = new int[quantities.length];
+        for (int i = 0; i < quantities.length; i++) {
+            qty[i] = quantities[i];
+        }
+        return qty;
     }
     /*
     //map inventory item to amount of space taken up by a given item

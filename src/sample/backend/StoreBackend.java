@@ -15,7 +15,7 @@ public class StoreBackend {
         if (Player.hasItem(item) && Player.getQuantityOf(item) >= qty) { //Player has enough of the item
             if (storeInventory.getCurrOccupied() + qty <= Inventory.maxCapacity) { //Store has enough room
                 storeInventory.addToInventory(item, qty);
-                Player.updateBalance(subtotal);
+                Player.updateBalance(-subtotal);
                 Player.updateInventory(item, -qty);
             }
         }
@@ -36,9 +36,9 @@ public class StoreBackend {
         return false;
     }
     public void restock() {
-        /*
-        * Need to establish way to access stuff.
-        * */
-        System.out.println(name.toUpperCase() + " restocked with new items in inventory");
+        for (String item : storeInventory.itemTypes()) {
+            storeInventory.addToInventory(item, -1 * storeInventory.getQuantity(item));
+            storeInventory.addToInventory(item, 10 + (int)(Math.random() * 30));
+        }
     }
 }
