@@ -87,6 +87,7 @@ public class Inventory {
         }
         return qty;
     }
+<<<<<<< HEAD
     /*
     //map inventory item to amount of space taken up by a given item
     private HashMap<InventoryItem, Double> inventoryMap;
@@ -130,4 +131,6 @@ public class Inventory {
      */
 
 
+=======
+>>>>>>> 5320bfda75e73fe511904b1fe921a663394eabaf
 }
