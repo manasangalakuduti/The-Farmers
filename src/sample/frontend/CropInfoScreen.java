@@ -23,9 +23,6 @@ public class CropInfoScreen extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-
-
-
         BorderPane bPane = new BorderPane();
 
         //Show current crop info
@@ -35,7 +32,6 @@ public class CropInfoScreen extends Application {
 
         Label name = new Label("Player Name: " + Player.getName());
         name.setFont(new Font("Futura", 20));
-
 
 
         VBox topSide = new VBox();

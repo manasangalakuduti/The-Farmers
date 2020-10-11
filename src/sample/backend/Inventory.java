@@ -67,6 +67,7 @@ public class Inventory {
     public boolean hasItem(String itemName) {
         return inventoryMap.getOrDefault(itemName, 0) > 0;
     }
+
     //How much space is occupied
     public int getCurrOccupied() {
         return currOccupied;

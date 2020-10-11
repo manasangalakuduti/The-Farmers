@@ -1,21 +1,36 @@
 package tests;
+
 import org.junit.Test;
+import sample.backend.Date;
+import sample.backend.Market;
 import sample.backend.Player;
 import sample.backend.StoreBackend;
+import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
 
 public class StoreBackendTest {
-    private StoreBackend obj;
 
+
+    @Test
+    public void testPurchaseSuccess() {
+        Player.initialize("Bob", 33.35);
+        String item = "Tomato";
+        Market m = new Market(new Date("Spring", LocalDateTime.now()), "Spring");
+        StoreBackend.initialize(m);
+        assertEquals(false, StoreBackend.purchase(item, 3));
+    }
 
     @Test
     public void testSellSuccess() {
         Player.initialize("Bob", 33.35);
         String item = "Tomato";
-        int qty = 3;
-        assertEquals(false, obj.purchase(item, qty));
+        Market m = new Market(new Date("Spring", LocalDateTime.now()), "Spring");
+        StoreBackend.initialize(m);
+        assertEquals(false, StoreBackend.purchase(item, 3));
     }
+
+
     /*
     @Test
     public void testSellFailureBalance(){

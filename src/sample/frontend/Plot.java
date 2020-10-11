@@ -16,9 +16,9 @@ public class Plot extends Button {
     private Map<String, String> map = Map.of("Dirt", "sample/media/dirt.png",
             "Seed", "sample/media/seed.png",
             "Tomato" , "sample/media/tomato.jpg",
-            "Peas" , "sample/media/dirt.png",
-            "Soybeans", "sample/media/dirt.png",
-            "Corn", "sample/media/dirt.png",
+            "Peas" , "sample/media/peas.png",
+            "Soybeans", "sample/media/beans.png",
+            "Corn", "sample/media/corn.png",
             "Plant" , "sample/media/plant.jpg");
 
     public Plot(int xIndex, int yIndex, String seedType, String status) {
@@ -42,9 +42,9 @@ public class Plot extends Button {
     }
 
     public void plant(String seedType) {
-        this.status = "Immature";
+        this.status = "Seed";
         this.seedType = seedType;
-        this.setPlotImage("Immature", seedType);
+        this.setPlotImage("Seed", seedType);
     }
 
     public void clear() {

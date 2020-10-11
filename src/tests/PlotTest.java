@@ -3,9 +3,11 @@ package tests;
 import javafx.embed.swing.JFXPanel;
 import org.junit.Before;
 import org.junit.Test;
+import sample.backend.Player;
 import sample.frontend.Plot;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 public class PlotTest {
@@ -31,5 +33,13 @@ public class PlotTest {
         obj.setyIndex(5);
         assertEquals(4, obj.getxIndex());
         assertEquals(5, obj.getyIndex());
+    }
+    @Test
+    public void testPlotPaths() {
+        for (String item: Player.itemTypes()) {
+            Plot p = new Plot(1, 1, item, "Mature");
+            p.setPlotImage("Mature", item);
+            assertNotNull(p.getBackground());
+        }
     }
 }

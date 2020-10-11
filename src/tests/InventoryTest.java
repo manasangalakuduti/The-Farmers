@@ -18,10 +18,11 @@ public class InventoryTest {
     public void testCurrCapacityInitial() {
         assertEquals(0, inventory.getCurrOccupied());
     }
-    @Test
-    public void testHasValidItem() {
-        assertEquals(true, inventory.hasItem("Tractor"));
-    }
+//    @Test
+
+//    public void testHasValidItem() {
+//        assertEquals(true, inventory.hasItem("Tomato"));
+//    }
 
     @Test
     public void testHasInvalidItem() {
