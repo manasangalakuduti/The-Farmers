@@ -31,8 +31,8 @@ public class InventoryTest {
 
     @Test
     public void testInventoryAdd() {
-        inventory.addToInventory("Tractor", 950);
-        assertEquals(950, inventory.getQuantity("Tractor"));
+        inventory.addToInventory("Tomato", 950);
+        assertEquals(950, inventory.getQuantity("Tomato"));
     }
 
 

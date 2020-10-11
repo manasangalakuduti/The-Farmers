@@ -34,7 +34,6 @@ public class StoreBackend {
                     storeInventory.removeFromInventory(item, qty);
                     Player.updateInventory(item, qty);
                     Player.updateBalance(price);
-                    Player.updateInventory(item, qty);
                     return true;
                 }
             }
