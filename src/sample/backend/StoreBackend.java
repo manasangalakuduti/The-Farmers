@@ -3,6 +3,7 @@ package sample.backend;
 public class StoreBackend {
     private static Inventory storeInventory;
     private static Market market;
+
     public static void initialize(Market market) {
         StoreBackend.market = market;
         storeInventory = new Inventory();
