@@ -31,8 +31,8 @@ public class StoreScene extends Application {
 
         VBox middle = new VBox();
         //Shows current inventory
-        for (String seed: Player.itemTypes()){
-            Label label = new Label(seed +" : " +  Player.getQuantityOf(seed));
+        for (String seed: Player.itemTypes()) {
+            Label label = new Label(seed + " : " +  Player.getQuantityOf(seed));
             middle.getChildren().add(label);
         }
         bPane.setCenter(middle);
@@ -41,7 +41,8 @@ public class StoreScene extends Application {
 
 
 
-        Label storeLabel = new Label(Player.getName() + "'s balance: " + Math.round(Player.getBalance()));
+        Label storeLabel = new Label(Player.getName() + "'s balance: "
+                + Math.round(Player.getBalance()));
         bPane.setTop(storeLabel);
         bPane.setAlignment(storeLabel, Pos.CENTER);
         storeLabel.setFont(new Font("Futura", 22));
@@ -53,7 +54,8 @@ public class StoreScene extends Application {
             Button button = new Button("Purchase " + seed);
             button.setOnAction(e -> {
                 StoreBackend.purchase(seed, 1);
-                Label storeLabel2 = new Label(Player.getName() + "'s balance: " + Math.round(Player.getBalance()));
+                Label storeLabel2 = new Label(Player.getName() + "'s balance: "
+                        + Math.round(Player.getBalance()));
                 bPane.setAlignment(storeLabel2, Pos.CENTER);
                 storeLabel2.setFont(new Font("Futura", 22));
                 bPane.setTop(storeLabel2);
@@ -61,8 +63,8 @@ public class StoreScene extends Application {
                 bPane.setCenter(null);
                 VBox tempBox = new VBox();
 
-                for (String innerSeed: Player.itemTypes()){
-                    Label label = new Label(innerSeed +" : " +  Player.getQuantityOf(innerSeed));
+                for (String innerSeed: Player.itemTypes()) {
+                    Label label = new Label(innerSeed + " : " +  Player.getQuantityOf(innerSeed));
                     tempBox.getChildren().add(label);
                 }
                 bPane.setCenter(tempBox);
@@ -86,7 +88,8 @@ public class StoreScene extends Application {
             Button button = new Button("Sell " + seed);
             button.setOnAction(e -> {
                 StoreBackend.sell(seed, 1);
-                Label storeLabel3 = new Label(Player.getName() + "'s balance: " + Math.round(Player.getBalance()));
+                Label storeLabel3 = new Label(Player.getName() + "'s balance: "
+                        + Math.round(Player.getBalance()));
                 bPane.setAlignment(storeLabel3, Pos.CENTER);
                 storeLabel3.setFont(new Font("Futura", 22));
                 bPane.setTop(storeLabel3);
@@ -94,8 +97,8 @@ public class StoreScene extends Application {
                 bPane.setCenter(null);
                 VBox tempBox = new VBox();
 
-                for (String innerSeed: Player.itemTypes()){
-                    Label label = new Label(innerSeed +" : " +  Player.getQuantityOf(innerSeed));
+                for (String innerSeed: Player.itemTypes()) {
+                    Label label = new Label(innerSeed + " : " +  Player.getQuantityOf(innerSeed));
                     tempBox.getChildren().add(label);
                 }
                 bPane.setCenter(tempBox);

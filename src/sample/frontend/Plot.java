@@ -15,11 +15,11 @@ public class Plot extends Button {
     private String status;
     private Map<String, String> map = Map.of("Dirt", "sample/media/dirt.png",
             "Seed", "sample/media/seed.png",
-            "Tomato" , "sample/media/tomato.jpg",
-            "Peas" , "sample/media/peas.png",
+            "Tomato", "sample/media/tomato.jpg",
+            "Peas", "sample/media/peas.png",
             "Soybeans", "sample/media/beans.png",
             "Corn", "sample/media/corn.png",
-            "Plant" , "sample/media/plant.jpg");
+            "Plant", "sample/media/plant.jpg");
 
     public Plot(int xIndex, int yIndex, String seedType, String status) {
         //super(seedType, new ImageView
@@ -59,7 +59,7 @@ public class Plot extends Button {
             toSet  = "Dirt";
         } else if (status.equals("Seed")) {
             toSet  = "Seed";
-        } else if (status.equals("Immature") ){
+        } else if (status.equals("Immature")) {
             toSet = "Plant";
         } else {
             toSet = seedType;

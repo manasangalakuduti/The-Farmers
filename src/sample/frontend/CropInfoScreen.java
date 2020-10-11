@@ -67,7 +67,7 @@ public class CropInfoScreen extends Application {
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
         harvestButton.setOnAction(e -> {
             if (this.plot.getSeedStatus().equals("Mature")) {
-                if (Player.hasRoom(1)){
+                if (Player.hasRoom(1)) {
                     Player.updateInventory(this.plot.getSeedType(), 3);
                     this.plot.clear();
                     stage.close();

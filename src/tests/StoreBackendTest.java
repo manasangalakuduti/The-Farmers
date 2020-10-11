@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import static org.junit.Assert.assertEquals;
 
 public class StoreBackendTest {
-//<<<<<<< HEAD
 
 
     @Test
@@ -33,7 +32,6 @@ public class StoreBackendTest {
         Player.updateInventory("Corn", 20);
         Market m = new Market(new Date("Spring", LocalDateTime.now()), "Spring");
         StoreBackend.initialize(m);
-        //obj = new StoreBackend("WalMart", new Market(new Date("Fall", LocalDateTime.now()), "Hard"));
         StoreBackend.restock();
 
     }
