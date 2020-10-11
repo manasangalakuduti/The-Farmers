@@ -49,6 +49,22 @@ public class FarmUIScreen extends Application {
         returnButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
 
+
+
+        Label name = new Label("Player Name: " + Player.getName());
+        name.setFont(new Font("Futura", 20));
+
+        Label dateLabel = new Label("Season: " + date.getSeason());
+        dateLabel.setFont(new Font("Futura", 20));
+
+        Label moneys = new Label("Balance: $" + Math.round(Player.getBalance()));
+        moneys.setFont(new Font("Futura", 20));
+
+        VBox leftSide = new VBox();
+        leftSide.setSpacing(20);
+        leftSide.getChildren().addAll(name, dateLabel, moneys);
+
+
         returnButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
         returnButton.setOnAction(e -> {
@@ -77,6 +93,11 @@ public class FarmUIScreen extends Application {
             StoreScene s = new StoreScene();
             try {
                 s.start(storeStage);
+                leftSide.getChildren().remove(moneys);
+                moneys.setText("Balance: $" + Math.round(Player.getBalance()));
+                leftSide.getChildren().add(moneys);
+
+
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -160,17 +181,8 @@ public class FarmUIScreen extends Application {
         }
 
         //Making label for player money
-        Label moneys = new Label("Balance: $" + Player.getBalance());
-        moneys.setFont(new Font("Futura", 20));
-        Label name = new Label("Player Name: " + Player.getName());
-        name.setFont(new Font("Futura", 20));
 
-        Label dateLabel = new Label("Season: " + date.getSeason());
-        dateLabel.setFont(new Font("Futura", 20));
 
-        VBox leftSide = new VBox();
-        leftSide.setSpacing(20);
-        leftSide.getChildren().addAll(moneys, name, dateLabel);
 
         VBox rightSide = new VBox();
         rightSide.setSpacing(20);
