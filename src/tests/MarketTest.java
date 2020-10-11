@@ -38,6 +38,5 @@ public class MarketTest {
         assertEquals(2250.0, market.getPrice("Tractor", 3), 0.1);
         assertEquals(1200.0, market.getPrice("Tomato", 8), 0.1);
         assertEquals(4125.0, market.getPrice("Trowel", 11), 0.1);
-
     }
 }
