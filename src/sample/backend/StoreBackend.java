@@ -1,16 +1,16 @@
 package sample.backend;
 
 public class StoreBackend {
-    private String name;
-    private Inventory storeInventory;
-    private Market market;
-    public StoreBackend(String name, Market market) {
-        this.name = name;
-        this.market = market;
+    private static Inventory storeInventory;
+    private static Market market;
+
+    public static void initialize(Market market) {
+        StoreBackend.market = market;
         storeInventory = new Inventory();
         restock();
     }
-    public void purchase(String item, int qty) {
+
+    public static void sell(String item, int qty) {
         double subtotal = market.getPrice(item, qty);
         if (Player.hasItem(item)
                 && Player.getQuantityOf(item) >= qty) { //Player has enough of the item
@@ -25,7 +25,7 @@ public class StoreBackend {
                     + " space or you don't have enough to sell");
         }
     }
-    public boolean sell(String item, int qty) {
+    public static boolean purchase(String item, int qty) {
         double price = market.getPrice(item, qty);
         if (storeInventory.hasItem(item)
                 && storeInventory.getQuantity(item) >= qty) { //Store has enough of the item
@@ -40,7 +40,7 @@ public class StoreBackend {
         }
         return false;
     }
-    public void restock() {
+    public static void restock() {
         for (String item : storeInventory.itemTypes()) {
             storeInventory.addToInventory(item, -1 * storeInventory.getQuantity(item));
             storeInventory.addToInventory(item, 10 + (int) (Math.random() * 30));

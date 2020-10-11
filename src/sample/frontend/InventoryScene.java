@@ -37,10 +37,10 @@ public class InventoryScene extends Application {
                 + (Player.getQuantityOf(Player.itemTypes()[0])));
         Label seedType1 = new Label(Player.itemTypes()[1]  + ": "
                 + (Player.getQuantityOf(Player.itemTypes()[1])));
-        Label seedType2 = new Label(Player.itemTypes()[4]  + ": "
-                + (Player.getQuantityOf(Player.itemTypes()[4])));
-        Label seedType3 = new Label(Player.itemTypes()[5]  + ": "
-                + (Player.getQuantityOf(Player.itemTypes()[5])));
+        Label seedType2 = new Label(Player.itemTypes()[2]  + ": "
+                + (Player.getQuantityOf(Player.itemTypes()[2])));
+        Label seedType3 = new Label(Player.itemTypes()[3]  + ": "
+                + (Player.getQuantityOf(Player.itemTypes()[3])));
         seedType0.setFont(new Font("Futura", 13));
         seedType1.setFont(new Font("Futura", 13));
         seedType2.setFont(new Font("Futura", 13));
