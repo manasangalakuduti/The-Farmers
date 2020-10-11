@@ -14,47 +14,37 @@ public class StoreBackendTest {
     private StoreBackend obj;
     @Before
     public void setup() {
+        Player.initialize("Howdy", 1000);
+        Player.updateInventory("Corn", 20);
         obj = new StoreBackend("WalMart", new Market(new Date("Fall", LocalDateTime.now()), "Hard"));
+        obj.restock();
     }
 
     @Test
     public void testSellSuccess() {
-        Player.initialize("Bob", 33.35);
-        String item = "Tomato";
-        int qty = 3;
-        assertEquals(false, obj.sell(item, qty));
-    }
-    /*
-    @Test
-    public void testSellFailureBalance(){
-        String item = "Tomato";
-        int qty = 100;
-        assertEquals(false, obj.sell(item, qty));
-    }
-    @Test
-    public void testSellFailureRoom(){
-        String item = "Tomato";
-        int qty = 100;
-        assertEquals(false, obj.sell(item, qty));
-    }
-    @Test
-    public void testBuySuccess(){
-        Player p1 = new Player("Bob", 33.35);
-        String item = "Tomato";
-        int qty = 3;
-        assertEquals(true, obj.sell(item, qty));
+        obj.sell("Corn", 1);
+        assertEquals(21, Player.getQuantityOf("Corn"));
     }
 
     @Test
-    public void testBuyFailureBalance(){
-        String item = "Tomato";
-        int qty = 100;
-        assertEquals(false, obj.sell(item, qty));
+    public void testSellFailTooMuch() {
+        obj.sell("Tomato", 30);
+        assertEquals(0, Player.getQuantityOf("Tomato"));
+    }
+
+    @Test
+    public void testBuySuccess() {
+        obj.purchase("Corn", 15);
+        assertEquals(5, Player.getQuantityOf("Corn"));
     }
     @Test
-    public void testBuyFailureRoom(){
-        String item = "Tomato";
-        int qty = 100;
-        obj.sell(item, qty);
-    }*/
+    public void testBuyFailureHas() {
+        obj.purchase("Tomato", 25);
+        assertEquals(0, Player.getQuantityOf("Tomato"));
+    }
+    @Test
+    public void testBuyTooMuch() {
+        obj.purchase("Corn", 30);
+        assertEquals(20, Player.getQuantityOf("Corn"));
+    }
 }
