@@ -15,7 +15,7 @@ public class PlotTest {
     public void setup() {
         final JFXPanel fxPanel = new JFXPanel();
         //FarmUIScreen f = new FarmUIScreen(new Player("testPlayer", 100), "TestSeson");
-        obj = new Plot(1, 3, "Ham");
+        obj = new Plot(1, 3, "Ham", "Immature");
     }
     @Test
     public void testPlotName() {

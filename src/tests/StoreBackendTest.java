@@ -1,28 +1,20 @@
 package tests;
-import org.junit.Before;
 import org.junit.Test;
-import sample.backend.Date;
-import sample.backend.Market;
 import sample.backend.Player;
 import sample.backend.StoreBackend;
-
-import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
 
 public class StoreBackendTest {
     private StoreBackend obj;
-    @Before
-    public void setup() {
-        obj = new StoreBackend("WalMart", new Market(new Date("Fall", LocalDateTime.now()), "Hard"));
-    }
+
 
     @Test
     public void testSellSuccess() {
         Player.initialize("Bob", 33.35);
         String item = "Tomato";
         int qty = 3;
-        assertEquals(false, obj.sell(item, qty));
+        assertEquals(false, obj.purchase(item, qty));
     }
     /*
     @Test

@@ -12,8 +12,16 @@ public class Plot extends Button {
     private int xIndex;
     private int yIndex;
     private String seedType;
-    private Map<String, String> map = Map.of("Dirt", "sample/media/dirt.png", "test", "test");
-    public Plot(int xIndex, int yIndex, String seedType) {
+    private String status;
+    private Map<String, String> map = Map.of("Dirt", "sample/media/dirt.png",
+            "Seed", "sample/media/seed.png",
+            "Tomato" , "sample/media/tomato.jpg",
+            "Peas" , "sample/media/dirt.png",
+            "Soybeans", "sample/media/dirt.png",
+            "Corn", "sample/media/dirt.png",
+            "Plant" , "sample/media/plant.jpg");
+
+    public Plot(int xIndex, int yIndex, String seedType, String status) {
         //super(seedType, new ImageView
         //(new Image(new File("sample/media/dirt.png").toURI().toString())));
         this.xIndex = xIndex;
@@ -21,30 +29,50 @@ public class Plot extends Button {
         this.seedType = seedType;
         this.setOnAction(e -> {
             Stage cropStage = new Stage();
-            CropInfoScreen c = new CropInfoScreen();
+            CropInfoScreen c = new CropInfoScreen(this);
             try {
                 c.start(cropStage);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
-        Image image = new Image(map.get(seedType), this.getWidth(), this.getHeight(),
+        this.status = status;
+        this.setPlotImage(status, seedType);
+
+    }
+
+    public void plant(String seedType) {
+        this.status = "Immature";
+        this.seedType = seedType;
+        this.setPlotImage("Immature", seedType);
+    }
+
+    public void clear() {
+        this.status = "Dirt";
+        this.seedType = "Dirt";
+        this.setPlotImage("Dirt", "Dirt");
+    }
+
+    public void setPlotImage(String status, String seedType) {
+        String toSet;
+        if (status.equals("Dirt")) {
+            toSet  = "Dirt";
+        } else if (status.equals("Seed")) {
+            toSet  = "Seed";
+        } else if (status.equals("Immature") ){
+            toSet = "Plant";
+        } else {
+            toSet = seedType;
+        }
+        Image image = new Image(map.get(toSet), this.getWidth(), this.getHeight(),
                 false, true, true);
         BackgroundImage bImage = new BackgroundImage(image, BackgroundRepeat.REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,
                 new BackgroundSize(this.getWidth(), this.getHeight(), true, true, true, false));
-
         Background backGround = new Background(bImage);
         this.setBackground(backGround);
-
         this.setBorder(new Border(new BorderStroke(Color.BLACK,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
-    }
-
-    public Plot(int xIndex, int yIndex) {
-        this(xIndex, yIndex, "Corn");
-
     }
 
 
@@ -63,6 +91,16 @@ public class Plot extends Button {
     public void setSeedType(String seedType) {
         this.seedType = seedType;
     }
+
+
+    public String getSeedStatus() {
+        return this.status;
+    }
+
+    public void setSeedStatus(String status) {
+        this.status = status;
+    }
+
 
     public void setxIndex(int xIndex) {
         this.xIndex = xIndex;
