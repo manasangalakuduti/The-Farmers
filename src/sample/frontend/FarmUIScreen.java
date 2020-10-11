@@ -6,24 +6,26 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.backend.Date;
 import sample.backend.Player;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 
 public class FarmUIScreen extends Application {
     //private Player player;
     private Date date;
-    public FarmUIScreen(/*Player player1,*/ String season) {
-        //this.player = player1;
+    public FarmUIScreen(String season) {
         this.date = new Date(season, LocalDateTime.now());
     }
+
     private Scene scene3;
     @Override
     public void start(Stage stage) throws Exception {
@@ -54,7 +56,7 @@ public class FarmUIScreen extends Application {
             ConfigurationScreen c = new ConfigurationScreen();
             try {
                 c.start(returnStage);
-                stage.close();
+                //stage.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -112,7 +114,23 @@ public class FarmUIScreen extends Application {
             for (int j = 0; j < 3; j++) {
 
 
-                Plot newPlot = new Plot(i, j, "Dirt");
+                Random rand = new Random();
+                int n = rand.nextInt(4);
+
+                Random rand2 = new Random();
+                int m = rand.nextInt(3);
+                String initialStatus;
+
+                if(m == 0) {
+                    initialStatus = "Seed";
+                } else if (m == 1) {
+                    initialStatus = "Immature";
+                } else {
+                    initialStatus = "Mature";
+                }
+
+
+                Plot newPlot = new Plot(i, j, Player.itemTypes()[n], initialStatus);
 
 
                 plotFrame.getChildren().addAll(newPlot);
@@ -123,20 +141,20 @@ public class FarmUIScreen extends Application {
                 newPlot.setMaxHeight(30);
                 newPlot.setMaxWidth(60);
 
-                Image image = new Image("sample/media/dirt.png",
-                        newPlot.getWidth(), newPlot.getHeight(),
-                        false, true, true);
-                BackgroundImage bImage = new BackgroundImage(image,
-                        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
-                        BackgroundPosition.CENTER,
-                        new BackgroundSize(newPlot.getWidth(),
-                                newPlot.getHeight(), true, true, true, false));
-
-                Background backGround = new Background(bImage);
-                newPlot.setBackground(backGround);
-
-                newPlot.setBorder(new Border(new BorderStroke(Color.BLACK,
-                        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+//                Image image = new Image("sample/media/dirt.png",
+//                        newPlot.getWidth(), newPlot.getHeight(),
+//                        false, true, true);
+//                BackgroundImage bImage = new BackgroundImage(image,
+//                        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
+//                        BackgroundPosition.CENTER,
+//                        new BackgroundSize(newPlot.getWidth(),
+//                                newPlot.getHeight(), true, true, true, false));
+//
+//                Background backGround = new Background(bImage);
+//                newPlot.setBackground(backGround);
+//
+//                newPlot.setBorder(new Border(new BorderStroke(Color.BLACK,
+//                        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
             }
         }

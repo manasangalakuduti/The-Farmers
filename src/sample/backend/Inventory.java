@@ -9,11 +9,15 @@ public class Inventory {
 
     public static final int MAXCAPACITY = 1000;
     private int currOccupied;
-    private static String[] items = {"Tomato", "Soybeans", "Tractor", "Trowel",
+    private static String[] items = {"Tomato", "Soybeans",
         "Corn",
-        "Peas", "Fertilizer"};
+        "Peas"
+    };
+
+
     private static HashSet<String> validItems =
             new HashSet<>(Arrays.asList(items));
+
 
     private HashMap<String, Integer> inventoryMap; //map item name to quantity
 
@@ -61,8 +65,9 @@ public class Inventory {
     }
 
     public boolean hasItem(String itemName) {
-        return inventoryMap.containsKey(itemName);
+        return inventoryMap.getOrDefault(itemName, 0) > 0;
     }
+
     //How much space is occupied
     public int getCurrOccupied() {
         return currOccupied;
