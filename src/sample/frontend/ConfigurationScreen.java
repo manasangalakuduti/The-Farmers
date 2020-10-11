@@ -144,7 +144,7 @@ public class ConfigurationScreen extends Application {
                 }
                 Date season = new Date(startingSeason.getValue(), LocalDateTime.now());
                 Market market = new Market(season, choice);
-                StoreBackend store = new StoreBackend("1101", market);
+                StoreBackend.initialize(market);
                 Player.initialize(nameInput.getText(), initialMoney);
                 Player.updateInventory(startingSeed.getValue(), 5);
                 FarmUIScreen f = new FarmUIScreen(/*player, */startingSeason.getValue());

@@ -1,10 +1,12 @@
 package sample.backend;
-import sample.backend.Date;
-import sample.frontend.ConfigurationScreen;
 import java.util.HashMap;
 
 public class Market {
 
+<<<<<<< HEAD
+=======
+    private String[] items = {"Tomato", "Soybeans", "Corn", "Peas"};
+>>>>>>> 140d07b6a25b842825c2bb69aca0a9243f7c747a
     private HashMap<String, Double> itemPrice = new HashMap<String, Double>();
     private Date season;
     private String difficulty;
