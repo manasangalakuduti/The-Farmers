@@ -17,10 +17,6 @@
         <SOURCES />
       </library>
     </orderEntry>
-<<<<<<< HEAD
     <orderEntry type="library" name="lib" level="project" />
-=======
-    <orderEntry type="library" name="lib1" level="project" />
->>>>>>> 140d07b6a25b842825c2bb69aca0a9243f7c747a
   </component>
 </module>
