@@ -12,7 +12,7 @@ public class Market {
     public Market(Date season, String difficulty) {
         this.season = season;
         this.difficulty = difficulty;
-        String[] items = {"Tomato", "Soybeans", "Tractor", "Trowel", "Corn", "Peas", "Fertilizer"};
+        String[] items = {"Tomato", "Soybeans", "Corn", "Peas"};
         for(String item: items) {
             setPrice(item);
         }

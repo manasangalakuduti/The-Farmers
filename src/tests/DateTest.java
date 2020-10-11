@@ -22,22 +22,22 @@ public class DateTest {
     @Before
     public void setup() {
         LocalDateTime ref = LocalDateTime.of(LocalDate.of(2020, 9, 28), LocalTime.of(19, 30, 0, 0));
-        int curDay = ref.getDayOfYear();
-        System.out.println("CurDay" + curDay);
         time = new Date("Fall", ref);
+        curDay = time.getDate().getDayOfYear();
+        System.out.println("CurDay: " + curDay);
     }
 
-//    @Test
-//    public void testTimestamp() {
-//        int currY = time.getDate().getDayOfYear();
-//        assertEquals(curDay, time.getDate().getDayOfYear());
-//        assertEquals(LocalDateTime.now().getMonth(),
-//                time.getDate().now().getMonth());
-//        assertEquals(LocalDateTime.now().getDayOfMonth(),
-//                time.getDate().now().getDayOfMonth());
-//        assertEquals(LocalDateTime.now().getYear(),
-//                time.getDate().now().getYear());
-//    }
+    @Test
+    public void testTimestamp() {
+        //int currY = time.getDate().getDayOfYear();
+        assertEquals(curDay, time.getDate().getDayOfYear());
+        assertEquals(LocalDateTime.now().getMonth(),
+                time.getDate().now().getMonth());
+        assertEquals(LocalDateTime.now().getDayOfMonth(),
+                time.getDate().now().getDayOfMonth());
+        assertEquals(LocalDateTime.now().getYear(),
+                time.getDate().now().getYear());
+    }
 
     @Test
     public void testSeasonEqualsMonth() {
