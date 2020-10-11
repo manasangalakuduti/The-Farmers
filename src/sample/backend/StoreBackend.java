@@ -20,9 +20,10 @@ public class StoreBackend {
                 Player.updateBalance(-subtotal);
                 Player.updateInventory(item, -qty);
             }
+        } else {
+            System.out.println("Sorry, either the store doesn't have enough"
+                    + " space or you don't have enough to sell");
         }
-        System.out.println("Sorry, either the store doesn't have enough"
-                + " space or you don't have enough to sell");
     }
     public static boolean purchase(String item, int qty) {
         double price = market.getPrice(item, qty);
@@ -31,6 +32,7 @@ public class StoreBackend {
             if (Player.hasRoom(qty)) { //Player has enough room for the new items
                 if (Player.getBalance() >= price) { // Player has enough MONEY
                     storeInventory.removeFromInventory(item, qty);
+                    Player.updateInventory(item, qty);
                     Player.updateBalance(price);
                     Player.updateInventory(item, qty);
                     return true;
