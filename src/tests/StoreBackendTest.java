@@ -45,10 +45,6 @@ public class StoreBackendTest {
     }
 
 
-
-
-
-
     @Test
     public void testSellFailTooMuch() {
         StoreBackend.sell("Tomato", 30);

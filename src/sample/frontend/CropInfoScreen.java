@@ -59,9 +59,7 @@ public class CropInfoScreen extends Application {
 
         //Creates water button
 
-
-
-
+        
         Button harvestButton = new Button("Harvest");
         harvestButton.setStyle("-fx-background-color: DeepSkyBlue; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
@@ -78,7 +76,6 @@ public class CropInfoScreen extends Application {
 
         rightSide.getChildren().addAll(harvestButton);
         bPane.setRight(rightSide);
-
 
 
         Button closeButton = new Button("Close");
