@@ -41,6 +41,7 @@ public class StoreBackend {
         return false;
     }
     public static void restock() {
+        //based on season in future
         for (String item : storeInventory.itemTypes()) {
             storeInventory.addToInventory(item, -1 * storeInventory.getQuantity(item));
             storeInventory.addToInventory(item, 10 + (int) (Math.random() * 30));

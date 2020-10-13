@@ -129,11 +129,8 @@ public class FarmUIScreen extends Application {
         plotFrame.setAlignment(Pos.BOTTOM_CENTER);
         plotFrame.setPadding(new Insets(50, 50, 50, 50));
 
-        //Adds in the new plots
-
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 3; j++) {
-
 
                 Random rand = new Random();
                 int n = rand.nextInt(4);
@@ -142,7 +139,7 @@ public class FarmUIScreen extends Application {
                 int m = rand.nextInt(3);
                 String initialStatus;
 
-                if(m == 0) {
+                if (m == 0) {
                     initialStatus = "Seed";
                 } else if (m == 1) {
                     initialStatus = "Immature";
@@ -150,9 +147,7 @@ public class FarmUIScreen extends Application {
                     initialStatus = "Mature";
                 }
 
-
                 Plot newPlot = new Plot(i, j, Player.itemTypes()[n], initialStatus);
-
 
                 plotFrame.getChildren().addAll(newPlot);
                 plotFrame.setRowIndex(newPlot, j);
@@ -162,41 +157,17 @@ public class FarmUIScreen extends Application {
                 newPlot.setMaxHeight(30);
                 newPlot.setMaxWidth(60);
 
-//                Image image = new Image("sample/media/dirt.png",
-//                        newPlot.getWidth(), newPlot.getHeight(),
-//                        false, true, true);
-//                BackgroundImage bImage = new BackgroundImage(image,
-//                        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
-//                        BackgroundPosition.CENTER,
-//                        new BackgroundSize(newPlot.getWidth(),
-//                                newPlot.getHeight(), true, true, true, false));
-//
-//                Background backGround = new Background(bImage);
-//                newPlot.setBackground(backGround);
-//
-//                newPlot.setBorder(new Border(new BorderStroke(Color.BLACK,
-//                        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
             }
         }
-
-        //Making label for player money
-
-
 
         VBox rightSide = new VBox();
         rightSide.setSpacing(20);
         rightSide.setAlignment(Pos.TOP_RIGHT);
         rightSide.getChildren().addAll(storeButton, inventoryButton, returnButton);
 
-
-
         bPane.setCenter(plotFrame);
         bPane.setLeft(leftSide);
         bPane.setRight(rightSide);
-
-
-
 
         stage.setScene(scene3);
         stage.show();

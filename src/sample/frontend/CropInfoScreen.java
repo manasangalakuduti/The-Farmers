@@ -59,15 +59,13 @@ public class CropInfoScreen extends Application {
 
         //Creates water button
 
-
-
-
+        
         Button harvestButton = new Button("Harvest");
         harvestButton.setStyle("-fx-background-color: DeepSkyBlue; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
         harvestButton.setOnAction(e -> {
             if (this.plot.getSeedStatus().equals("Mature")) {
-                if (Player.hasRoom(1)){
+                if (Player.hasRoom(1)) {
                     Player.updateInventory(this.plot.getSeedType(), 3);
                     this.plot.clear();
                     stage.close();
@@ -78,7 +76,6 @@ public class CropInfoScreen extends Application {
 
         rightSide.getChildren().addAll(harvestButton);
         bPane.setRight(rightSide);
-
 
 
         Button closeButton = new Button("Close");
