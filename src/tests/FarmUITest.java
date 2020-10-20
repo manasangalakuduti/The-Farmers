@@ -42,10 +42,8 @@ public class FarmUITest {
 
     @Test
     public void testCurrentDate() {
-        Date d = new Date("Summer", LocalDateTime.now());
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        assertEquals(LocalDateTime.now().format(format),
-                    d.getDate().now().format(format));
+        Date.nextDay();
+        assertEquals(1, Date.getDate());
     }
 
 }

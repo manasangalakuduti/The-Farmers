@@ -2,12 +2,16 @@ package sample.backend;
 
 public class StoreBackend {
     private static Inventory storeInventory;
-    private static Market market;
+    public static Market market;
 
     public static void initialize(Market market) {
         StoreBackend.market = market;
         storeInventory = new Inventory();
         restock();
+    }
+
+    public Market getMarketInfo() {
+        return this.market;
     }
 
     public static void sell(String item, int qty) {

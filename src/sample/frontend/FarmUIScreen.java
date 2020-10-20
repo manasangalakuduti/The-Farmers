@@ -1,5 +1,6 @@
 package sample.frontend;
 
+import javafx.animation.Transition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,6 +15,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.backend.Date;
 import sample.backend.Player;
+import sample.backend.PlotBackend;
 
 import java.time.LocalDateTime;
 import java.util.Random;
@@ -22,8 +24,8 @@ import java.util.Random;
 public class FarmUIScreen extends Application {
     //private Player player;
     private Date date;
-    public FarmUIScreen(String season) {
-        this.date = new Date(season, LocalDateTime.now());
+    public FarmUIScreen() {
+
     }
 
     private Scene scene3;
@@ -50,19 +52,21 @@ public class FarmUIScreen extends Application {
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
 
 
-
         Label name = new Label("Player Name: " + Player.getName());
         name.setFont(new Font("Futura", 20));
 
-        Label dateLabel = new Label("Season: " + date.getSeason());
-        dateLabel.setFont(new Font("Futura", 20));
+        Label currentDate = new Label("Current day: " + Date.getDate());
+        name.setFont(new Font("Futura", 20));
+
+        Label seasonLabel = new Label("Season: " + Date.getSeason());
+        seasonLabel.setFont(new Font("Futura", 20));
 
         Label moneys = new Label("Balance: $" + Math.round(Player.getBalance()));
         moneys.setFont(new Font("Futura", 20));
 
         VBox leftSide = new VBox();
         leftSide.setSpacing(20);
-        leftSide.getChildren().addAll(name, dateLabel, moneys);
+        leftSide.getChildren().addAll(name, currentDate, seasonLabel, moneys);
 
 
         returnButton.setMinWidth(60);
@@ -93,10 +97,11 @@ public class FarmUIScreen extends Application {
             StoreScene s = new StoreScene();
             try {
                 s.start(storeStage);
-                leftSide.getChildren().remove(moneys);
+                leftSide.getChildren().removeAll(moneys, currentDate, seasonLabel);
                 moneys.setText("Balance: $" + Math.round(Player.getBalance()));
-                leftSide.getChildren().add(moneys);
-
+                currentDate.setText("Current day" + Date.getDate());
+                seasonLabel.setText("Season: " + Date.getSeason());
+                leftSide.getChildren().addAll(moneys, currentDate, seasonLabel);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -148,6 +153,7 @@ public class FarmUIScreen extends Application {
                 }
 
                 Plot newPlot = new Plot(i, j, Player.itemTypes()[n], initialStatus);
+                PlotBackend.plots[j][i] = newPlot;
 
                 plotFrame.getChildren().addAll(newPlot);
                 plotFrame.setRowIndex(newPlot, j);
@@ -160,10 +166,95 @@ public class FarmUIScreen extends Application {
             }
         }
 
+
+
+
+
+
+
+
+
+        Button nextDayButton = new Button("Next day");
+        nextDayButton.setOnAction(e -> {
+            Date.nextDay();
+            for (int i = 0; i < 15; i++) {
+                int j = i / 5;
+                int k = i % 5;
+                PlotBackend.plots[j][k] = (Plot) plotFrame.getChildren().get(i);
+            }
+
+            plotFrame.getChildren().clear();
+            TransitionScene tScene = new TransitionScene();
+            Stage tStage = new Stage();
+            try {
+                tScene.start(tStage, "NextDay");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 3; j++) {
+                    Plot plot = PlotBackend.plots[j][i];
+                    plot.nextDay();
+                    plot.setPlotImage();
+                    plot.setWateredToday(false);
+                    plotFrame.getChildren().add(plot);
+                }
+            }
+            bPane.setCenter(plotFrame);
+            leftSide.getChildren().removeAll(currentDate, seasonLabel);
+            currentDate.setText("Current day" + Date.getDate());
+            seasonLabel.setText("Season: " + Date.getSeason());
+            leftSide.getChildren().addAll( currentDate, seasonLabel);
+        });
+
+
+        Button superpowerButton = new Button("SuperPower");
+        superpowerButton.setOnAction(e -> {
+            if (Player.hasItem("SuperPower")) {
+                Player.updateInventory("SuperPower", -1);
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        PlotBackend.plots[j][i].setSeedStatus("Mature");
+                        PlotBackend.plots[j][i].setWaterLevel(4);
+                    }
+                }
+                TransitionScene tScene = new TransitionScene();
+                Stage tStage = new Stage();
+                try {
+                    tScene.start(tStage, "Laser");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                plotFrame.getChildren().clear();
+
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        Plot plot = PlotBackend.plots[j][i];
+                        plot.nextDay();
+                        plot.setPlotImage();
+                        plot.setWateredToday(false);
+                        plotFrame.getChildren().add(plot);
+                    }
+                }
+                bPane.setCenter(plotFrame);
+                leftSide.getChildren().removeAll(currentDate, seasonLabel);
+                currentDate.setText("Current day" + Date.getDate());
+                seasonLabel.setText("Season: " + Date.getSeason());
+                leftSide.getChildren().addAll( currentDate, seasonLabel);
+
+            }
+        });
+
+
+
+
+
+
         VBox rightSide = new VBox();
         rightSide.setSpacing(20);
         rightSide.setAlignment(Pos.TOP_RIGHT);
-        rightSide.getChildren().addAll(storeButton, inventoryButton, returnButton);
+        rightSide.getChildren().addAll(nextDayButton, storeButton, inventoryButton, superpowerButton, returnButton);
 
         bPane.setCenter(plotFrame);
         bPane.setLeft(leftSide);

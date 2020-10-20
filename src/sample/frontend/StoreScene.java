@@ -51,7 +51,7 @@ public class StoreScene extends Application {
         leftSide.setSpacing(20);
         //Creates a list of items to buy
         for (String seed: Player.itemTypes()) {
-            Button button = new Button("Purchase " + seed);
+            Button button = new Button("Purchase " + seed + ": " + StoreBackend.market.getPrice(seed, 1));
             button.setOnAction(e -> {
                 StoreBackend.purchase(seed, 1);
                 Label storeLabel2 = new Label(Player.getName() + "'s balance: "
@@ -85,7 +85,7 @@ public class StoreScene extends Application {
         rightSide.setSpacing(20);
         //Creates a list of items to buy
         for (String seed: Player.itemTypes()) {
-            Button button = new Button("Sell " + seed);
+            Button button = new Button("Sell " + seed + ": " + StoreBackend.market.getPrice(seed, 1));
             button.setOnAction(e -> {
                 StoreBackend.sell(seed, 1);
                 Label storeLabel3 = new Label(Player.getName() + "'s balance: "
@@ -132,7 +132,7 @@ public class StoreScene extends Application {
         });
 
         stage.setScene(scene4);
-        stage.showAndWait();
+        stage.show();
 
     }
 }

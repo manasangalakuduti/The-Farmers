@@ -16,7 +16,7 @@ public class MarketTest {
 
     @Before
     public void setup() {
-        market = new Market(new Date("Fall", LocalDateTime.now()), "Hard");
+        market = new Market( "Hard");
     }
 
     @Test

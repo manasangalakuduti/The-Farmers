@@ -18,7 +18,7 @@ public class StoreBackendTest {
     public void testPurchaseSuccess() {
         Player.initialize("Bob", 33.35);
         String item = "Tomato";
-        Market m = new Market(new Date("Spring", LocalDateTime.now()), "Spring");
+        Market m = new Market("Spring");
         StoreBackend.initialize(m);
         assertEquals(false, StoreBackend.purchase(item, 3));
     }
@@ -30,7 +30,7 @@ public class StoreBackendTest {
     public void setup() {
         Player.initialize("Howdy", 1000);
         Player.updateInventory("Corn", 20);
-        Market m = new Market(new Date("Spring", LocalDateTime.now()), "Spring");
+        Market m = new Market( "Spring");
         StoreBackend.initialize(m);
         StoreBackend.restock();
 
