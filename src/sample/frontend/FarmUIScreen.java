@@ -250,7 +250,7 @@ public class FarmUIScreen extends Application {
                 }
                 bPane.setCenter(plotFrame);
                 leftSide.getChildren().removeAll(currentDate, seasonLabel);
-                currentDate.setText("Current day" + Date.getDate());
+                currentDate.setText("Current day: " + Date.getDate());
                 seasonLabel.setText("Season: " + Date.getSeason());
                 leftSide.getChildren().addAll( currentDate, seasonLabel);
 
