@@ -48,21 +48,29 @@ public class FarmUIScreen extends Application {
 
         //Return Button
         Button returnButton = new Button("Return");
-        returnButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
+        returnButton.setStyle("-fx-background-color: #98c1d9; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
 
 
-        Label name = new Label("Player Name: " + Player.getName());
-        name.setFont(new Font("Futura", 20));
+        Button name = new Button("Player Name: " + Player.getName());
+        name.setFont(new Font("Futura", 15));
+        name.setStyle("-fx-background-color: #98c1d9; -fx-text-fill: black;"
+                + "fx-border-radius: 20; -fx-background-radius: 10;");
 
-        Label currentDate = new Label("Current day: " + Date.getDate());
-        name.setFont(new Font("Futura", 20));
+        Button currentDate = new Button("Current day: " + Date.getDate());
+        currentDate.setFont(new Font("Futura", 15));
+        currentDate.setStyle("-fx-background-color: #98c1d9; -fx-text-fill: black;"
+                + "fx-border-radius: 20; -fx-background-radius: 10;");
 
-        Label seasonLabel = new Label("Season: " + Date.getSeason());
-        seasonLabel.setFont(new Font("Futura", 20));
+        Button seasonLabel = new Button("Season: " + Date.getSeason());
+        seasonLabel.setFont(new Font("Futura", 15));
+        seasonLabel.setStyle("-fx-background-color: #98c1d9; -fx-text-fill: black;"
+                + "fx-border-radius: 20; -fx-background-radius: 10;");
 
-        Label moneys = new Label("Balance: $" + Math.round(Player.getBalance()));
-        moneys.setFont(new Font("Futura", 20));
+        Button moneys = new Button("Balance: $" + Math.round(Player.getBalance()));
+        moneys.setFont(new Font("Futura", 15));
+        moneys.setStyle("-fx-background-color: #75c69d; -fx-text-fill: black;"
+                + "fx-border-radius: 20; -fx-background-radius: 10;");
 
         VBox leftSide = new VBox();
         leftSide.setSpacing(20);
@@ -101,7 +109,7 @@ public class FarmUIScreen extends Application {
                 moneys.setText("Balance: $" + Math.round(Player.getBalance()));
                 currentDate.setText("Current day" + Date.getDate());
                 seasonLabel.setText("Season: " + Date.getSeason());
-                leftSide.getChildren().addAll(moneys, currentDate, seasonLabel);
+                leftSide.getChildren().addAll(currentDate, seasonLabel, moneys);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -175,6 +183,8 @@ public class FarmUIScreen extends Application {
 
 
         Button nextDayButton = new Button("Next day");
+        nextDayButton.setStyle("-fx-background-color: #f4a261; -fx-text-fill: black;"
+                + "fx-border-radius: 10; -fx-background-radius: 10;");
         nextDayButton.setOnAction(e -> {
             Date.nextDay();
             for (int i = 0; i < 15; i++) {
@@ -203,13 +213,14 @@ public class FarmUIScreen extends Application {
             }
             bPane.setCenter(plotFrame);
             leftSide.getChildren().removeAll(currentDate, seasonLabel);
-            currentDate.setText("Current day" + Date.getDate());
+            currentDate.setText("Current day: " + Date.getDate());
             seasonLabel.setText("Season: " + Date.getSeason());
             leftSide.getChildren().addAll( currentDate, seasonLabel);
         });
 
-
         Button superpowerButton = new Button("SuperPower");
+        superpowerButton.setStyle("-fx-background-color: #f4a261; -fx-text-fill: black;"
+                + "fx-border-radius: 10; -fx-background-radius: 10;");
         superpowerButton.setOnAction(e -> {
             if (Player.hasItem("SuperPower")) {
                 Player.updateInventory("SuperPower", -1);

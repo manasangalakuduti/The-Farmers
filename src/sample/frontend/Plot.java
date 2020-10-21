@@ -6,6 +6,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.backend.Date;
+import sample.backend.PlotBackend;
 
 import java.util.Map;
 
@@ -17,15 +18,7 @@ public class Plot extends Button {
     private int statusUpdateTime;
     private int waterLevel;
     private boolean wateredToday = false;
-    private Map<String, String> map = Map.of("Dirt", "sample/media/dirt.png",
-            "Seed", "sample/media/seed.png",
-            "Tomato", "sample/media/tomato.jpg",
-            "Peas", "sample/media/peas.png",
-            "Soybeans", "sample/media/beans.png",
-            "Corn", "sample/media/corn.png",
-            "Plant", "sample/media/plant.jpg",
-            "Dead", "sample/media/deadPlant.png"
-    );
+
 
     public Plot(int xIndex, int yIndex, String seedType, String status) {
         this.xIndex = xIndex;
@@ -106,7 +99,7 @@ public class Plot extends Button {
             toSet = seedType;
         }
 
-        Image image = new Image(map.get(toSet), this.getWidth(), this.getHeight(),
+        Image image = new Image(PlotBackend.imageMap.get(toSet), this.getWidth(), this.getHeight(),
                 false, true, true);
         BackgroundImage bImage = new BackgroundImage(image, BackgroundRepeat.REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,

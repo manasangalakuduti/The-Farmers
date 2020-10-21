@@ -59,7 +59,7 @@ public class TransitionScene extends Application {
         }
         stage.setScene(scene);
         stage.show();
-        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(e -> {
             stage.close();
         });

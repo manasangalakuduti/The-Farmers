@@ -32,8 +32,11 @@ public class StoreScene extends Application {
         VBox middle = new VBox();
         //Shows current inventory
         for (String seed: Player.itemTypes()) {
-            Label label = new Label(seed + " : " +  Player.getQuantityOf(seed));
-            middle.getChildren().add(label);
+            Button button = new Button("# of " + seed + " in bag: " +  Player.getQuantityOf(seed));
+            button.setFont(new Font("Futura", 15));
+            button.setStyle("-fx-background-color: #9a8c98; -fx-text-fill: black;"
+                    + "fx-border-radius: 20; -fx-background-radius: 10;");
+            middle.getChildren().add(button);
         }
         bPane.setCenter(middle);
         bPane.setAlignment(middle, Pos.CENTER);
@@ -41,8 +44,11 @@ public class StoreScene extends Application {
 
 
 
-        Label storeLabel = new Label(Player.getName() + "'s balance: "
+        Button storeLabel = new Button(Player.getName() + "'s balance: "
                 + Math.round(Player.getBalance()));
+        storeLabel.setFont(new Font("Futura", 15));
+        storeLabel.setStyle("-fx-background-color: #9a8c98; -fx-text-fill: black;"
+                + "fx-border-radius: 20; -fx-background-radius: 10;");
         bPane.setTop(storeLabel);
         bPane.setAlignment(storeLabel, Pos.CENTER);
         storeLabel.setFont(new Font("Futura", 22));
@@ -52,6 +58,9 @@ public class StoreScene extends Application {
         //Creates a list of items to buy
         for (String seed: Player.itemTypes()) {
             Button button = new Button("Purchase " + seed + ": " + StoreBackend.market.getPrice(seed, 1));
+            button.setFont(new Font("Futura", 15));
+            button.setStyle("-fx-background-color: #e9c46a; -fx-text-fill: black;"
+                    + "fx-border-radius: 20; -fx-background-radius: 10;");
             button.setOnAction(e -> {
                 StoreBackend.purchase(seed, 1);
                 Label storeLabel2 = new Label(Player.getName() + "'s balance: "
@@ -86,6 +95,9 @@ public class StoreScene extends Application {
         //Creates a list of items to buy
         for (String seed: Player.itemTypes()) {
             Button button = new Button("Sell " + seed + ": " + StoreBackend.market.getPrice(seed, 1));
+            button.setFont(new Font("Futura", 15));
+            button.setStyle("-fx-background-color: #2a9d8f; -fx-text-fill: black;"
+                    + "fx-border-radius: 20; -fx-background-radius: 10;");
             button.setOnAction(e -> {
                 StoreBackend.sell(seed, 1);
                 Label storeLabel3 = new Label(Player.getName() + "'s balance: "
