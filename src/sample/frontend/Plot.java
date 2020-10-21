@@ -99,7 +99,7 @@ public class Plot extends Button {
             toSet = seedType;
         }
 
-        Image image = new Image(PlotBackend.imageMap.get(toSet), this.getWidth(), this.getHeight(),
+        Image image = new Image(PlotBackend.getImageMap().get(toSet), this.getWidth(), this.getHeight(),
                 false, true, true);
         BackgroundImage bImage = new BackgroundImage(image, BackgroundRepeat.REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,

@@ -4,17 +4,10 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.backend.Player;
-import sample.backend.PlotBackend;
-
-import java.util.concurrent.TimeUnit;
 
 
 public class CropInfoScreen extends Application {
@@ -74,7 +67,8 @@ public class CropInfoScreen extends Application {
         //Creates buttons to harvest, plant or water
         for (String type: Player.itemTypes()) {
             if (!type.equals("SuperPower")) {
-                String displayText = String.format("Plant %s (%d in bag)", type, Player.getQuantityOf(type));
+                String displayText = String.format("Plant %s (%d in bag)", type,
+                        Player.getQuantityOf(type));
                 Button plantButton = new Button(displayText);
                 plantButton.setFont(new Font("Futura", 15));
                 plantButton.setStyle("-fx-background-color: #f4a261; -fx-text-fill: black;"

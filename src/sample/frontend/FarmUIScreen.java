@@ -1,12 +1,10 @@
 package sample.frontend;
 
-import javafx.animation.Transition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -16,16 +14,11 @@ import javafx.stage.Stage;
 import sample.backend.Date;
 import sample.backend.Player;
 import sample.backend.PlotBackend;
-
-import java.time.LocalDateTime;
 import java.util.Random;
 
-
 public class FarmUIScreen extends Application {
-    //private Player player;
-    private Date date;
-    public FarmUIScreen() {
-
+    private Button getFormattedButton(String string, String color) {
+        return null; //solution to too long method
     }
 
     private Scene scene3;
@@ -161,7 +154,7 @@ public class FarmUIScreen extends Application {
                 }
 
                 Plot newPlot = new Plot(i, j, Player.itemTypes()[n], initialStatus);
-                PlotBackend.plots[j][i] = newPlot;
+                PlotBackend.setPlots(j, i, newPlot);
 
                 plotFrame.getChildren().addAll(newPlot);
                 plotFrame.setRowIndex(newPlot, j);
@@ -174,14 +167,6 @@ public class FarmUIScreen extends Application {
             }
         }
 
-
-
-
-
-
-
-
-
         Button nextDayButton = new Button("Next day");
         nextDayButton.setStyle("-fx-background-color: #f4a261; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
@@ -190,7 +175,8 @@ public class FarmUIScreen extends Application {
             for (int i = 0; i < 15; i++) {
                 int j = i / 5;
                 int k = i % 5;
-                PlotBackend.plots[j][k] = (Plot) plotFrame.getChildren().get(i);
+                PlotBackend.setPlots(j, k, (Plot) plotFrame.getChildren().get(i));
+                //PlotBackend.plots[j][k] = (Plot) plotFrame.getChildren().get(i);
             }
 
             plotFrame.getChildren().clear();
@@ -204,7 +190,8 @@ public class FarmUIScreen extends Application {
 
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 3; j++) {
-                    Plot plot = PlotBackend.plots[j][i];
+                    //Plot plot = PlotBackend.plots[j][i];
+                    Plot plot = PlotBackend.getPlots(j, i);
                     plot.nextDay();
                     plot.setPlotImage();
                     plot.setWateredToday(false);
@@ -226,8 +213,10 @@ public class FarmUIScreen extends Application {
                 Player.updateInventory("SuperPower", -1);
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 3; j++) {
-                        PlotBackend.plots[j][i].setSeedStatus("Mature");
-                        PlotBackend.plots[j][i].setWaterLevel(4);
+                        Plot p = PlotBackend.getPlots(j, i);
+                        p.setSeedStatus("Mature");
+                        p.setWaterLevel(4);
+                        PlotBackend.setPlots(j, i, p);
                     }
                 }
                 TransitionScene tScene = new TransitionScene();
@@ -241,7 +230,8 @@ public class FarmUIScreen extends Application {
 
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 3; j++) {
-                        Plot plot = PlotBackend.plots[j][i];
+                       //Plot plot = PlotBackend.plots[j][i];
+                        Plot plot = PlotBackend.getPlots(j, i);
                         plot.nextDay();
                         plot.setPlotImage();
                         plot.setWateredToday(false);
@@ -256,10 +246,6 @@ public class FarmUIScreen extends Application {
 
             }
         });
-
-
-
-
 
 
         VBox rightSide = new VBox();

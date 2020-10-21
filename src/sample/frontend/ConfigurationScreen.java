@@ -16,8 +16,6 @@ import sample.backend.Date;
 import sample.backend.Player;
 import sample.backend.StoreBackend;
 
-import java.time.LocalDateTime;
-
 
 public class ConfigurationScreen extends Application {
 
