@@ -34,11 +34,11 @@ public class InventoryScene extends Application {
         Scene scene = new Scene(bPane, 950, 600);
 
         for (String seed: Player.itemTypes()) {
-                Label label = new Label(seed + " : " +  Player.getQuantityOf(seed));
-                label.setFont(new Font("Futura", 13));
-                label.setStyle("-fx-text-fill: #663399;");
-                leftSide.getChildren().add(label);
-            };
+            Label label = new Label(seed + " : " +  Player.getQuantityOf(seed));
+            label.setFont(new Font("Futura", 13));
+            label.setStyle("-fx-text-fill: #663399;");
+            leftSide.getChildren().add(label);
+        }
         bPane.setCenter(leftSide);
         bPane.setAlignment(leftSide, Pos.CENTER);
         bPane.setPadding(new Insets(20));

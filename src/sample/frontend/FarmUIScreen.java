@@ -9,7 +9,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.backend.Date;
 import sample.backend.Player;
@@ -17,58 +16,30 @@ import sample.backend.PlotBackend;
 import java.util.Random;
 
 public class FarmUIScreen extends Application {
-    private Button getFormattedButton(String string, String color) {
-        return null; //solution to too long method
-    }
 
     private Scene scene3;
     @Override
     public void start(Stage stage) throws Exception {
-
         //Layout for Third Scene
-        StackPane root = new StackPane();
         stage.setTitle("FarmUI Screen");
         BorderPane bPane = new BorderPane();
         scene3 = new Scene(bPane, Main.X_WIDTH, Main.Y_WIDTH);
         bPane.setPadding(new Insets(10, 10, 10, 10));
-
 
         bPane.setStyle("-fx-background-color: LemonChiffon");
         bPane.setStyle("-fx-background-image: url(/sample/media/farm.png);"
                 + "-fx-background-size: 900px 600px;"
                 + "-fx-padding-top: 100%;");
 
-
-        //Return Button
-        Button returnButton = new Button("Return");
-        returnButton.setStyle("-fx-background-color: #98c1d9; -fx-text-fill: black;"
-                + "fx-border-radius: 10; -fx-background-radius: 10;");
-
-
-        Button name = new Button("Player Name: " + Player.getName());
-        name.setFont(new Font("Futura", 15));
-        name.setStyle("-fx-background-color: #98c1d9; -fx-text-fill: black;"
-                + "fx-border-radius: 20; -fx-background-radius: 10;");
-
-        Button currentDate = new Button("Current day: " + Date.getDate());
-        currentDate.setFont(new Font("Futura", 15));
-        currentDate.setStyle("-fx-background-color: #98c1d9; -fx-text-fill: black;"
-                + "fx-border-radius: 20; -fx-background-radius: 10;");
-
-        Button seasonLabel = new Button("Season: " + Date.getSeason());
-        seasonLabel.setFont(new Font("Futura", 15));
-        seasonLabel.setStyle("-fx-background-color: #98c1d9; -fx-text-fill: black;"
-                + "fx-border-radius: 20; -fx-background-radius: 10;");
-
-        Button moneys = new Button("Balance: $" + Math.round(Player.getBalance()));
-        moneys.setFont(new Font("Futura", 15));
-        moneys.setStyle("-fx-background-color: #75c69d; -fx-text-fill: black;"
-                + "fx-border-radius: 20; -fx-background-radius: 10;");
+        Button currentDate = this.getButton("Current day: " + Date.getDate(), "98c1d9");
+        Button seasonLabel = this.getButton("Season: " + Date.getSeason(), "98c1d9");
+        Button name = this.getButton("Player Name: " + Player.getName(), "98c1d9");
+        Button returnButton = this.getButton("Return", "75c69d");
+        Button moneys = this.getButton("Balance: $" + Math.round(Player.getBalance()), "75c69d");
 
         VBox leftSide = new VBox();
         leftSide.setSpacing(20);
         leftSide.getChildren().addAll(name, currentDate, seasonLabel, moneys);
-
 
         returnButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
@@ -77,19 +48,12 @@ public class FarmUIScreen extends Application {
             ConfigurationScreen c = new ConfigurationScreen();
             try {
                 c.start(returnStage);
-                //stage.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
 
-
-
-        //Store Button
-        Button storeButton = new Button("Store");
-        storeButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
-                + "fx-border-radius: 10; -fx-background-radius: 10;");
-        storeButton.setFont(new Font("Futura", 15));
+        Button storeButton = this.getButton("Store", "f884ad");
 
         storeButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
@@ -109,14 +73,9 @@ public class FarmUIScreen extends Application {
             }
         });
 
-        //Inventory Button
-        Button inventoryButton = new Button("Inventory");
-        inventoryButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
-                + "fx-border-radius: 10; -fx-background-radius: 10;");
-        inventoryButton.setFont(new Font("Futura", 15));
+        Button inventoryButton = this.getButton("Inventory", "f884ad");
 
         inventoryButton.setMinWidth(80);
-        //Generates a popup for now, but should probably change later
         inventoryButton.setOnAction(e -> {
             Stage storeStage = new Stage();
             InventoryScene s = new InventoryScene();
@@ -127,7 +86,6 @@ public class FarmUIScreen extends Application {
             }
         });
 
-        //Creates a new pane with tiles, for plotting purposes
         GridPane plotFrame = new GridPane();
 
         plotFrame.setHgap(30);
@@ -140,8 +98,6 @@ public class FarmUIScreen extends Application {
 
                 Random rand = new Random();
                 int n = rand.nextInt(4);
-
-                Random rand2 = new Random();
                 int m = rand.nextInt(3);
                 String initialStatus;
 
@@ -176,7 +132,6 @@ public class FarmUIScreen extends Application {
                 int j = i / 5;
                 int k = i % 5;
                 PlotBackend.setPlots(j, k, (Plot) plotFrame.getChildren().get(i));
-                //PlotBackend.plots[j][k] = (Plot) plotFrame.getChildren().get(i);
             }
 
             plotFrame.getChildren().clear();
@@ -190,7 +145,6 @@ public class FarmUIScreen extends Application {
 
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 3; j++) {
-                    //Plot plot = PlotBackend.plots[j][i];
                     Plot plot = PlotBackend.getPlots(j, i);
                     plot.nextDay();
                     plot.setPlotImage();
@@ -202,12 +156,10 @@ public class FarmUIScreen extends Application {
             leftSide.getChildren().removeAll(currentDate, seasonLabel);
             currentDate.setText("Current day: " + Date.getDate());
             seasonLabel.setText("Season: " + Date.getSeason());
-            leftSide.getChildren().addAll( currentDate, seasonLabel);
+            leftSide.getChildren().addAll(currentDate, seasonLabel);
         });
 
-        Button superpowerButton = new Button("SuperPower");
-        superpowerButton.setStyle("-fx-background-color: #f4a261; -fx-text-fill: black;"
-                + "fx-border-radius: 10; -fx-background-radius: 10;");
+        Button superpowerButton = this.getButton("SuperPower", "f4a261");
         superpowerButton.setOnAction(e -> {
             if (Player.hasItem("SuperPower")) {
                 Player.updateInventory("SuperPower", -1);
@@ -230,7 +182,6 @@ public class FarmUIScreen extends Application {
 
                 for (int i = 0; i < 5; i++) {
                     for (int j = 0; j < 3; j++) {
-                       //Plot plot = PlotBackend.plots[j][i];
                         Plot plot = PlotBackend.getPlots(j, i);
                         plot.nextDay();
                         plot.setPlotImage();
@@ -242,16 +193,16 @@ public class FarmUIScreen extends Application {
                 leftSide.getChildren().removeAll(currentDate, seasonLabel);
                 currentDate.setText("Current day: " + Date.getDate());
                 seasonLabel.setText("Season: " + Date.getSeason());
-                leftSide.getChildren().addAll( currentDate, seasonLabel);
+                leftSide.getChildren().addAll(currentDate, seasonLabel);
 
             }
         });
 
-
         VBox rightSide = new VBox();
         rightSide.setSpacing(20);
         rightSide.setAlignment(Pos.TOP_RIGHT);
-        rightSide.getChildren().addAll(nextDayButton, storeButton, inventoryButton, superpowerButton, returnButton);
+        rightSide.getChildren().addAll(nextDayButton, storeButton,
+                inventoryButton, superpowerButton, returnButton);
 
         bPane.setCenter(plotFrame);
         bPane.setLeft(leftSide);
@@ -260,4 +211,13 @@ public class FarmUIScreen extends Application {
         stage.setScene(scene3);
         stage.show();
     }
+
+    public Button getButton(String label, String color) {
+        Button helperButton = new Button(label);
+        helperButton.setStyle(String.format("-fx-background-color: #%s; -fx-text-fill: black;"
+                + "fx-border-radius: 10; -fx-background-radius: 10;", color));
+        return helperButton;
+    }
+
+
 }

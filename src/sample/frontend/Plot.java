@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import sample.backend.Date;
 import sample.backend.PlotBackend;
 
-import java.util.Map;
 
 public class Plot extends Button {
     private int xIndex;
@@ -39,6 +38,8 @@ public class Plot extends Button {
         this.waterLevel = 2;
     }
 
+    //if day % 10 changSeason()
+
     public void nextDay() {
 
         if (!this.status.equals("Dirt")) {
@@ -58,7 +59,7 @@ public class Plot extends Button {
                 this.status = "Dead";
             } else if (this.status.equals("Dead")) {
                 this.status = "Dead";
-            } else if (this.status.equals("Dirt")){
+            } else if (this.status.equals("Dirt")) {
                 this.status = "Dirt";
             }
             this.statusUpdateTime = Date.getDate();
@@ -93,13 +94,14 @@ public class Plot extends Button {
             toSet  = "Seed";
         } else if (status.equals("Immature")) {
             toSet = "Plant";
-        } else if (status.equals("Dead")){
+        } else if (status.equals("Dead")) {
             toSet = "Dead";
         } else {
             toSet = seedType;
         }
 
-        Image image = new Image(PlotBackend.getImageMap().get(toSet), this.getWidth(), this.getHeight(),
+        Image image = new Image(PlotBackend.getImageMap().get(toSet),
+                this.getWidth(), this.getHeight(),
                 false, true, true);
         BackgroundImage bImage = new BackgroundImage(image, BackgroundRepeat.REPEAT,
                 BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER,

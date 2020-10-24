@@ -59,7 +59,8 @@ public class StoreScene extends Application {
         leftSide.setSpacing(20);
         //Creates a list of items to buy
         for (String seed: Player.itemTypes()) {
-            Button button = new Button("Purchase " + seed + ": " + StoreBackend.getMarket().getPrice(seed, 1));
+            Button button = new Button("Purchase " + seed + ": "
+                    + StoreBackend.getMarket().getPrice(seed, 1));
             button.setFont(new Font("Futura", 15));
             button.setStyle("-fx-background-color: #e9c46a; -fx-text-fill: black;"
                     + "fx-border-radius: 20; -fx-background-radius: 10;");
@@ -78,7 +79,8 @@ public class StoreScene extends Application {
                 VBox tempBox = new VBox();
                 //UPDATE INVENTORY
                 for (String innerSeed: Player.itemTypes()) {
-                    Button invLabel = new Button("# of " + innerSeed + " in bag: " +  Player.getQuantityOf(innerSeed));
+                    Button invLabel = new Button("# of " + innerSeed + " in bag: "
+                            +  Player.getQuantityOf(innerSeed));
                     invLabel.setFont(new Font("Futura", 15));
                     invLabel.setStyle("-fx-background-color: #9a8c98; -fx-text-fill: black;"
                             + "fx-border-radius: 20; -fx-background-radius: 10;");
@@ -103,7 +105,8 @@ public class StoreScene extends Application {
         rightSide.setSpacing(20);
         //Creates a list of items to buy
         for (String seed: Player.itemTypes()) {
-            Button button = new Button("Sell " + seed + ": " + StoreBackend.getMarket().getPrice(seed, 1));
+            Button button = new Button("Sell " + seed + ": "
+                    + StoreBackend.getMarket().getPrice(seed, 1));
             button.setFont(new Font("Futura", 15));
             button.setStyle("-fx-background-color: #2a9d8f; -fx-text-fill: black;"
                     + "fx-border-radius: 20; -fx-background-radius: 10;");
@@ -123,7 +126,8 @@ public class StoreScene extends Application {
                 VBox tempBox = new VBox();
                 //UPDATE INVENTORY
                 for (String innerSeed: Player.itemTypes()) {
-                    Button invLabel = new Button("# of " + innerSeed + " in bag: " +  Player.getQuantityOf(innerSeed));
+                    Button invLabel = new Button("# of " + innerSeed
+                            + " in bag: " +  Player.getQuantityOf(innerSeed));
                     invLabel.setFont(new Font("Futura", 15));
                     invLabel.setStyle("-fx-background-color: #9a8c98; -fx-text-fill: black;"
                             + "fx-border-radius: 20; -fx-background-radius: 10;");

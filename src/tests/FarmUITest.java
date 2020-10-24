@@ -4,12 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import sample.backend.Date;
 import sample.backend.Player;
-
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import static org.junit.Assert.assertEquals;
+
 public class FarmUITest {
     //private Player obj;
     @Before

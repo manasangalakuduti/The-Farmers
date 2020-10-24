@@ -1,13 +1,8 @@
 package tests;
 
-import org.junit.Before;
 import org.junit.Test;
 import sample.backend.Date;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,7 +19,7 @@ public class DateTest {
     @Test
     public void testTimestamp() {
         //int currY = time.getDate().getDayOfYear();
-        assertEquals(0,Date.getDate());
+        assertEquals(0, Date.getDate());
     }
 
     @Test

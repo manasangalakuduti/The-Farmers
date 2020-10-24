@@ -2,13 +2,10 @@ package tests;
 
 import org.junit.Before;
 import org.junit.Test;
-import sample.backend.Date;
+
 import sample.backend.Market;
 import sample.backend.Player;
 import sample.backend.StoreBackend;
-
-import java.time.LocalDateTime;
-
 import static org.junit.Assert.assertEquals;
 
 public class StoreBackendTest {
@@ -30,10 +27,9 @@ public class StoreBackendTest {
     public void setup() {
         Player.initialize("Howdy", 1000);
         Player.updateInventory("Corn", 20);
-        Market m = new Market( "Spring");
+        Market m = new Market("Spring");
         StoreBackend.initialize(m);
         StoreBackend.restock();
-
     }
 
     @Test
