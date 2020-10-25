@@ -5,65 +5,41 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.backend.Date;
 import sample.backend.Player;
-
-import java.time.LocalDateTime;
+import sample.backend.PlotBackend;
 import java.util.Random;
 
-
 public class FarmUIScreen extends Application {
-    //private Player player;
-    private Date date;
-    public FarmUIScreen(String season) {
-        this.date = new Date(season, LocalDateTime.now());
-    }
 
     private Scene scene3;
     @Override
     public void start(Stage stage) throws Exception {
-
         //Layout for Third Scene
-        StackPane root = new StackPane();
         stage.setTitle("FarmUI Screen");
         BorderPane bPane = new BorderPane();
         scene3 = new Scene(bPane, Main.X_WIDTH, Main.Y_WIDTH);
         bPane.setPadding(new Insets(10, 10, 10, 10));
-
 
         bPane.setStyle("-fx-background-color: LemonChiffon");
         bPane.setStyle("-fx-background-image: url(/sample/media/farm.png);"
                 + "-fx-background-size: 900px 600px;"
                 + "-fx-padding-top: 100%;");
 
-
-        //Return Button
-        Button returnButton = new Button("Return");
-        returnButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
-                + "fx-border-radius: 10; -fx-background-radius: 10;");
-
-
-
-        Label name = new Label("Player Name: " + Player.getName());
-        name.setFont(new Font("Futura", 20));
-
-        Label dateLabel = new Label("Season: " + date.getSeason());
-        dateLabel.setFont(new Font("Futura", 20));
-
-        Label moneys = new Label("Balance: $" + Math.round(Player.getBalance()));
-        moneys.setFont(new Font("Futura", 20));
+        Button currentDate = this.getButton("Current day: " + Date.getDate(), "98c1d9");
+        Button seasonLabel = this.getButton("Season: " + Date.getSeason(), "98c1d9");
+        Button name = this.getButton("Player Name: " + Player.getName(), "98c1d9");
+        Button returnButton = this.getButton("Return", "75c69d");
+        Button moneys = this.getButton("Balance: $" + Math.round(Player.getBalance()), "75c69d");
 
         VBox leftSide = new VBox();
         leftSide.setSpacing(20);
-        leftSide.getChildren().addAll(name, dateLabel, moneys);
-
+        leftSide.getChildren().addAll(name, currentDate, seasonLabel, moneys);
 
         returnButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
@@ -72,19 +48,12 @@ public class FarmUIScreen extends Application {
             ConfigurationScreen c = new ConfigurationScreen();
             try {
                 c.start(returnStage);
-                //stage.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
 
-
-
-        //Store Button
-        Button storeButton = new Button("Store");
-        storeButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
-                + "fx-border-radius: 10; -fx-background-radius: 10;");
-        storeButton.setFont(new Font("Futura", 15));
+        Button storeButton = this.getButton("Store", "f884ad");
 
         storeButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
@@ -93,24 +62,20 @@ public class FarmUIScreen extends Application {
             StoreScene s = new StoreScene();
             try {
                 s.start(storeStage);
-                leftSide.getChildren().remove(moneys);
+                leftSide.getChildren().removeAll(moneys, currentDate, seasonLabel);
                 moneys.setText("Balance: $" + Math.round(Player.getBalance()));
-                leftSide.getChildren().add(moneys);
-
+                currentDate.setText("Current day" + Date.getDate());
+                seasonLabel.setText("Season: " + Date.getSeason());
+                leftSide.getChildren().addAll(currentDate, seasonLabel, moneys);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         });
 
-        //Inventory Button
-        Button inventoryButton = new Button("Inventory");
-        inventoryButton.setStyle("-fx-background-color: #f884ad; -fx-text-fill: black;"
-                + "fx-border-radius: 10; -fx-background-radius: 10;");
-        inventoryButton.setFont(new Font("Futura", 15));
+        Button inventoryButton = this.getButton("Inventory", "f884ad");
 
         inventoryButton.setMinWidth(80);
-        //Generates a popup for now, but should probably change later
         inventoryButton.setOnAction(e -> {
             Stage storeStage = new Stage();
             InventoryScene s = new InventoryScene();
@@ -121,7 +86,6 @@ public class FarmUIScreen extends Application {
             }
         });
 
-        //Creates a new pane with tiles, for plotting purposes
         GridPane plotFrame = new GridPane();
 
         plotFrame.setHgap(30);
@@ -134,8 +98,6 @@ public class FarmUIScreen extends Application {
 
                 Random rand = new Random();
                 int n = rand.nextInt(4);
-
-                Random rand2 = new Random();
                 int m = rand.nextInt(3);
                 String initialStatus;
 
@@ -148,6 +110,7 @@ public class FarmUIScreen extends Application {
                 }
 
                 Plot newPlot = new Plot(i, j, Player.itemTypes()[n], initialStatus);
+                PlotBackend.setPlots(j, i, newPlot);
 
                 plotFrame.getChildren().addAll(newPlot);
                 plotFrame.setRowIndex(newPlot, j);
@@ -160,10 +123,86 @@ public class FarmUIScreen extends Application {
             }
         }
 
+        Button nextDayButton = new Button("Next day");
+        nextDayButton.setStyle("-fx-background-color: #f4a261; -fx-text-fill: black;"
+                + "fx-border-radius: 10; -fx-background-radius: 10;");
+        nextDayButton.setOnAction(e -> {
+            Date.nextDay();
+            for (int i = 0; i < 15; i++) {
+                int j = i / 5;
+                int k = i % 5;
+                PlotBackend.setPlots(j, k, (Plot) plotFrame.getChildren().get(i));
+            }
+
+            plotFrame.getChildren().clear();
+            TransitionScene tScene = new TransitionScene();
+            Stage tStage = new Stage();
+            try {
+                tScene.start(tStage, "NextDay");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 3; j++) {
+                    Plot plot = PlotBackend.getPlots(j, i);
+                    plot.nextDay();
+                    plot.setPlotImage();
+                    plot.setWateredToday(false);
+                    plotFrame.getChildren().add(plot);
+                }
+            }
+            bPane.setCenter(plotFrame);
+            leftSide.getChildren().removeAll(currentDate, seasonLabel);
+            currentDate.setText("Current day: " + Date.getDate());
+            seasonLabel.setText("Season: " + Date.getSeason());
+            leftSide.getChildren().addAll(currentDate, seasonLabel);
+        });
+
+        Button superpowerButton = this.getButton("SuperPower", "f4a261");
+        superpowerButton.setOnAction(e -> {
+            if (Player.hasItem("SuperPower")) {
+                Player.updateInventory("SuperPower", -1);
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        Plot p = PlotBackend.getPlots(j, i);
+                        p.setSeedStatus("Mature");
+                        p.setWaterLevel(4);
+                        PlotBackend.setPlots(j, i, p);
+                    }
+                }
+                TransitionScene tScene = new TransitionScene();
+                Stage tStage = new Stage();
+                try {
+                    tScene.start(tStage, "Laser");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                plotFrame.getChildren().clear();
+
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        Plot plot = PlotBackend.getPlots(j, i);
+                        plot.nextDay();
+                        plot.setPlotImage();
+                        plot.setWateredToday(false);
+                        plotFrame.getChildren().add(plot);
+                    }
+                }
+                bPane.setCenter(plotFrame);
+                leftSide.getChildren().removeAll(currentDate, seasonLabel);
+                currentDate.setText("Current day: " + Date.getDate());
+                seasonLabel.setText("Season: " + Date.getSeason());
+                leftSide.getChildren().addAll(currentDate, seasonLabel);
+
+            }
+        });
+
         VBox rightSide = new VBox();
         rightSide.setSpacing(20);
         rightSide.setAlignment(Pos.TOP_RIGHT);
-        rightSide.getChildren().addAll(storeButton, inventoryButton, returnButton);
+        rightSide.getChildren().addAll(nextDayButton, storeButton,
+                inventoryButton, superpowerButton, returnButton);
 
         bPane.setCenter(plotFrame);
         bPane.setLeft(leftSide);
@@ -172,4 +211,13 @@ public class FarmUIScreen extends Application {
         stage.setScene(scene3);
         stage.show();
     }
+
+    public Button getButton(String label, String color) {
+        Button helperButton = new Button(label);
+        helperButton.setStyle(String.format("-fx-background-color: #%s; -fx-text-fill: black;"
+                + "fx-border-radius: 10; -fx-background-radius: 10;", color));
+        return helperButton;
+    }
+
+
 }

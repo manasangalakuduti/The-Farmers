@@ -3,10 +3,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
-import sample.backend.Date;
 import sample.backend.Market;
-
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 
@@ -16,7 +13,7 @@ public class MarketTest {
 
     @Before
     public void setup() {
-        market = new Market(new Date("Fall", LocalDateTime.now()), "Hard");
+        market = new Market("Hard");
     }
 
     @Test

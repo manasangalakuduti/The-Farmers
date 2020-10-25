@@ -4,15 +4,15 @@ import java.util.HashMap;
 public class Market {
 
 
-    private String[] items = {"Tomato", "Soybeans", "Corn", "Peas"};
+    private String[] items = {"Tomato", "Soybeans", "Corn", "Peas", "SuperPower"};
     private HashMap<String, Double> itemPrice = new HashMap<String, Double>();
-    private Date season;
+    private String season;
     private String difficulty;
 
-    public Market(Date season, String difficulty) {
-        this.season = season;
+    public Market(String difficulty) {
+        this.season = Date.getSeason();
         this.difficulty = difficulty;
-        String[] items = {"Tomato", "Soybeans", "Corn", "Peas"};
+        String[] items = {"Tomato", "Soybeans", "Corn", "Peas", "SuperPower"};
         for (String item: items) {
             setPrice(item);
         }
@@ -37,7 +37,7 @@ public class Market {
         case "Fertilizer":
             basePrice = 5.0;
             break;
-        case "Tractor":
+        case "SuperPower":
             basePrice = 10.0;
             break;
         default:
@@ -45,7 +45,7 @@ public class Market {
         }
 
         // Setting the seasonFactor based on the current season
-        switch (season.getSeason()) {  // Need to use currSeas method
+        switch (season) {  // Need to use currSeas method
         case "Fall":
             seasonFactor = 1.5; // + Math.random(); // Gives # between 1.5 and 2.5
             break;
@@ -85,7 +85,7 @@ public class Market {
 
     //
     private String currSeason() {
-        return "Fall"; // Work on Date class
+        return Date.getSeason(); // Work on Date class
     }
 
     // Returns the HashMap of all the items

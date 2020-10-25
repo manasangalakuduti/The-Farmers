@@ -4,12 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import sample.backend.Date;
 import sample.backend.Player;
-
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import static org.junit.Assert.assertEquals;
+
 public class FarmUITest {
     //private Player obj;
     @Before
@@ -42,10 +39,8 @@ public class FarmUITest {
 
     @Test
     public void testCurrentDate() {
-        Date d = new Date("Summer", LocalDateTime.now());
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        assertEquals(LocalDateTime.now().format(format),
-                    d.getDate().now().format(format));
+        Date.nextDay();
+        assertEquals(1, Date.getDate());
     }
 
 }
