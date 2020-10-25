@@ -2,24 +2,20 @@ package tests;
 
 import org.junit.Before;
 import org.junit.Test;
-import sample.backend.Date;
+
 import sample.backend.Market;
 import sample.backend.Player;
 import sample.backend.StoreBackend;
-
-import java.time.LocalDateTime;
-
 import static org.junit.Assert.assertEquals;
 
 public class StoreBackendTest {
-//<<<<<<< HEAD
 
 
     @Test
     public void testPurchaseSuccess() {
         Player.initialize("Bob", 33.35);
         String item = "Tomato";
-        Market m = new Market(new Date("Spring", LocalDateTime.now()), "Spring");
+        Market m = new Market("Spring");
         StoreBackend.initialize(m);
         assertEquals(false, StoreBackend.purchase(item, 3));
     }
@@ -31,11 +27,9 @@ public class StoreBackendTest {
     public void setup() {
         Player.initialize("Howdy", 1000);
         Player.updateInventory("Corn", 20);
-        Market m = new Market(new Date("Spring", LocalDateTime.now()), "Spring");
+        Market m = new Market("Spring");
         StoreBackend.initialize(m);
-        //obj = new StoreBackend("WalMart", new Market(new Date("Fall", LocalDateTime.now()), "Hard"));
         StoreBackend.restock();
-
     }
 
     @Test
@@ -45,10 +39,6 @@ public class StoreBackendTest {
         String item = "Tomato";
         assertEquals(false, StoreBackend.purchase(item, 3));
     }
-
-
-
-
 
 
     @Test
