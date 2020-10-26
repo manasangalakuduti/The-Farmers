@@ -3,11 +3,9 @@ package tests;
 import javafx.embed.swing.JFXPanel;
 import org.junit.Before;
 import org.junit.Test;
-import sample.backend.Player;
 import sample.frontend.Plot;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 
 public class PlotTest {
@@ -16,7 +14,6 @@ public class PlotTest {
     @Before
     public void setup() {
         final JFXPanel fxPanel = new JFXPanel();
-        //FarmUIScreen f = new FarmUIScreen(new Player("testPlayer", 100), "TestSeson");
         obj = new Plot(1, 3, "Ham", "Immature");
     }
     @Test
@@ -34,12 +31,46 @@ public class PlotTest {
         assertEquals(4, obj.getxIndex());
         assertEquals(5, obj.getyIndex());
     }
+
     @Test
-    public void testPlotPaths() {
-        for (String item: Player.itemTypes()) {
-            Plot p = new Plot(1, 1, item, "Mature");
-            p.setPlotImage("Mature", item);
-            assertNotNull(p.getBackground());
-        }
+    public void testWater() {
+        Plot plot = new Plot(1, 1, "Tomato", "Immature");
+        assertEquals(plot.getWaterStatus(), 2);
     }
+
+    @Test
+    public void testWateredToday() {
+        Plot plot = new Plot(1, 1, "Tomato", "Immature");
+        assertEquals(plot.getWateredToday(), false);
+        plot.water();
+        plot.setWateredToday(true);
+        assertEquals(plot.getWateredToday(), true);
+    }
+
+    @Test
+    public void plotNextDay() {
+        Plot plot = new Plot(1, 1, "Tomato", "Immature");
+        plot.water();
+        plot.nextDay();
+        assertEquals(plot.getWaterStatus(), 3);
+    }
+
+    @Test
+    public void plotDies() {
+        Plot plot = new Plot(1, 1, "Tomato", "Immature");
+        plot.nextDay();
+        plot.nextDay();
+        assertEquals(plot.getSeedStatus(), "Dead");
+    }
+
+    @Test
+    public void plotOverWater() {
+        Plot plot = new Plot(1, 1, "Tomato", "Immature");
+        plot.setWaterLevel(5);
+        plot.water();
+        plot.nextDay();
+        assertEquals(plot.getSeedStatus(), "Dead");
+    }
+
+
 }

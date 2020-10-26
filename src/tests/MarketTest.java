@@ -23,6 +23,7 @@ public class MarketTest {
         expectedHM.put("Soybeans", 150.0);
         expectedHM.put("Corn", 150.0);
         expectedHM.put("Peas", 150.0);
+        expectedHM.put("SuperPower", 750.0);
         assertEquals(expectedHM, market.getItemPrice());
     }
 
