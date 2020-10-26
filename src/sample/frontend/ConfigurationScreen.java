@@ -16,8 +16,6 @@ import sample.backend.Date;
 import sample.backend.Player;
 import sample.backend.StoreBackend;
 
-import java.time.LocalDateTime;
-
 
 public class ConfigurationScreen extends Application {
 
@@ -142,12 +140,12 @@ public class ConfigurationScreen extends Application {
                     initialMoney = 100.0;
                     break;
                 }
-                Date season = new Date(startingSeason.getValue(), LocalDateTime.now());
-                Market market = new Market(season, choice);
+                Market market = new Market(choice);
                 StoreBackend.initialize(market);
                 Player.initialize(nameInput.getText(), initialMoney);
                 Player.updateInventory(startingSeed.getValue(), 5);
-                FarmUIScreen f = new FarmUIScreen(/*player, */startingSeason.getValue());
+                Date.setSeason(startingSeason.getValue());
+                FarmUIScreen f = new FarmUIScreen();
                 try {
                     f.start(s1);
                     stage.close();
