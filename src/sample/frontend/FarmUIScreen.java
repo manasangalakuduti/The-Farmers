@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.backend.Date;
@@ -20,7 +19,6 @@ public class FarmUIScreen extends Application {
     private Scene scene3;
     @Override
     public void start(Stage stage) throws Exception {
-        //Layout for Third Scene
         stage.setTitle("FarmUI Screen");
         BorderPane bPane = new BorderPane();
         scene3 = new Scene(bPane, Main.X_WIDTH, Main.Y_WIDTH);
@@ -36,11 +34,9 @@ public class FarmUIScreen extends Application {
         Button name = this.getButton("Player Name: " + Player.getName(), "98c1d9");
         Button returnButton = this.getButton("Return", "75c69d");
         Button moneys = this.getButton("Balance: $" + Math.round(Player.getBalance()), "75c69d");
-
         VBox leftSide = new VBox();
         leftSide.setSpacing(20);
         leftSide.getChildren().addAll(name, currentDate, seasonLabel, moneys);
-
         returnButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
         returnButton.setOnAction(e -> {
@@ -52,9 +48,7 @@ public class FarmUIScreen extends Application {
                 ex.printStackTrace();
             }
         });
-
         Button storeButton = this.getButton("Store", "f884ad");
-
         storeButton.setMinWidth(60);
         //Generates a popup for now, but should probably change later
         storeButton.setOnAction(e -> {
@@ -74,7 +68,6 @@ public class FarmUIScreen extends Application {
         });
 
         Button inventoryButton = this.getButton("Inventory", "f884ad");
-
         inventoryButton.setMinWidth(80);
         inventoryButton.setOnAction(e -> {
             Stage storeStage = new Stage();
@@ -159,50 +152,13 @@ public class FarmUIScreen extends Application {
             leftSide.getChildren().addAll(currentDate, seasonLabel);
         });
 
-        Button superpowerButton = this.getButton("SuperPower", "f4a261");
-        superpowerButton.setOnAction(e -> {
-            if (Player.hasItem("SuperPower")) {
-                Player.updateInventory("SuperPower", -1);
-                for (int i = 0; i < 5; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        Plot p = PlotBackend.getPlots(j, i);
-                        p.setSeedStatus("Mature");
-                        p.setWaterLevel(4);
-                        PlotBackend.setPlots(j, i, p);
-                    }
-                }
-                TransitionScene tScene = new TransitionScene();
-                Stage tStage = new Stage();
-                try {
-                    tScene.start(tStage, "Laser");
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                plotFrame.getChildren().clear();
 
-                for (int i = 0; i < 5; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        Plot plot = PlotBackend.getPlots(j, i);
-                        plot.nextDay();
-                        plot.setPlotImage();
-                        plot.setWateredToday(false);
-                        plotFrame.getChildren().add(plot);
-                    }
-                }
-                bPane.setCenter(plotFrame);
-                leftSide.getChildren().removeAll(currentDate, seasonLabel);
-                currentDate.setText("Current day: " + Date.getDate());
-                seasonLabel.setText("Season: " + Date.getSeason());
-                leftSide.getChildren().addAll(currentDate, seasonLabel);
-
-            }
-        });
 
         VBox rightSide = new VBox();
         rightSide.setSpacing(20);
         rightSide.setAlignment(Pos.TOP_RIGHT);
         rightSide.getChildren().addAll(nextDayButton, storeButton,
-                inventoryButton, superpowerButton, returnButton);
+                inventoryButton, returnButton);
 
         bPane.setCenter(plotFrame);
         bPane.setLeft(leftSide);
