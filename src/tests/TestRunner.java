@@ -10,7 +10,7 @@ public class TestRunner {
 
         Result result = JUnitCore.runClasses(ConfigScreenTest.class,
                 FarmUITest.class, DateTest.class, PlotTest.class,
-                InventoryTest.class, StoreBackendTest.class);
+                InventoryTest.class, StoreBackendTest.class, MarketTest.class);
 
         for (Failure failure : result.getFailures()) {
             System.out.println(failure.toString());
