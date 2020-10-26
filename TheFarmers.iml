@@ -22,9 +22,5 @@
         <SOURCES />
       </library>
     </orderEntry>
-<<<<<<< HEAD
-=======
-    <orderEntry type="library" name="lib" level="project" />
->>>>>>> ed20ea0adc483b2126dbd6acf2891bfdaed20c27
   </component>
 </module>
