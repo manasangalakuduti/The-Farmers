@@ -126,7 +126,7 @@ public class CropInfoScreen extends Application {
         harvestButton.setOnAction(e -> {
             if (this.plot.getSeedStatus().equals("Mature")) {
                 if (Player.hasRoom(1)) {
-                    Player.updateInventory(this.plot.getSeedType(), 3);
+                    Player.updateInventory(this.plot.getSeedType(), this.plot.getHarvestQuantity());
                     this.plot.clear();
                     TransitionScene tScene = new TransitionScene();
                     Stage tStage = new Stage();
