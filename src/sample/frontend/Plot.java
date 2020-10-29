@@ -18,6 +18,9 @@ public class Plot extends Button {
     private int waterLevel;
     private boolean wateredToday = false;
 
+    private boolean isFertalized;
+    private int harvestQuantity;
+
 
     public Plot(int xIndex, int yIndex, String seedType, String status) {
         this.xIndex = xIndex;
@@ -36,9 +39,10 @@ public class Plot extends Button {
         this.setPlotImage(status, seedType);
         this.statusUpdateTime = 0;
         this.waterLevel = 2;
+        this.isFertalized = false;
+        this.harvestQuantity = 3;
     }
 
-    //if day % 10 changSeason()
 
     public void nextDay() {
 
@@ -165,6 +169,19 @@ public class Plot extends Button {
 
     public boolean getWateredToday() {
         return this.wateredToday;
+    }
+
+    public int getHarvestQuantity() {
+        return this.harvestQuantity;
+    }
+    private void setHarvestQuantity(int harvestQuantity) {
+        this.harvestQuantity = harvestQuantity;
+    }
+    public boolean getIsFertalized() {
+        return this.isFertalized;
+    }
+    private void setIsFertalized(boolean isFertalized) {
+        this.isFertalized = isFertalized;
     }
 }
 

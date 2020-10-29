@@ -15,12 +15,24 @@ public class PlotBackend {
             "Plant", "sample/media/plant.jpg",
             "Dead", "sample/media/deadPlant.png"
     );
+
+
+
+
+
+
     public static Plot getPlots(int i, int j) {
         return plots[i][j];
     }
     public static void setPlots(int i, int j, Plot plot) {
         plots[i][j] = plot;
     }
+
+    //1. Get random event chance (~10-15 lines)
+    //2. Loop through
+    //3. Set appropraite status on plot[i][j]
+    //4. Set transition scene
+    //5. $$$ Cash out $$$
 
     public static Map<String, String> getImageMap() {
         return imageMap;
