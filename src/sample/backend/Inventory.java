@@ -11,7 +11,7 @@ public class Inventory {
     private int currOccupied;
     private static String[] items = {"Tomato", "Soybeans",
         "Corn",
-        "Peas", "SuperPower"
+        "Peas", "SuperPower", "Locusticide", "Fertilizer"
     };
 
 
@@ -72,6 +72,7 @@ public class Inventory {
     public int getCurrOccupied() {
         return currOccupied;
     }
+
     //Seed types, anything in inventory
     public String[] itemTypes() {
         return items;
@@ -86,4 +87,47 @@ public class Inventory {
         }
         return qty;
     }
+
+    /*
+    //map inventory item to amount of space taken up by a given item
+    private HashMap<InventoryItem, Double> inventoryMap;
+    public Inventory() {
+        inventoryMap = new HashMap<>();
+        currCapacity = 0;
+    }
+    public void addToInventory(InventoryItem item, double quantity) {
+        try {
+            if (currCapacity + quantity*item.getSpace() <= MAX_CAPACITY) {
+                //update the inventory hashmap
+                inventoryMap.put(item,
+                        quantity*item.getSpace() +
+                        inventoryMap.getOrDefault(inventoryMap.get(item), 0.0));
+                currCapacity += quantity*item.getSpace();
+            } else {
+                throw new InventoryOverflowException("Cannot add to inventory"
+                        + " because you will have an overflow");
+            }
+        } catch (InventoryOverflowException overflow) {
+            System.out.println(overflow.getMessage());
+        }
+    }
+    public void removeFromInventory(InventoryItem item, double quantity) {
+        try {
+            if (!inventoryMap.containsKey(item)) {
+                System.out.println("Item does not exist");
+            }
+
+            if (quantity > Math.floor(inventoryMap.get(item)/item.getSpace())) {
+                throw new InventoryUnderflowException(String.format("You "
+                        + "don't have enough of %s to get %f of it",
+                        item.getName(), quantity));
+            } else {
+
+                //update inventory after removing an item
+                inventoryMap.put(item,
+                        inventoryMap.get(item) - quantity*item.getSpace());
+                currCapacity -= quantity*item.getSpace();
+            }
+     */
+
 }
