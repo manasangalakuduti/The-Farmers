@@ -154,11 +154,52 @@ public class FarmUIScreen extends Application {
 
 
 
+        Button superpowerButton = this.getButton("SuperPower", "f4a261");
+        superpowerButton.setOnAction(e -> {
+            if (Player.hasItem("SuperPower")) {
+                Player.updateInventory("SuperPower", -1);
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        Plot p = PlotBackend.getPlots(j, i);
+                        p.setSeedStatus("Mature");
+                        p.setWaterLevel(4);
+                        PlotBackend.setPlots(j, i, p);
+                    }
+                }
+                TransitionScene tScene = new TransitionScene();
+                Stage tStage = new Stage();
+                try {
+                    tScene.start(tStage, "Laser");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                plotFrame.getChildren().clear();
+
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        Plot plot = PlotBackend.getPlots(j, i);
+                        plot.nextDay();
+                        plot.setPlotImage();
+                        plot.setWateredToday(false);
+                        plotFrame.getChildren().add(plot);
+                    }
+                }
+                bPane.setCenter(plotFrame);
+                leftSide.getChildren().removeAll(currentDate, seasonLabel);
+                currentDate.setText("Current day: " + Date.getDate());
+                seasonLabel.setText("Season: " + Date.getSeason());
+                leftSide.getChildren().addAll(currentDate, seasonLabel);
+
+            }
+        });
+
+
+
         VBox rightSide = new VBox();
         rightSide.setSpacing(20);
         rightSide.setAlignment(Pos.TOP_RIGHT);
         rightSide.getChildren().addAll(nextDayButton, storeButton,
-                inventoryButton, returnButton);
+                inventoryButton, returnButton, superpowerButton);
 
         bPane.setCenter(plotFrame);
         bPane.setLeft(leftSide);
