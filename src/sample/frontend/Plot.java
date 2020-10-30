@@ -180,7 +180,7 @@ public class Plot extends Button {
     public boolean getIsFertalized() {
         return this.isFertalized;
     }
-    private void setIsFertalized(boolean isFertalized) {
+    private void setIsFertilized(boolean isFertalized) {
         this.isFertalized = isFertalized;
     }
 }
