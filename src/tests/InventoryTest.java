@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import sample.backend.Inventory;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class InventoryTest {
     private Inventory inventory;
@@ -29,6 +29,27 @@ public class InventoryTest {
         inventory.addToInventory("Tomato", 950);
         assertEquals(950, inventory.getQuantity("Tomato"));
     }
+
+    @Test
+    public void testInventoryExceedCapacity() {
+        inventory.addToInventory("Corn", 1005);
+        assertEquals(0, inventory.getCurrOccupied());
+        assertFalse(inventory.getCurrOccupied() == 1005);
+    }
+
+    @Test
+    public void testRemoveAndAdd() {
+        inventory.addToInventory("Tractor", 950);
+        inventory.addToInventory("Corn", 30);
+        assertEquals(980, inventory.getCurrOccupied());
+        inventory.removeFromInventory("Tractor", 40);
+        inventory.removeFromInventory("Corn", 10);
+        assertTrue(inventory.getQuantity("Tractor") == 910);
+        assertTrue(inventory.getQuantity("Corn") == 20);
+        assertEquals(930, inventory.getCurrOccupied());
+    }
+
+
 
 
 
