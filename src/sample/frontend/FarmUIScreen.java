@@ -121,6 +121,7 @@ public class FarmUIScreen extends Application {
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
         nextDayButton.setOnAction(e -> {
             Date.nextDay();
+            PlotBackend.naturalEvent();
             for (int i = 0; i < 15; i++) {
                 int j = i / 5;
                 int k = i % 5;
