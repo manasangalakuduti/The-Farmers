@@ -18,7 +18,7 @@ public class Plot extends Button {
     private int waterLevel;
     private boolean wateredToday = false;
 
-    private boolean isFertilized;
+    private boolean isFertalized;
     private int harvestQuantity;
 
 
@@ -39,7 +39,7 @@ public class Plot extends Button {
         this.setPlotImage(status, seedType);
         this.statusUpdateTime = 0;
         this.waterLevel = 2;
-        this.isFertilized = false;
+        this.isFertalized = false;
         this.harvestQuantity = 3;
     }
 
@@ -177,11 +177,11 @@ public class Plot extends Button {
     private void setHarvestQuantity(int harvestQuantity) {
         this.harvestQuantity = harvestQuantity;
     }
-    public boolean getIsFertilized() {
-        return this.isFertilized;
+    public boolean getIsFertalized() {
+        return this.isFertalized;
     }
-    private void setIsFertilized(boolean isFertilized) {
-        this.isFertilized = isFertilized;
+    private void setIsFertilized(boolean isFertalized) {
+        this.isFertalized = isFertalized;
     }
 }
 
