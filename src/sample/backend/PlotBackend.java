@@ -4,7 +4,9 @@ import sample.frontend.Plot;
 
 import java.util.Map;
 
+
 public class PlotBackend {
+    private static String difficulty;
     private static Plot[][] plots = new Plot[3][5];
     private static Map<String, String> imageMap = Map.of("Dirt", "sample/media/dirt.png",
             "Seed", "sample/media/seed.png",
@@ -16,9 +18,35 @@ public class PlotBackend {
             "Dead", "sample/media/deadPlant.png"
     );
 
+    public static void setDifficulty(String diff) {
+        PlotBackend.difficulty = diff;
+    }
 
 
-
+    public static void naturalEvent() {
+        double num = Math.random(); //number between [0,1)
+        //event 1 - Locusts
+        switch (difficulty) {
+        case "easy" :
+            plots[0][0].setSeedStatus("Dead");
+            plots[0][0].setPlotImage();
+            break;
+        case "medium":
+            plots[0][1].setSeedStatus("Dead");
+            plots[0][0].setPlotImage();
+            break;
+        case "hard":
+            plots[0][2].setSeedStatus("Dead");
+            plots[0][0].setPlotImage();
+            break;
+        case "master":
+            plots[0][3].setSeedStatus("Dead");
+            plots[0][0].setPlotImage();
+            break;
+        default:
+            break;
+        }
+    }
 
 
     public static Plot getPlots(int i, int j) {
