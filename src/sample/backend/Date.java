@@ -8,6 +8,7 @@ public class Date {
 
     public static void nextDay() {
         date += 1;
+        StoreBackend.updatePrice();
     }
 
     public static String getSeason() {
