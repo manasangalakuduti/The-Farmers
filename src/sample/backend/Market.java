@@ -1,10 +1,12 @@
 package sample.backend;
+import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.Random;
 
 public class Market {
 
 
-    private String[] items = {"Tomato", "Soybeans", "Corn", "Peas", "SuperPower"};
+    //private String[] items = {"Tomato", "Soybeans", "Corn", "Peas", "SuperPower"};
     private HashMap<String, Double> itemPrice = new HashMap<String, Double>();
     private String season;
     private String difficulty;
@@ -12,13 +14,13 @@ public class Market {
     public Market(String difficulty) {
         this.season = Date.getSeason();
         this.difficulty = difficulty;
-        String[] items = {"Tomato", "Soybeans", "Corn", "Peas", "SuperPower"};
+        String[] items = {"Tomato", "Soybeans", "Corn", "Peas", "SuperPower", "Locusticide", "Fertilizer"};
         for (String item: items) {
             setPrice(item);
         }
     }
 
-    private void setPrice(String item) {
+    public void setPrice(String item) {
 
         // Declaring the factor variables
         double basePrice;
@@ -33,8 +35,8 @@ public class Market {
         case "Peas":
             basePrice = 2.0;
             break;
-        case "Trowel":
         case "Fertilizer":
+        case "Locusticide":
             basePrice = 5.0;
             break;
         case "SuperPower":
@@ -47,35 +49,36 @@ public class Market {
         // Setting the seasonFactor based on the current season
         switch (season) {  // Need to use currSeas method
         case "Fall":
-            seasonFactor = 1.5; // + Math.random(); // Gives # between 1.5 and 2.5
+            seasonFactor = 1.5 + Math.random(); // Gives # between 1.5 and 2.5
             break;
         case "Summer":
-            seasonFactor = 1; // + Math.random();   // Gives # between 1.0 and 2.0
+            seasonFactor = 1 + Math.random();   // Gives # between 1.0 and 2.0
             break;
         case "Spring":
-            seasonFactor = 0.5; // + Math.random(); // Gives # between 0.5 and 1.5
+            seasonFactor = 0.5 + Math.random(); // Gives # between 0.5 and 1.5
             break;
         default:
-            seasonFactor = 0.1; // + Math.random(); // Gives # between 0.0 and 1.0
+            seasonFactor = Math.random(); // Gives # between 0.0 and 1.0
             break;
         }
 
         // Setting the difficultyFactor based on the difficulty selected in the Configuration Screen
-        switch (difficulty) {
+        switch (this.difficulty) {
         case "Easy":
-            difficultyFactor = 75.0;
+            difficultyFactor = 12.5;
             break;
         case "Medium":
-            difficultyFactor = 25.0;
+            difficultyFactor = 10.0;
             break;
         case "Hard":
-            difficultyFactor = 50.0;
+            difficultyFactor = 7.5;
             break;
         default:
-            difficultyFactor = 20.0;
+            difficultyFactor = 3.0;
             break;
         }
-        itemPrice.put(item, basePrice * seasonFactor * difficultyFactor);
+        double finalPrice = basePrice * seasonFactor * difficultyFactor;
+        itemPrice.put(item, Math.ceil(finalPrice));
     }
 
     // Returns subtotal of certain item for a certain quantity
