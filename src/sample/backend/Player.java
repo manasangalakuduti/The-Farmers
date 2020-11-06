@@ -53,4 +53,8 @@ public class Player {
     public static String[] itemTypes() {
         return playerInventory.itemTypes();
     }
+
+    public static String[] getSpecialItemTypes() {
+        return playerInventory.getSpecialItemTypes();
+    }
 }

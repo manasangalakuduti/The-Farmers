@@ -9,6 +9,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.backend.Player;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 public class CropInfoScreen extends Application {
     private Plot plot;
@@ -66,7 +69,10 @@ public class CropInfoScreen extends Application {
 
         //Creates buttons to harvest, plant or water
         for (String type: Player.itemTypes()) {
-            if (!type.equals("SuperPower")) {
+            //if (!Player.getSpecialItemTypes().contains(type)) {
+            //"SuperPower", "Locusticide", "Fertilizer"
+            if (!type.equals("SuperPower") && !type.equals("Locusticide")
+                && !type.equals("Fertilizer")) {
                 String displayText = String.format("Plant %s (%d in bag)", type,
                         Player.getQuantityOf(type));
                 Button plantButton = new Button(displayText);
@@ -97,7 +103,6 @@ public class CropInfoScreen extends Application {
         }
 
         //Creates water button
-
         Button waterButton = new Button("Water");
         waterButton.setFont(new Font("Futura", 15));
         waterButton.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
@@ -116,6 +121,61 @@ public class CropInfoScreen extends Application {
                 }
             } else {
                 waterButton.setText("Already watered today!");
+            }
+        });
+
+        //Fertalizer button
+        Button fButton = new Button("Fertalize");
+        fButton.setFont(new Font("Futura", 15));
+        fButton.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
+                + "fx-border-radius: 20; -fx-background-radius: 10;");
+        fButton.setOnAction(e -> {
+            if (!this.plot.getSeedStatus().equals("Dirt")) {
+                if (Player.hasItem("Fertilizer")) {
+                    if (!this.plot.isFertalized()) {
+                        this.plot.setFertalized(true);
+                        Player.updateInventory("Fertilizer", -1);
+                        TransitionScene tScene = new TransitionScene();
+                        Stage tStage = new Stage();
+                        stage.close();
+                        try {
+                            tScene.start(tStage, "Fertilizer");
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        stage.close();
+                    } else {
+                        fButton.setText("ALready fertalized!");
+                    }
+                }
+            }
+        });
+
+
+        //Locust protext button
+        Button lButton = new Button("Locustisize");
+        lButton.setFont(new Font("Futura", 15));
+        lButton.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
+                + "fx-border-radius: 20; -fx-background-radius: 10;");
+        lButton.setOnAction(e -> {
+            if (!this.plot.getSeedStatus().equals("Dirt")) {
+                if (Player.hasItem("Locusticide")) {
+                    if (!this.plot.isProtected()) {
+                        this.plot.setProtected(true);
+                        Player.updateInventory("Locusticide", -1);
+                        TransitionScene tScene = new TransitionScene();
+                        Stage tStage = new Stage();
+                        stage.close();
+                        try {
+                            tScene.start(tStage, "Locusticide");
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        stage.close();
+                    } else {
+                        fButton.setText("ALready Locustesized!");
+                    }
+                }
             }
         });
 
@@ -145,7 +205,7 @@ public class CropInfoScreen extends Application {
         });
 
         rightSide.setSpacing(10);
-        rightSide.getChildren().addAll(waterButton, harvestButton);
+        rightSide.getChildren().addAll(waterButton, harvestButton, fButton, lButton);
         bPane.setRight(rightSide);
 
 
@@ -162,6 +222,4 @@ public class CropInfoScreen extends Application {
 
 
     }
-
-
 }
