@@ -21,7 +21,7 @@ public class TransitionScene extends Application {
     public void start(Stage stage, String sceneType) throws Exception {
         //Layout for Third Scene
         BorderPane bPane = new BorderPane();
-        stage.setTitle("Watering the plants...");
+        stage.setTitle(String.format("%s...", sceneType));
         scene = new Scene(bPane, 900, 600);
         if (sceneType.equals("Watering")) {
             bPane.setStyle("-fx-background-image: url(/sample/media/watering3.gif);"
@@ -48,10 +48,14 @@ public class TransitionScene extends Application {
                     + "-fx-background-size: 900px 600px;"
                     + "-fx-padding-top: 100%;");
             stage.setTitle("Powering up");
+        } else {
+            bPane.setStyle(String.format("-fx-background-image: url(/sample/media/%s.gif);", sceneType)
+                    + "-fx-background-size: 900px 600px;"
+                    + "-fx-padding-top: 100%;");
         }
         stage.setScene(scene);
         stage.show();
-        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(e -> {
             stage.close();
         });

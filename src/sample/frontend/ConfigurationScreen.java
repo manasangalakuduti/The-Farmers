@@ -20,7 +20,7 @@ public class ConfigurationScreen extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        
+
         //Layout for Second Scene
         StackPane root = new StackPane();
         stage.setTitle("Configuration Screen");
@@ -125,18 +125,18 @@ public class ConfigurationScreen extends Application {
                 PlotBackend.setDifficulty(choice);
                 double initialMoney = 0.0;
                 switch (choice) {
-                case "Easy":
-                    initialMoney = 1000.0;
-                    break;
-                case "Medium":
-                    initialMoney = 500.0;
-                    break;
-                case "Hard":
-                    initialMoney = 250.0;
-                    break;
-                default:
-                    initialMoney = 100.0;
-                    break;
+                    case "Easy":
+                        initialMoney = 1000.0;
+                        break;
+                    case "Medium":
+                        initialMoney = 500.0;
+                        break;
+                    case "Hard":
+                        initialMoney = 250.0;
+                        break;
+                    default:
+                        initialMoney = 100.0;
+                        break;
                 }
                 Market market = new Market(choice);
                 StoreBackend.initialize(market);

@@ -122,20 +122,13 @@ public class FarmUIScreen extends Application {
         nextDayButton.setOnAction(e -> {
             Date.nextDay();
             PlotBackend.naturalEvent();
+
             for (int i = 0; i < 15; i++) {
                 int j = i / 5;
                 int k = i % 5;
                 PlotBackend.setPlots(j, k, (Plot) plotFrame.getChildren().get(i));
             }
-
             plotFrame.getChildren().clear();
-            TransitionScene tScene = new TransitionScene();
-            Stage tStage = new Stage();
-            try {
-                tScene.start(tStage, "NextDay");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
 
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 3; j++) {

@@ -21,6 +21,8 @@ public class Plot extends Button {
     private boolean isFertalized;
     private int harvestQuantity;
 
+    private boolean isProtected;
+
 
     public Plot(int xIndex, int yIndex, String seedType, String status) {
         this.xIndex = xIndex;
@@ -38,14 +40,14 @@ public class Plot extends Button {
         this.status = status;
         this.setPlotImage(status, seedType);
         this.statusUpdateTime = 0;
-        this.waterLevel = 2;
+        this.waterLevel = 3;
         this.isFertalized = false;
         this.harvestQuantity = 3;
+        this.isProtected = false;
     }
 
 
     public void nextDay() {
-
         if (!this.status.equals("Dirt")) {
             if (!this.status.equals("Dead")) {
                 this.waterLevel--;
@@ -54,7 +56,7 @@ public class Plot extends Button {
                 this.status = "Dead";
             }
         }
-        if (Date.getDate() - statusUpdateTime > 1) {
+        if (Date.getDate() - statusUpdateTime > 1 || this.isFertalized) {
             if (this.status.equals("Seed")) {
                 this.status = "Immature";
             } else if (this.status.equals("Immature")) {
@@ -67,6 +69,7 @@ public class Plot extends Button {
                 this.status = "Dirt";
             }
             this.statusUpdateTime = Date.getDate();
+            this.isFertalized = false;
         }
     }
 
@@ -84,6 +87,12 @@ public class Plot extends Button {
         this.setPlotImage("Dirt", "Dirt");
         this.statusUpdateTime = Date.getDate();
         this.waterLevel = 0;
+        this.isFertalized = false;
+        this.isProtected = false;
+    }
+
+    public void protect() {
+        this.isProtected = true;
     }
 
     public void water() {
@@ -174,14 +183,23 @@ public class Plot extends Button {
     public int getHarvestQuantity() {
         return this.harvestQuantity;
     }
-    private void setHarvestQuantity(int harvestQuantity) {
+    public void setHarvestQuantity(int harvestQuantity) {
         this.harvestQuantity = harvestQuantity;
     }
-    public boolean getIsFertalized() {
+    public boolean isFertalized() {
         return this.isFertalized;
     }
-    private void setIsFertilized(boolean isFertalized) {
+    public void setFertalized(boolean isFertalized) {
         this.isFertalized = isFertalized;
+    }
+
+
+    public boolean isProtected() {
+        return this.isProtected;
+    }
+
+    public void setProtected(boolean aProtected) {
+        this.isProtected = aProtected;
     }
 }
 

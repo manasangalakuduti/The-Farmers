@@ -1,13 +1,17 @@
 package sample.backend;
 
+import javafx.stage.Stage;
 import sample.frontend.Plot;
+import sample.frontend.TransitionScene;
 
 import java.util.Map;
 
 
 public class PlotBackend {
-    private static String difficulty;
+    public static String difficulty;
     private static Plot[][] plots = new Plot[3][5];
+    private static double eventProbs[] = {0.1, 0.2, 0.3, 0.7};
+    private static double initProbs[] = {0.1, 0.2, 0.3, 0.7};
     private static Map<String, String> imageMap = Map.of("Dirt", "sample/media/dirt.png",
             "Seed", "sample/media/seed.png",
             "Tomato", "sample/media/tomato.jpg",
@@ -22,32 +26,110 @@ public class PlotBackend {
         PlotBackend.difficulty = diff;
     }
 
-
-    public static void naturalEvent() {
-        double num = Math.random(); //number between [0,1)
-        //event 1 - Locusts
-        switch (difficulty) {
-        case "easy" :
-            plots[0][0].setSeedStatus("Dead");
-            plots[0][0].setPlotImage();
-            break;
-        case "medium":
-            plots[0][1].setSeedStatus("Dead");
-            plots[0][0].setPlotImage();
-            break;
-        case "hard":
-            plots[0][2].setSeedStatus("Dead");
-            plots[0][0].setPlotImage();
-            break;
-        case "master":
-            plots[0][3].setSeedStatus("Dead");
-            plots[0][0].setPlotImage();
-            break;
-        default:
-            break;
+    private static void locust(int diff) {
+        System.out.println("LOCUSTS!");
+        int killCount = 0;
+        int numRounds = 0;
+        while (killCount < diff && numRounds < diff) {
+            for (int i = 0; i < plots.length; i++) {
+                for (int j = 0; j < plots[i].length; j++) {
+                    double chance = Math.random();
+                    if (chance < 0.5 && !(plots[i][j].getSeedStatus()).equals("Dirt")
+                            && !(plots[i][j].getSeedStatus()).equals("Dead")) {
+                        //protect the plant and still add to total if protected
+                        if (!(plots[i][j].isProtected())) {
+                            plots[i][j].setSeedStatus("Dead");
+                        }
+                        killCount++;
+                        if (killCount >= diff) {
+                            break;
+                        }
+                    }
+                }
+                numRounds++; //ensures it doesn't go on to infinity
+            }
         }
     }
 
+    private static void drought(int diff) {
+        int amount = (int)(1 + Math.random() * diff);
+        System.out.println("We are in a drought! Water level dropped by " + amount + " levels");
+        for (int i = 0; i < plots.length; i++) {
+            for (int j = 0; j < plots[i].length; j++) {
+                plots[i][j].setWaterLevel(Math.max(0, plots[i][j].getWaterStatus() - amount));
+            }
+        }
+    }
+    private static void rain(int diff) {
+        int amount = (int)(1 + Math.random() * diff);
+        System.out.println("A rainstorm passed by! Water level rose by " + amount + " levels");
+        for (int i = 0; i < plots.length; i++) {
+            for (int j = 0; j < plots[i].length; j++) {
+                plots[i][j].setWaterLevel(plots[i][j].getWaterStatus() + amount);
+            }
+        }
+    }
+
+    /**
+     * Tasks to do:
+     * Alert the player visually
+     */
+    public static void naturalEvent() {
+        double num = Math.random(); //number between [0,1)
+        int diffint;
+        switch (difficulty) {
+            case "Easy" :
+                diffint = 1;
+                break;
+            case "Medium":
+                diffint = 2;
+                break;
+            case "Hard":
+                diffint = 3;
+                break;
+            case "Master":
+                diffint = 4;
+                break;
+            default:
+                diffint = 0;
+                break;
+        } //set the difficulty level input in above switch statement
+
+
+        String eventRan = null;
+        //decide which event to run
+        if (num < PlotBackend.eventProbs[0]) {
+            eventRan = "locust";
+            locust(diffint);
+            PlotBackend.eventProbs = PlotBackend.initProbs.clone();
+        } else if (num >= PlotBackend.eventProbs[0] && num < PlotBackend.eventProbs[1]) {
+            eventRan = "drought";
+            drought(diffint);
+            PlotBackend.eventProbs = PlotBackend.initProbs.clone();
+        } else if (num >= PlotBackend.eventProbs[1] && num < PlotBackend.eventProbs[2]) {
+            eventRan = "rain";
+            rain(diffint);
+            PlotBackend.eventProbs = PlotBackend.initProbs.clone();
+        } else {
+            System.out.println("No events today!");
+            if (PlotBackend.eventProbs[3] >= 0.15) { //if no events occur, increase the chance of other events occuring
+                PlotBackend.eventProbs[3] -= 0.15;
+                for (int i = 0; i < 3; i++) {
+                    PlotBackend.eventProbs[i] += (i + 1) * 0.05;
+                }
+            }
+            eventRan = "NextDay";
+        }
+        if (eventRan != null) {
+            TransitionScene tScene = new TransitionScene();
+            Stage tStage = new Stage();
+            try {
+                tScene.start(tStage, eventRan);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
 
     public static Plot getPlots(int i, int j) {
         return plots[i][j];

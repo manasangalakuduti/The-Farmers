@@ -14,6 +14,9 @@ public class Inventory {
         "Peas", "SuperPower", "Locusticide", "Fertilizer"
     };
 
+    private static String[] specialItemTypes = {
+            "SuperPower", "Locusticide", "Fertilizer"
+    };
 
     private static HashSet<String> validItems =
             new HashSet<>(Arrays.asList(items));
@@ -76,6 +79,10 @@ public class Inventory {
     //Seed types, anything in inventory
     public String[] itemTypes() {
         return items;
+    }
+
+    public String[] getSpecialItemTypes() {
+        return specialItemTypes;
     }
     //Quantity of seeds, and anything in inventory
     public int[] quantities() {
