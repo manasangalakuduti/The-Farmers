@@ -26,8 +26,9 @@ public class PlotBackend {
         PlotBackend.difficulty = diff;
     }
 
-    private static void locust(int diff) {
+    private static String locust(int diff) {
         System.out.println("LOCUSTS!");
+        int trueKills = 0;
         int killCount = 0;
         int numRounds = 0;
         while (killCount < diff && numRounds < diff) {
@@ -39,6 +40,7 @@ public class PlotBackend {
                         //protect the plant and still add to total if protected
                         if (!(plots[i][j].isProtected())) {
                             plots[i][j].setSeedStatus("Dead");
+                            trueKills++;
                         }
                         killCount++;
                         if (killCount >= diff) {
@@ -49,9 +51,10 @@ public class PlotBackend {
                 numRounds++; //ensures it doesn't go on to infinity
             }
         }
+        return String.format("Locusts killed %d plants! ", trueKills);
     }
 
-    private static void drought(int diff) {
+    private static String drought(int diff) {
         int amount = (int)(1 + Math.random() * diff);
         System.out.println("We are in a drought! Water level dropped by " + amount + " levels");
         for (int i = 0; i < plots.length; i++) {
@@ -59,8 +62,9 @@ public class PlotBackend {
                 plots[i][j].setWaterLevel(Math.max(0, plots[i][j].getWaterStatus() - amount));
             }
         }
+        return String.format("Drought- water levels dropped by %d!! ", amount);
     }
-    private static void rain(int diff) {
+    private static String rain(int diff) {
         int amount = (int)(1 + Math.random() * diff);
         System.out.println("A rainstorm passed by! Water level rose by " + amount + " levels");
         for (int i = 0; i < plots.length; i++) {
@@ -68,12 +72,9 @@ public class PlotBackend {
                 plots[i][j].setWaterLevel(plots[i][j].getWaterStatus() + amount);
             }
         }
+        return String.format("Rain- water levels increased by %d!! ", amount);
     }
 
-    /**
-     * Tasks to do:
-     * Alert the player visually
-     */
     public static void naturalEvent() {
         double num = Math.random(); //number between [0,1)
         int diffint;
@@ -97,18 +98,19 @@ public class PlotBackend {
 
 
         String eventRan = null;
-        //decide which event to run
+        //decide which event to
+        String mText = null;
         if (num < PlotBackend.eventProbs[0]) {
             eventRan = "locust";
-            locust(diffint);
+            mText = locust(diffint);
             PlotBackend.eventProbs = PlotBackend.initProbs.clone();
         } else if (num >= PlotBackend.eventProbs[0] && num < PlotBackend.eventProbs[1]) {
             eventRan = "drought";
-            drought(diffint);
+            mText = drought(diffint);
             PlotBackend.eventProbs = PlotBackend.initProbs.clone();
         } else if (num >= PlotBackend.eventProbs[1] && num < PlotBackend.eventProbs[2]) {
             eventRan = "rain";
-            rain(diffint);
+            mText = rain(diffint);
             PlotBackend.eventProbs = PlotBackend.initProbs.clone();
         } else {
             System.out.println("No events today!");
@@ -124,7 +126,12 @@ public class PlotBackend {
             TransitionScene tScene = new TransitionScene();
             Stage tStage = new Stage();
             try {
-                tScene.start(tStage, eventRan);
+                if (mText != null) {
+                    tScene.start(tStage, eventRan, mText);
+                    System.out.println("Working");
+                } else {
+                    tScene.start(tStage, eventRan);
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
