@@ -1,8 +1,8 @@
 package sample.backend;
 
-import sample.frontend.ConfigurationScreen;
+//import sample.frontend.ConfigurationScreen;
 
-import java.util.HashMap;
+//import java.util.HashMap;
 
 public class StoreBackend {
     private static Inventory storeInventory;
