@@ -14,9 +14,7 @@ public class Inventory {
         "Peas", "SuperPower", "Locusticide", "Fertilizer"
     };
 
-    private static String[] specialItemTypes = {
-            "SuperPower", "Locusticide", "Fertilizer"
-    };
+    private static String[] specialItemTypes = {"SuperPower", "Locusticide", "Fertilizer"};
 
     private static HashSet<String> validItems =
             new HashSet<>(Arrays.asList(items));
