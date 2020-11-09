@@ -26,7 +26,7 @@ public class PlotBackend {
         PlotBackend.difficulty = diff;
     }
 
-    private static String locust(int diff) {
+    public static String locust(int diff) {
         System.out.println("LOCUSTS!");
         int trueKills = 0;
         int killCount = 0;
@@ -51,10 +51,10 @@ public class PlotBackend {
                 numRounds++; //ensures it doesn't go on to infinity
             }
         }
-        return String.format("Locusts killed %d plants! ", trueKills);
+        return String.format("Locusts killed %d plants!", trueKills);
     }
 
-    private static String drought(int diff) {
+    public static String drought(int diff) {
         int amount = (int)(1 + Math.random() * diff);
         System.out.println("We are in a drought! Water level dropped by " + amount + " levels");
         for (int i = 0; i < plots.length; i++) {
@@ -64,7 +64,7 @@ public class PlotBackend {
         }
         return String.format("Drought- water levels dropped by %d!! ", amount);
     }
-    private static String rain(int diff) {
+    public static String rain(int diff) {
         int amount = (int)(1 + Math.random() * diff);
         System.out.println("A rainstorm passed by! Water level rose by " + amount + " levels");
         for (int i = 0; i < plots.length; i++) {
