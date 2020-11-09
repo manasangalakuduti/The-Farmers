@@ -1,7 +1,7 @@
 package sample.backend;
-import java.text.DecimalFormat;
+//import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.Random;
+//import java.util.Random;
 
 public class Market {
 
@@ -14,7 +14,8 @@ public class Market {
     public Market(String difficulty) {
         this.season = Date.getSeason();
         this.difficulty = difficulty;
-        String[] items = {"Tomato", "Soybeans", "Corn", "Peas", "SuperPower", "Locusticide", "Fertilizer"};
+        String[] items =
+            {"Tomato", "Soybeans", "Corn", "Peas", "SuperPower", "Locusticide", "Fertilizer"};
         for (String item: items) {
             setPrice(item);
         }

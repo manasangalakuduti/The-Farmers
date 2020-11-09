@@ -9,8 +9,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.backend.Player;
 
-import java.util.HashSet;
-import java.util.Set;
+//import java.util.HashSet;
+//import java.util.Set;
 
 
 public class CropInfoScreen extends Application {
@@ -70,7 +70,8 @@ public class CropInfoScreen extends Application {
         VBox leftSide = new VBox();
         leftSide.setSpacing(20);
 
-        leftSide.getChildren().addAll(currentCrop, currentStatus, waterStatus, fStatus, pStatus, closeButton);
+        leftSide.getChildren().addAll(currentCrop, currentStatus,
+                waterStatus, fStatus, pStatus, closeButton);
         bPane.setLeft(leftSide);
 
         VBox rightSide = new VBox();
