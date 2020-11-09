@@ -30,6 +30,8 @@ public class CropInfoScreen extends Application {
         Button currentStatus = new Button(this.plot.getSeedStatus());
         Button name = new Button("Player Name: " + Player.getName());
         Button waterStatus = new Button("Water status: " + this.plot.getWaterStatus());
+        Button fStatus = new Button("Fertilizer applied: " + this.plot.isFertalized());
+        Button pStatus = new Button("Locusticide applied: " + this.plot.isProtected());
 
         currentCrop.setFont(new Font("Futura", 15));
         currentCrop.setStyle("-fx-background-color: #98c1d9; -fx-text-fill: black;"
@@ -43,6 +45,15 @@ public class CropInfoScreen extends Application {
         waterStatus.setFont(new Font("Futura", 15));
         waterStatus.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
+
+        fStatus.setFont(new Font("Futura", 15));
+        fStatus.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
+                + "fx-border-radius: 20; -fx-background-radius: 10;");
+
+        pStatus.setFont(new Font("Futura", 15));
+        pStatus.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
+                + "fx-border-radius: 20; -fx-background-radius: 10;");
+
 
         Button closeButton = new Button("Close");
         closeButton.setStyle("-fx-background-color: #f4a261; -fx-text-fill: black;"
@@ -59,7 +70,7 @@ public class CropInfoScreen extends Application {
         VBox leftSide = new VBox();
         leftSide.setSpacing(20);
 
-        leftSide.getChildren().addAll(currentCrop, currentStatus, waterStatus, closeButton);
+        leftSide.getChildren().addAll(currentCrop, currentStatus, waterStatus, fStatus, pStatus, closeButton);
         bPane.setLeft(leftSide);
 
         VBox rightSide = new VBox();
