@@ -32,6 +32,8 @@ public class PlotTest {
         obj.setSeedType("Tomato");
         assertEquals("Tomato", obj.getSeedType());
     }
+
+
     @Test
     public void testPlotLocations() {
         assertEquals(1, obj.getxIndex());
@@ -41,6 +43,7 @@ public class PlotTest {
         assertEquals(4, obj.getxIndex());
         assertEquals(5, obj.getyIndex());
     }
+
 
     @Test
     public void testWater() {
@@ -117,12 +120,10 @@ public class PlotTest {
         assertEquals(PlotBackend.getPlots(1, 1).getSeedStatus(), "Dead");
     }
 
-
     @Test
     public void plotLocust() {
         String result = PlotBackend.locust(0);
         assertEquals(result, "Locusts killed 0 plants!");
     }
-
 
 }
