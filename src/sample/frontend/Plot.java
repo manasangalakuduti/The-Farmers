@@ -24,6 +24,7 @@ public class Plot extends Button {
     private boolean isProtected;
 
 
+
     public Plot(int xIndex, int yIndex, String seedType, String status) {
         this.xIndex = xIndex;
         this.yIndex = yIndex;
@@ -44,6 +45,7 @@ public class Plot extends Button {
         this.isFertalized = false;
         this.harvestQuantity = 3;
         this.isProtected = false;
+
     }
 
 
@@ -89,6 +91,7 @@ public class Plot extends Button {
         this.waterLevel = 0;
         this.isFertalized = false;
         this.isProtected = false;
+        this.harvestQuantity = 3;
     }
 
     public void protect() {

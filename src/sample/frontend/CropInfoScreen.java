@@ -146,6 +146,10 @@ public class CropInfoScreen extends Application {
                 if (Player.hasItem("Fertilizer")) {
                     if (!this.plot.isFertalized()) {
                         this.plot.setFertalized(true);
+                        double chance = Math.random();
+                        if (chance > 0.5) {
+                            this.plot.setHarvestQuantity(this.plot.getHarvestQuantity() + 1);
+                        }
                         Player.updateInventory("Fertilizer", -1);
                         TransitionScene tScene = new TransitionScene();
                         Stage tStage = new Stage();
@@ -174,6 +178,7 @@ public class CropInfoScreen extends Application {
                 if (Player.hasItem("Locusticide")) {
                     if (!this.plot.isProtected()) {
                         this.plot.setProtected(true);
+                        this.plot.setHarvestQuantity(this.plot.getHarvestQuantity() - 1);
                         Player.updateInventory("Locusticide", -1);
                         TransitionScene tScene = new TransitionScene();
                         Stage tStage = new Stage();
