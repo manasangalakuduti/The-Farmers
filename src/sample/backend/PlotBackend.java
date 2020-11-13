@@ -1,14 +1,16 @@
 package sample.backend;
 
 import javafx.stage.Stage;
+import sample.frontend.FarmUIScreen;
 import sample.frontend.Plot;
 import sample.frontend.TransitionScene;
 
 import java.util.Map;
+import java.util.Random;
 
 
 public class PlotBackend {
-    public static String difficulty;
+    private static String difficulty;
     private static Plot[][] plots = new Plot[3][5];
     private static double[] eventProbs = {0.1, 0.2, 0.3, 0.7};
     private static double[] initProbs = {0.1, 0.2, 0.3, 0.7};
@@ -19,8 +21,12 @@ public class PlotBackend {
             "Soybeans", "sample/media/beans.png",
             "Corn", "sample/media/corn.png",
             "Plant", "sample/media/plant.jpg",
-            "Dead", "sample/media/deadPlant.png"
+            "Dead", "sample/media/deadPlant.png",
+            "Empty", "sample/media/Empty.jpg"
+
     );
+    private static int purchasedPlots = 0;
+    private static FarmUIScreen fScreen;
 
     public static void setDifficulty(String diff) {
         PlotBackend.difficulty = diff;
@@ -136,6 +142,48 @@ public class PlotBackend {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public static int getPurchasedPlots() {
+        int count = 0;
+        for (int i = 0; i < plots.length; i++) {
+            for (int j = 0; j < plots[i].length; j++) {
+                if (plots[i][j].isPurchased()) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public static void setNewPlot(int i, int j) {
+        Random rand = new Random();
+        int n = rand.nextInt(4);
+        int m = rand.nextInt(3);
+        String initialStatus;
+        if (m == 0) {
+            initialStatus = "Seed";
+        } else if (m == 1) {
+            initialStatus = "Immature";
+        } else {
+            initialStatus = "Mature";
+        }
+        Plot newPlot = new Plot(i, j, Player.itemTypes()[n], initialStatus);
+        plots[i][j] = newPlot;
+
+    }
+
+
+    public static int getPlotPrice() {
+        return 80 * getPurchasedPlots();
+    }
+
+    public static void setFarmScreen(FarmUIScreen fScreenSet) {
+        fScreen = fScreenSet;
+    }
+
+    public static FarmUIScreen getFarmScreen() {
+        return fScreen;
     }
 
     public static Plot getPlots(int i, int j) {

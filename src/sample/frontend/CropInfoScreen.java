@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import sample.backend.Player;
+import sample.backend.PlotBackend;
 
 //import java.util.HashSet;
 //import java.util.Set;
@@ -22,9 +23,7 @@ public class CropInfoScreen extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
         BorderPane bPane = new BorderPane();
-
         //Show current crop info
         Button currentCrop = new Button(this.plot.getSeedType());
         Button currentStatus = new Button(this.plot.getSeedStatus());
@@ -32,7 +31,6 @@ public class CropInfoScreen extends Application {
         Button waterStatus = new Button("Water status: " + this.plot.getWaterStatus());
         Button fStatus = new Button("Fertilizer applied: " + this.plot.isFertalized());
         Button pStatus = new Button("Locusticide applied: " + this.plot.isProtected());
-
         currentCrop.setFont(new Font("Futura", 15));
         currentCrop.setStyle("-fx-background-color: #98c1d9; -fx-text-fill: black;"
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
@@ -45,15 +43,12 @@ public class CropInfoScreen extends Application {
         waterStatus.setFont(new Font("Futura", 15));
         waterStatus.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
-
         fStatus.setFont(new Font("Futura", 15));
         fStatus.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
-
         pStatus.setFont(new Font("Futura", 15));
         pStatus.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
-
 
         Button closeButton = new Button("Close");
         closeButton.setStyle("-fx-background-color: #f4a261; -fx-text-fill: black;"
@@ -69,11 +64,8 @@ public class CropInfoScreen extends Application {
         name.setFont(new Font("Futura", 20));
         VBox leftSide = new VBox();
         leftSide.setSpacing(20);
-
-        leftSide.getChildren().addAll(currentCrop, currentStatus,
-                waterStatus, fStatus, pStatus, closeButton);
+        leftSide.getChildren().addAll(currentCrop, currentStatus, waterStatus, fStatus, pStatus, closeButton);
         bPane.setLeft(leftSide);
-
         VBox rightSide = new VBox();
 
 
@@ -114,7 +106,8 @@ public class CropInfoScreen extends Application {
             }
         }
 
-        //Creates water button
+
+        // Creates water button
         Button waterButton = new Button("Water");
         waterButton.setFont(new Font("Futura", 15));
         waterButton.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
@@ -146,6 +139,10 @@ public class CropInfoScreen extends Application {
                 if (Player.hasItem("Fertilizer")) {
                     if (!this.plot.isFertalized()) {
                         this.plot.setFertalized(true);
+                        double chance = Math.random();
+                        if (chance > 0.5) {
+                            this.plot.setHarvestQuantity(this.plot.getHarvestQuantity() + 1);
+                        }
                         Player.updateInventory("Fertilizer", -1);
                         TransitionScene tScene = new TransitionScene();
                         Stage tStage = new Stage();
@@ -174,6 +171,7 @@ public class CropInfoScreen extends Application {
                 if (Player.hasItem("Locusticide")) {
                     if (!this.plot.isProtected()) {
                         this.plot.setProtected(true);
+                        this.plot.setHarvestQuantity(this.plot.getHarvestQuantity() - 1);
                         Player.updateInventory("Locusticide", -1);
                         TransitionScene tScene = new TransitionScene();
                         Stage tStage = new Stage();
@@ -191,6 +189,7 @@ public class CropInfoScreen extends Application {
             }
         });
 
+        //Harvest button
         Button harvestButton = new Button("Harvest");
         harvestButton.setFont(new Font("Futura", 15));
         harvestButton.setStyle("-fx-background-color: #2a9d8f; -fx-text-fill: black;"
@@ -216,8 +215,51 @@ public class CropInfoScreen extends Application {
             }
         });
 
+        //Creates purchase plot button button
+        Button purchasePlot = new Button(String.format("Purchase Plot: %d", PlotBackend.getPlotPrice()));
+        purchasePlot.setFont(new Font("Futura", 15));
+        purchasePlot.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
+                + "fx-border-radius: 20; -fx-background-radius: 10;");
+        purchasePlot.setOnAction(e -> {
+            if (!this.plot.isPurchased() && Player.updateBalance(PlotBackend.getPlotPrice())) {
+                this.plot.purchaseLand();
+                TransitionScene tScene = new TransitionScene();
+                Stage tStage = new Stage();
+                stage.close();
+                try {
+                    tScene.start(tStage, "pgif");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        //Creates sell plot button button
+        Button sellPlot = new Button(String.format("Sell Plot: %d", PlotBackend.getPlotPrice()));
+        sellPlot.setFont(new Font("Futura", 15));
+        sellPlot.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
+                + "fx-border-radius: 20; -fx-background-radius: 10;");
+        sellPlot.setOnAction(e -> {
+            if (this.plot.isPurchased() && Player.updateBalance(-PlotBackend.getPlotPrice())) {
+                this.plot.sellLand();
+                TransitionScene tScene = new TransitionScene();
+                Stage tStage = new Stage();
+                stage.close();
+                try {
+                    tScene.start(tStage, "sgif");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+
         rightSide.setSpacing(10);
-        rightSide.getChildren().addAll(waterButton, harvestButton, fButton, lButton);
+        if (this.plot.isPurchased()) {
+            rightSide.getChildren().addAll(waterButton, harvestButton, fButton, lButton, sellPlot);
+        } else {
+            rightSide.getChildren().add(purchasePlot);
+        }
         bPane.setRight(rightSide);
 
 
