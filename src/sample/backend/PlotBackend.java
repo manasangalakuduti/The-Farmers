@@ -12,8 +12,8 @@ import java.util.Random;
 public class PlotBackend {
     private static String difficulty;
     private static Plot[][] plots = new Plot[3][5];
-    private static double eventProbs[] = {0.1, 0.2, 0.3, 0.7};
-    private static double initProbs[] = {0.1, 0.2, 0.3, 0.7};
+    private static double[] eventProbs = {0.1, 0.2, 0.3, 0.7};
+    private static double[] initProbs = {0.1, 0.2, 0.3, 0.7};
     private static Map<String, String> imageMap = Map.of("Dirt", "sample/media/dirt.png",
             "Seed", "sample/media/seed.png",
             "Tomato", "sample/media/tomato.jpg",
@@ -61,7 +61,7 @@ public class PlotBackend {
     }
 
     public static String drought(int diff) {
-        int amount = (int)(1 + Math.random() * diff);
+        int amount = (int) (1 + Math.random() * diff);
         System.out.println("We are in a drought! Water level dropped by " + amount + " levels");
         for (int i = 0; i < plots.length; i++) {
             for (int j = 0; j < plots[i].length; j++) {
@@ -71,7 +71,7 @@ public class PlotBackend {
         return String.format("Drought- water levels dropped by %d!! ", amount);
     }
     public static String rain(int diff) {
-        int amount = (int)(1 + Math.random() * diff);
+        int amount = (int) (1 + Math.random() * diff);
         System.out.println("A rainstorm passed by! Water level rose by " + amount + " levels");
         for (int i = 0; i < plots.length; i++) {
             for (int j = 0; j < plots[i].length; j++) {
@@ -85,21 +85,21 @@ public class PlotBackend {
         double num = Math.random(); //number between [0,1)
         int diffint;
         switch (difficulty) {
-            case "Easy" :
-                diffint = 1;
-                break;
-            case "Medium":
-                diffint = 2;
-                break;
-            case "Hard":
-                diffint = 3;
-                break;
-            case "Master":
-                diffint = 4;
-                break;
-            default:
-                diffint = 0;
-                break;
+        case "Easy" :
+            diffint = 1;
+            break;
+        case "Medium":
+            diffint = 2;
+            break;
+        case "Hard":
+            diffint = 3;
+            break;
+        case "Master":
+            diffint = 4;
+            break;
+        default:
+            diffint = 0;
+            break;
         } //set the difficulty level input in above switch statement
 
 
@@ -120,7 +120,7 @@ public class PlotBackend {
             PlotBackend.eventProbs = PlotBackend.initProbs.clone();
         } else {
             System.out.println("No events today!");
-            if (PlotBackend.eventProbs[3] >= 0.15) { //if no events occur, increase the chance of other events occuring
+            if (PlotBackend.eventProbs[3] >= 0.15) { //if no events, increase chance
                 PlotBackend.eventProbs[3] -= 0.15;
                 for (int i = 0; i < 3; i++) {
                     PlotBackend.eventProbs[i] += (i + 1) * 0.05;

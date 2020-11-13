@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sample.backend.Player;
+//import sample.backend.Player;
 
 
 public class TransitionScene extends Application {
@@ -52,7 +52,8 @@ public class TransitionScene extends Application {
                     + "-fx-padding-top: 100%;");
             stage.setTitle("Powering up");
         } else {
-            bPane.setStyle(String.format("-fx-background-image: url(/sample/media/%s.gif);", sceneType)
+            bPane.setStyle(String.format("-fx-background-image: url(/sample/media/%s.gif);",
+                    sceneType)
                     + "-fx-background-size: 900px 600px;"
                     + "-fx-padding-top: 100%;");
         }
@@ -106,7 +107,8 @@ public class TransitionScene extends Application {
                     + "-fx-padding-top: 100%;");
             stage.setTitle("Powering up");
         } else {
-            bPane.setStyle(String.format("-fx-background-image: url(/sample/media/%s.gif);", sceneType)
+            bPane.setStyle(String.format("-fx-background-image: url(/sample/media/%s.gif);",
+                    sceneType)
                     + "-fx-background-size: 900px 600px;"
                     + "-fx-padding-top: 100%;");
         }

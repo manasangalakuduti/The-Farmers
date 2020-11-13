@@ -21,7 +21,7 @@ public class PlotTest {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 5; j++) {
                 Plot plot = new Plot(i, j, "Tomato", "Immature");
-                PlotBackend.setPlots(i,j, plot);
+                PlotBackend.setPlots(i, j, plot);
             }
         }
     }
