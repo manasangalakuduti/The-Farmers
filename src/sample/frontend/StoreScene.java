@@ -165,7 +165,7 @@ public class StoreScene extends Application {
         });
 
         stage.setScene(scene4);
-        stage.show();
+        stage.showAndWait();
 
     }
 }

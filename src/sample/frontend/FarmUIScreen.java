@@ -17,6 +17,10 @@ import java.util.Random;
 public class FarmUIScreen extends Application {
 
     private Scene scene3;
+    public void start() throws Exception {
+        start(new Stage());
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("FarmUI Screen");
@@ -86,35 +90,26 @@ public class FarmUIScreen extends Application {
         plotFrame.setAlignment(Pos.BOTTOM_CENTER);
         plotFrame.setPadding(new Insets(50, 50, 50, 50));
 
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 3; j++) {
-
-                Random rand = new Random();
-                int n = rand.nextInt(4);
-                int m = rand.nextInt(3);
-                String initialStatus;
-
-                if (m == 0) {
-                    initialStatus = "Seed";
-                } else if (m == 1) {
-                    initialStatus = "Immature";
+        for (int i = 0; i < 3; i++) {
+            System.out.println("-------");
+            for (int j = 0; j < 5; j++) {
+                System.out.printf("Setting i at %d and j at %d\n", i, j);
+                if (PlotBackend.getPlots(i, j) == null) {
+                    PlotBackend.setNewPlot(i, j);
                 } else {
-                    initialStatus = "Mature";
+                    System.out.println("Fucl");
                 }
-
-                Plot newPlot = new Plot(i, j, Player.itemTypes()[n], initialStatus);
-                PlotBackend.setPlots(j, i, newPlot);
-
+                Plot newPlot = PlotBackend.getPlots(i, j);
                 plotFrame.getChildren().addAll(newPlot);
-                plotFrame.setRowIndex(newPlot, j);
-                plotFrame.setColumnIndex(newPlot, i);
+                plotFrame.setRowIndex(newPlot, i);
+                plotFrame.setColumnIndex(newPlot, j);
                 newPlot.setMinHeight(30);
                 newPlot.setMinWidth(60);
                 newPlot.setMaxHeight(30);
                 newPlot.setMaxWidth(60);
-
             }
         }
+
 
         Button nextDayButton = new Button("Next day");
         nextDayButton.setStyle("-fx-background-color: #f4a261; -fx-text-fill: black;"
@@ -122,14 +117,12 @@ public class FarmUIScreen extends Application {
         nextDayButton.setOnAction(e -> {
             Date.nextDay();
             PlotBackend.naturalEvent();
-
             for (int i = 0; i < 15; i++) {
                 int j = i / 5;
                 int k = i % 5;
                 PlotBackend.setPlots(j, k, (Plot) plotFrame.getChildren().get(i));
             }
             plotFrame.getChildren().clear();
-
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 3; j++) {
                     Plot plot = PlotBackend.getPlots(j, i);
@@ -143,6 +136,7 @@ public class FarmUIScreen extends Application {
             leftSide.getChildren().removeAll(currentDate, seasonLabel);
             currentDate.setText("Current day: " + Date.getDate());
             seasonLabel.setText("Season: " + Date.getSeason());
+            moneys.setText("Balance: $" + Math.round(Player.getBalance()));
             leftSide.getChildren().addAll(currentDate, seasonLabel);
         });
 
@@ -194,6 +188,7 @@ public class FarmUIScreen extends Application {
         rightSide.setAlignment(Pos.TOP_RIGHT);
         rightSide.getChildren().addAll(nextDayButton, storeButton,
                 inventoryButton, returnButton, superpowerButton);
+        PlotBackend.setFarmScreen(this);
 
         bPane.setCenter(plotFrame);
         bPane.setLeft(leftSide);
@@ -209,6 +204,5 @@ public class FarmUIScreen extends Application {
                 + "fx-border-radius: 10; -fx-background-radius: 10;", color));
         return helperButton;
     }
-
 
 }
