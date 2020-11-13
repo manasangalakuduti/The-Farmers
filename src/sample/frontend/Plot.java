@@ -6,6 +6,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.backend.Date;
+import sample.backend.Player;
 import sample.backend.PlotBackend;
 
 
@@ -22,36 +23,60 @@ public class Plot extends Button {
     private int harvestQuantity;
 
     private boolean isProtected;
+    private boolean isPurchased;
 
 
 
     public Plot(int xIndex, int yIndex, String seedType, String status) {
-        this.xIndex = xIndex;
-        this.yIndex = yIndex;
-        this.seedType = seedType;
-        this.setOnAction(e -> {
-            Stage cropStage = new Stage();
-            CropInfoScreen c = new CropInfoScreen(this);
-            try {
-                c.start(cropStage);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
-        this.status = status;
-        this.setPlotImage(status, seedType);
-        this.statusUpdateTime = 0;
-        this.waterLevel = 3;
-        this.isFertalized = false;
-        this.harvestQuantity = 3;
-        this.isProtected = false;
-
+        if (xIndex< 3) {
+            this.isPurchased = true;
+            this.xIndex = xIndex;
+            this.yIndex = yIndex;
+            this.seedType = seedType;
+            this.setOnAction(e -> {
+                Stage cropStage = new Stage();
+                CropInfoScreen c = new CropInfoScreen(this);
+                try {
+                    c.start(cropStage);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            });
+            this.status = status;
+            this.setPlotImage(status, seedType);
+            this.statusUpdateTime = 0;
+            this.waterLevel = 3;
+            this.isFertalized = false;
+            this.harvestQuantity = 3;
+            this.isProtected = false;
+        } else {
+            this.isPurchased = false;
+            this.xIndex = xIndex;
+            this.yIndex = yIndex;
+            this.seedType = "Unpurchased land";
+            this.setOnAction(e -> {
+                Stage cropStage = new Stage();
+                CropInfoScreen c = new CropInfoScreen(this);
+                try {
+                    c.start(cropStage);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            });
+            this.status = "Dead";
+            this.setPlotImage(status, seedType);
+            this.statusUpdateTime = 0;
+            this.waterLevel = 0;
+            this.isFertalized = false;
+            this.harvestQuantity = 0;
+            this.isProtected = false;
+        }
     }
 
 
     public void nextDay() {
         if (!this.status.equals("Dirt")) {
-            if (!this.status.equals("Dead")) {
+            if (!this.status.equals("Dead") && this.isPurchased) {
                 this.waterLevel--;
             }
             if (this.waterLevel < 1 || this.waterLevel > 5) {
@@ -104,7 +129,9 @@ public class Plot extends Button {
 
     public void setPlotImage(String status, String seedType) {
         String toSet;
-        if (status.equals("Dirt")) {
+        if (!this.isPurchased) {
+            toSet = "Empty";
+        } else if (status.equals("Dirt")) {
             toSet  = "Dirt";
         } else if (status.equals("Seed")) {
             toSet  = "Seed";
@@ -115,7 +142,7 @@ public class Plot extends Button {
         } else {
             toSet = seedType;
         }
-
+        System.out.println(toSet);
         Image image = new Image(PlotBackend.getImageMap().get(toSet),
                 this.getWidth(), this.getHeight(),
                 false, true, true);
@@ -130,6 +157,46 @@ public class Plot extends Button {
 
     public void setPlotImage() {
         setPlotImage(status, seedType);
+    }
+
+    public void purchaseLand() {
+        if (!this.isPurchased) {
+            this.isPurchased = true;
+            this.seedType = "Dirt";
+            this.status = "Dirt";
+            this.setPlotImage(this.status, this.seedType);
+            this.statusUpdateTime = 0;
+            this.waterLevel = 0;
+            this.isFertalized = false;
+            this.harvestQuantity = 0;
+            this.isProtected = false;
+            try {
+                PlotBackend.getFarmScreen().stop();
+                PlotBackend.getFarmScreen().start();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public void sellLand() {
+        if (this.isPurchased) {
+            this.isPurchased = false;
+            this.seedType = "Unpurchased land";
+            this.status = "Dead";
+            this.setPlotImage(this.status, this.seedType);
+            this.statusUpdateTime = 0;
+            this.waterLevel = 0;
+            this.isFertalized = false;
+            this.harvestQuantity = 0;
+            this.isProtected = false;
+            try {
+                PlotBackend.getFarmScreen().stop();
+                PlotBackend.getFarmScreen().start();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
 
@@ -203,6 +270,14 @@ public class Plot extends Button {
 
     public void setProtected(boolean aProtected) {
         this.isProtected = aProtected;
+    }
+
+    public boolean isPurchased() {
+        return this.isPurchased;
+    }
+
+    public void setPurchased(boolean purchased) {
+        this.isPurchased = purchased;
     }
 }
 
