@@ -6,7 +6,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.backend.Date;
-import sample.backend.Player;
 import sample.backend.PlotBackend;
 
 
@@ -28,7 +27,7 @@ public class Plot extends Button {
 
 
     public Plot(int xIndex, int yIndex, String seedType, String status) {
-        if (xIndex< 3) {
+        if (xIndex < 3) {
             this.isPurchased = true;
             this.xIndex = xIndex;
             this.yIndex = yIndex;

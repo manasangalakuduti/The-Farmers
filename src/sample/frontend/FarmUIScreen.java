@@ -1,5 +1,4 @@
 package sample.frontend;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,7 +11,6 @@ import javafx.stage.Stage;
 import sample.backend.Date;
 import sample.backend.Player;
 import sample.backend.PlotBackend;
-import java.util.Random;
 
 public class FarmUIScreen extends Application {
 
@@ -205,4 +203,39 @@ public class FarmUIScreen extends Application {
         return helperButton;
     }
 
+    public static boolean endGame() {
+        double balance = Player.getBalance();
+        Plot[][] plots = PlotBackend.plots;
+        for (int i = 0; i < plots.length; i++) {
+            for (int j = 0; j < plots[i].length; j++) {
+                if (Player.getQuantityOf("Superpower") == 0
+                        && (plots[i][j].getSeedStatus().equals("Mature")
+                        || plots[i][j].getSeedStatus().equals("Immature")
+                        || plots[i][j].getSeedStatus().equals("Seed"))) {
+                    return false;
+                }
+            }
+        }
+        if (balance > 0) {
+            return false;
+        }
+        return true;
+       
+    }
+
+    public static boolean winGame() {
+        Plot[][] plots = PlotBackend.plots;
+        double balance = Player.getBalance();
+        int quantity = Player.getQuantityOf("Tomato") + Player.getQuantityOf("Soybeans")
+                + Player.getQuantityOf("Corn") + Player.getQuantityOf("Peas");
+        for (int i = 0; i < plots.length; i++) {
+            for (int j = 0; j < plots[i].length; j++) {
+                if (!(plots[i][j].getSeedStatus().equals("Dead")) && (quantity >= 10)
+                        && (balance > 0) && (Player.getQuantityOf("Superpower") != 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
