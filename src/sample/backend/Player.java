@@ -89,12 +89,12 @@ public class Player {
         currHarvest--;
     }
     public static void resetWaterHarvest() {
-        if (Date.getDate()%2 == 1) { //replace with the condition of "has irrigation or not"
+        if (playerInventory.hasItem("Irrigation")) {
             currWater = limWaterIrrigate;
         } else {
             currWater = limWater;
         }
-        if (Date.getDate()%3 == 2) { //replace with the condition of "has tractor or not"
+        if (playerInventory.hasItem("Tractor")) {
             currHarvest = limHarvestTractor;
         } else {
             currHarvest = limHarvest;

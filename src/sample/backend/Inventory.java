@@ -11,7 +11,8 @@ public class Inventory {
     private int currOccupied;
     private static String[] items = {"Tomato", "Soybeans",
         "Corn",
-        "Peas", "SuperPower", "Locusticide", "Fertilizer"
+        "Peas", "SuperPower", "Locusticide", "Fertilizer", "Tractor",
+            "Irrigation"
     };
 
     private static String[] specialItemTypes = {"SuperPower", "Locusticide", "Fertilizer"};
