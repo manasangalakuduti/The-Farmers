@@ -1,5 +1,9 @@
 package sample.backend;
 
+//import sample.frontend.ConfigurationScreen;
+
+//import java.util.HashMap;
+
 public class StoreBackend {
     private static Inventory storeInventory;
     private static Market market;
@@ -53,6 +57,13 @@ public class StoreBackend {
         for (String item : storeInventory.itemTypes()) {
             storeInventory.addToInventory(item, -1 * storeInventory.getQuantity(item));
             storeInventory.addToInventory(item, 10 + (int) (Math.random() * 30));
+        }
+    }
+
+    // Method called in nextDay() to update the price (for variance) every day
+    public static void updatePrice() {
+        for (String s: market.getItemPrice().keySet()) {
+            market.setPrice(s);
         }
     }
 }

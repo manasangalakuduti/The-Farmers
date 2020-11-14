@@ -11,10 +11,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import javafx.scene.control.Button;
-import sample.backend.Market;
-import sample.backend.Date;
-import sample.backend.Player;
-import sample.backend.StoreBackend;
+import sample.backend.*;
 
 
 public class ConfigurationScreen extends Application {
@@ -23,7 +20,7 @@ public class ConfigurationScreen extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        
+
         //Layout for Second Scene
         StackPane root = new StackPane();
         stage.setTitle("Configuration Screen");
@@ -125,6 +122,7 @@ public class ConfigurationScreen extends Application {
             if (validation == "") {
                 Stage s1 = new Stage();
                 String choice = difficulty.getValue();
+                PlotBackend.setDifficulty(choice);
                 double initialMoney = 0.0;
                 switch (choice) {
                 case "Easy":
