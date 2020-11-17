@@ -34,11 +34,17 @@ public class Market {
         case "Soybeans":
         case "Corn":
         case "Peas":
-            basePrice = 2.0;
+            basePrice = 1.2;
             break;
         case "Fertilizer":
         case "Locusticide":
-            basePrice = 5.0;
+            basePrice = 4.0;
+            break;
+        case "Irrigation":
+            basePrice = 5.2;
+            break;
+        case "Tractor":
+            basePrice = 6.2;
             break;
         case "SuperPower":
             basePrice = 10.0;
