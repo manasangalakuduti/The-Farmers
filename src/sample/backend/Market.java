@@ -65,7 +65,7 @@ public class Market {
             seasonFactor = 0.5 + Math.random(); // Gives # between 0.5 and 1.5
             break;
         default:
-            seasonFactor = Math.random(); // Gives # between 0.0 and 1.0
+            seasonFactor = Math.random() + 0.1; // Gives # between 0.1 and 1.1
             break;
         }
 
