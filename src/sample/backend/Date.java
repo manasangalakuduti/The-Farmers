@@ -5,7 +5,6 @@ public class Date {
     private static String season = "Fall";
     private static int date = 0;
 
-
     public static void nextDay() {
         date += 1;
         StoreBackend.updatePrice();
