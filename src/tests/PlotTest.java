@@ -4,7 +4,6 @@ import javafx.embed.swing.JFXPanel;
 import org.junit.Before;
 import org.junit.Test;
 import sample.backend.PlotBackend;
-import sample.frontend.FarmUIScreen;
 import sample.frontend.Plot;
 
 import static org.junit.Assert.assertEquals;
