@@ -64,7 +64,8 @@ public class CropInfoScreen extends Application {
         name.setFont(new Font("Futura", 20));
         VBox leftSide = new VBox();
         leftSide.setSpacing(20);
-        leftSide.getChildren().addAll(currentCrop, currentStatus, waterStatus, fStatus, pStatus, closeButton);
+        leftSide.getChildren().addAll(currentCrop, currentStatus,
+                waterStatus, fStatus, pStatus, closeButton);
         bPane.setLeft(leftSide);
         VBox rightSide = new VBox();
 
@@ -76,7 +77,7 @@ public class CropInfoScreen extends Application {
             //if (!Player.getSpecialItemTypes().contains(type)) {
             //"SuperPower", "Locusticide", "Fertilizer"
             if (!type.equals("SuperPower") && !type.equals("Locusticide")
-                && !type.equals("Fertilizer")) {
+                    && !type.equals("Fertilizer")) {
                 String displayText = String.format("Plant %s (%d in bag)", type,
                         Player.getQuantityOf(type));
                 Button plantButton = new Button(displayText);
@@ -216,7 +217,9 @@ public class CropInfoScreen extends Application {
         });
 
         //Creates purchase plot button button
-        Button purchasePlot = new Button(String.format("Purchase Plot: %d", PlotBackend.getPlotPrice()));
+        Button purchasePlot =
+                new Button(String.format("Purchase Plot: %d",
+                        PlotBackend.getPlotPrice()));
         purchasePlot.setFont(new Font("Futura", 15));
         purchasePlot.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
