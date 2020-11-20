@@ -114,6 +114,7 @@ public class FarmUIScreen extends Application {
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
         nextDayButton.setOnAction(e -> {
             Date.nextDay();
+            Player.resetWaterHarvest();
             if (FarmUIScreen.endGame()) {
                 EndScreen endScene = new EndScreen();
                 Stage s = new Stage();

@@ -115,15 +115,18 @@ public class CropInfoScreen extends Application {
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
         waterButton.setOnAction(e -> {
             if (!this.plot.getWateredToday()) {
-                this.plot.water();
-                this.plot.setWateredToday(true);
-                TransitionScene tScene = new TransitionScene();
-                Stage tStage = new Stage();
-                stage.close();
-                try {
-                    tScene.start(tStage, "Watering");
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                if (Player.getCurrWater() > 0) {
+                    this.plot.water();
+                    this.plot.setWateredToday(true);
+                    TransitionScene tScene = new TransitionScene();
+                    Stage tStage = new Stage();
+                    stage.close();
+                    try {
+                        tScene.start(tStage, "Watering");
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    Player.water();
                 }
             } else {
                 waterButton.setText("Already watered today!");
@@ -198,17 +201,20 @@ public class CropInfoScreen extends Application {
         harvestButton.setOnAction(e -> {
             if (this.plot.getSeedStatus().equals("Mature")) {
                 if (Player.hasRoom(1)) {
-                    Player.updateInventory(this.plot.getSeedType(), this.plot.getHarvestQuantity());
-                    this.plot.clear();
-                    TransitionScene tScene = new TransitionScene();
-                    Stage tStage = new Stage();
-                    stage.close();
-                    try {
-                        tScene.start(tStage, "Harvest");
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                    if (Player.getCurrHarvest() > 0) {
+                        Player.updateInventory(this.plot.getSeedType(), this.plot.getHarvestQuantity());
+                        this.plot.clear();
+                        TransitionScene tScene = new TransitionScene();
+                        Stage tStage = new Stage();
+                        stage.close();
+                        try {
+                            tScene.start(tStage, "Harvest");
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        stage.close();
+                        Player.harvest();
                     }
-                    stage.close();
                 }
             } else if (this.plot.getSeedStatus().equals("Dead")) {
                 this.plot.clear();
