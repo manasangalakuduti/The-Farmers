@@ -3,8 +3,11 @@ package sample.frontend;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import sample.backend.Player;
 
 public class WinScreen extends Application {
 
@@ -13,16 +16,27 @@ public class WinScreen extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         //First Scene - Layout
         stage.setTitle("You Win!");
 
         //Setting up GridPane
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        grid.setVgap(8);
-        grid.setHgap(10);
-        Stage s = new Stage();
-        Scene scene = new Scene(grid, X_WIDTH, Y_WIDTH);
+        BorderPane bPane = new BorderPane();
+        bPane.setPadding(new Insets(10, 10, 10, 10));
+
+
+        bPane.setStyle("-fx-background-image: url(/sample/media/farm.png);"
+                + "-fx-background-size: 900px 600px;"
+                + "-fx-padding-top: 100%;");
+        Button moneys = new Button("You won!!!!!");
+        moneys.setStyle(String.format("-fx-background-color: #%s; -fx-text-fill: black;"
+                + "fx-border-radius: 10; -fx-background-radius: 10;", "75c69d"));
+        bPane.setCenter(moneys);
+
+
+
+
+        Scene scene = new Scene(bPane, X_WIDTH, Y_WIDTH);
         stage.setScene(scene);
         stage.show();
 

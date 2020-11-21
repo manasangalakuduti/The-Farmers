@@ -1,12 +1,18 @@
 
 package sample.frontend;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.io.File;
 
 
 
@@ -15,11 +21,16 @@ public class Main extends Application {
     private Scene scene2;
     public static final int X_WIDTH = 900;
     public static final int Y_WIDTH = 600;
-
+    Media media;
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+
+
+
+
         //First Scene - Layout
         primaryStage.setTitle("The Farmers");
 
@@ -36,7 +47,7 @@ public class Main extends Application {
         button1.setOnAction(e -> {
             try {
                 c.start(s);
-                primaryStage.close();
+                //primaryStage.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -60,6 +71,18 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        String db = getHostServices().getDocumentBase();
+        media = new Media(db+"/src/sample/media/test.mp3");
+
+        MediaPlayer mediaPlayer=new MediaPlayer(media);
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run(){
+                mediaPlayer.seek(Duration.ZERO);
+                mediaPlayer.play();
+            }
+        });
+        mediaPlayer.play();
     }
 
 
