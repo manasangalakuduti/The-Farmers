@@ -60,7 +60,7 @@ public class FarmUIScreen extends Application {
                 s.start(storeStage);
                 leftSide.getChildren().removeAll(moneys, currentDate, seasonLabel);
                 moneys.setText("Balance: $" + Math.round(Player.getBalance()));
-                currentDate.setText("Current day" + Date.getDate());
+                currentDate.setText("Current day: " + Date.getDate());
                 seasonLabel.setText("Season: " + Date.getSeason());
                 leftSide.getChildren().addAll(currentDate, seasonLabel, moneys);
 
@@ -207,11 +207,32 @@ public class FarmUIScreen extends Application {
 
 
 
+        Button bombButton = this.getButton("Bomb Farm", "75c69d");
+        bombButton.setMinWidth(80);
+        bombButton.setOnAction(e -> {
+            Stage storeStage = new Stage();
+            TransitionScene tScene = new TransitionScene();
+            Stage tStage = new Stage();
+            EndScreen s = new EndScreen();
+            try {
+                s.start(storeStage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            try {
+                tScene.start(tStage, "bomb");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+
+
         VBox rightSide = new VBox();
         rightSide.setSpacing(20);
         rightSide.setAlignment(Pos.TOP_RIGHT);
         rightSide.getChildren().addAll(nextDayButton, storeButton,
-                inventoryButton, returnButton, superpowerButton);
+                inventoryButton, returnButton, superpowerButton, bombButton);
         PlotBackend.setFarmScreen(this);
 
         bPane.setCenter(plotFrame);

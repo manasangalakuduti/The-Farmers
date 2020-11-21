@@ -77,7 +77,7 @@ public class CropInfoScreen extends Application {
             //if (!Player.getSpecialItemTypes().contains(type)) {
             //"SuperPower", "Locusticide", "Fertilizer"
             if (!type.equals("SuperPower") && !type.equals("Locusticide")
-                    && !type.equals("Fertilizer")) {
+                    && !type.equals("Fertilizer") && !type.equals("Tractor") && !type.equals("Irrigation")) {
                 String displayText = String.format("Plant %s (%d in bag)", type,
                         Player.getQuantityOf(type));
                 Button plantButton = new Button(displayText);
