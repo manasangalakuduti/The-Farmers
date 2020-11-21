@@ -113,48 +113,55 @@ public class FarmUIScreen extends Application {
         nextDayButton.setStyle("-fx-background-color: #f4a261; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
         nextDayButton.setOnAction(e -> {
+            boolean gameOver = false;
             Date.nextDay();
             Player.resetWaterHarvest();
             if (FarmUIScreen.endGame()) {
+                gameOver = true;
                 EndScreen endScene = new EndScreen();
                 Stage s = new Stage();
                 try {
                     endScene.start(s);
+                    stage.close();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             } else if (FarmUIScreen.winGame()) {
+                gameOver = true;
                 System.out.println("You won");
                 WinScreen winScene = new WinScreen();
                 Stage s = new Stage();
                 try {
                     winScene.start(s);
+                    stage.close();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
-            PlotBackend.naturalEvent();
-            for (int i = 0; i < 15; i++) {
-                int j = i / 5;
-                int k = i % 5;
-                PlotBackend.setPlots(j, k, (Plot) plotFrame.getChildren().get(i));
-            }
-            plotFrame.getChildren().clear();
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 3; j++) {
-                    Plot plot = PlotBackend.getPlots(j, i);
-                    plot.nextDay();
-                    plot.setPlotImage();
-                    plot.setWateredToday(false);
-                    plotFrame.getChildren().add(plot);
+            if (!gameOver) {
+                PlotBackend.naturalEvent();
+                for (int i = 0; i < 15; i++) {
+                    int j = i / 5;
+                    int k = i % 5;
+                    PlotBackend.setPlots(j, k, (Plot) plotFrame.getChildren().get(i));
                 }
+                plotFrame.getChildren().clear();
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        Plot plot = PlotBackend.getPlots(j, i);
+                        plot.nextDay();
+                        plot.setPlotImage();
+                        plot.setWateredToday(false);
+                        plotFrame.getChildren().add(plot);
+                    }
+                }
+                bPane.setCenter(plotFrame);
+                leftSide.getChildren().removeAll(currentDate, seasonLabel);
+                currentDate.setText("Current day: " + Date.getDate());
+                seasonLabel.setText("Season: " + Date.getSeason());
+                moneys.setText("Balance: $" + Math.round(Player.getBalance()));
+                leftSide.getChildren().addAll(currentDate, seasonLabel);
             }
-            bPane.setCenter(plotFrame);
-            leftSide.getChildren().removeAll(currentDate, seasonLabel);
-            currentDate.setText("Current day: " + Date.getDate());
-            seasonLabel.setText("Season: " + Date.getSeason());
-            moneys.setText("Balance: $" + Math.round(Player.getBalance()));
-            leftSide.getChildren().addAll(currentDate, seasonLabel);
         });
 
 
@@ -259,6 +266,9 @@ public class FarmUIScreen extends Application {
                     return false;
                 }
             }
+        }
+        if (Player.getQuantityOf("SuperPower") < 1) {
+            return false;
         }
         return true;
     }
