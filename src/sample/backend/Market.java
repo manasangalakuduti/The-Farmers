@@ -15,7 +15,8 @@ public class Market {
         this.season = Date.getSeason();
         this.difficulty = difficulty;
         String[] items =
-            {"Tomato", "Soybeans", "Corn", "Peas", "SuperPower", "Locusticide", "Fertilizer", "Tractor", "Irrigation"};
+            {"Tomato", "Soybeans", "Corn", "Peas", "SuperPower",
+                "Locusticide", "Fertilizer", "Tractor", "Irrigation"};
         for (String item: items) {
             setPrice(item);
         }

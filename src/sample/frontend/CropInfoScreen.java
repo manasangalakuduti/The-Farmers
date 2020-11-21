@@ -115,7 +115,7 @@ public class CropInfoScreen extends Application {
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
         waterButton.setOnAction(e -> {
             if (!this.plot.getWateredToday()) {
-                if (Player.getCurrWater() <= 0){
+                if (Player.getCurrWater() <= 0) {
                     waterButton.setText("Water limit reached!");
                 } else if (Player.getCurrWater() > 0) {
                     this.plot.water();
@@ -202,11 +202,12 @@ public class CropInfoScreen extends Application {
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
         harvestButton.setOnAction(e -> {
             if (this.plot.getSeedStatus().equals("Mature")) {
-                if (Player.getCurrHarvest() <= 0){
+                if (Player.getCurrHarvest() <= 0) {
                     harvestButton.setText("Harvest limit reached!");
                 } else if (Player.hasRoom(1)) {
                     if (Player.getCurrHarvest() > 0) {
-                        Player.updateInventory(this.plot.getSeedType(), this.plot.getHarvestQuantity());
+                        Player.updateInventory(this.plot.getSeedType(),
+                                this.plot.getHarvestQuantity());
                         this.plot.clear();
                         TransitionScene tScene = new TransitionScene();
                         Stage tStage = new Stage();
