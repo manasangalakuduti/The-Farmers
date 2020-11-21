@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
+
 
 
 
@@ -68,12 +68,12 @@ public class Main extends Application {
         primaryStage.show();
 
         String db = getHostServices().getDocumentBase();
-        media = new Media(db+"/src/sample/media/test.mp3");
+        media = new Media(db + "/src/sample/media/test.mp3");
 
-        MediaPlayer mediaPlayer=new MediaPlayer(media);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setOnEndOfMedia(new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 mediaPlayer.seek(Duration.ZERO);
                 mediaPlayer.play();
             }
