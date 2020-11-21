@@ -24,7 +24,6 @@ public class EndScreen extends Application {
         BorderPane bPane = new BorderPane();
         bPane.setPadding(new Insets(10, 10, 10, 10));
 
-
         bPane.setStyle("-fx-background-image: url(/sample/media/farm.png);"
                 + "-fx-background-size: 900px 600px;"
                 + "-fx-padding-top: 100%;");
@@ -33,18 +32,9 @@ public class EndScreen extends Application {
                 + "fx-border-radius: 10; -fx-background-radius: 10;", "B53737"));
         bPane.setCenter(moneys);
 
-
-
-
         Scene scene = new Scene(bPane, X_WIDTH, Y_WIDTH);
         stage.setScene(scene);
         stage.show();
-
-
-
-
-
-
 
 
     }
