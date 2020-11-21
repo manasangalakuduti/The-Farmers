@@ -5,9 +5,9 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+
 import javafx.stage.Stage;
-import sample.backend.Player;
+
 
 public class WinScreen extends Application {
 

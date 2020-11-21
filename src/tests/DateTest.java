@@ -19,7 +19,7 @@ public class DateTest {
     @Test
     public void testTimestamp() {
         //int currY = time.getDate().getDayOfYear();
-        assertEquals(1, Date.getDate());
+        assertEquals(0, Date.getDate());
     }
 
     @Test
