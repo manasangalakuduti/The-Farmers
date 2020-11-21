@@ -21,4 +21,6 @@ public class Date {
     public static void setSeason(String startingSeason) {
         season = startingSeason;
     }
+
+    public static void resetDate() {date = 0;}
 }

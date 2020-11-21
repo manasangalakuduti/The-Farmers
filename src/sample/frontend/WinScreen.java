@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 
 import javafx.stage.Stage;
+import sample.backend.Date;
+import sample.backend.PlotBackend;
 
 
 public class WinScreen extends Application {
@@ -25,14 +27,37 @@ public class WinScreen extends Application {
         bPane.setPadding(new Insets(10, 10, 10, 10));
 
 
-        bPane.setStyle("-fx-background-image: url(/sample/media/farm.png);"
+        bPane.setStyle("-fx-background-image: url(/sample/media/winning.gif);"
                 + "-fx-background-size: 900px 600px;"
                 + "-fx-padding-top: 100%;");
+        stage.setTitle("Winner!");
+
         Button moneys = new Button("You won!!!!!");
         moneys.setStyle(String.format("-fx-background-color: #%s; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;", "75c69d"));
         bPane.setCenter(moneys);
 
+
+        Button resetButton = new Button("New game");
+        resetButton.setStyle(String.format("-fx-background-color: #%s; -fx-text-fill: black;"
+                + "fx-border-radius: 10; -fx-background-radius: 10;", "75c69d"));
+        resetButton.setOnAction(e -> {
+            Stage returnStage = new Stage();
+            ConfigurationScreen c = new ConfigurationScreen();
+
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 5; j++) {
+                    PlotBackend.setNewPlot(i, j);
+                }
+            }
+            Date.resetDate();
+            try {
+                c.start(returnStage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+        bPane.setBottom(resetButton);
 
 
 
