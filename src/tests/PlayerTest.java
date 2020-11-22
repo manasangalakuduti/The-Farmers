@@ -15,28 +15,11 @@ public class PlayerTest {
     public void setup() {
         Player.initialize("Manley", 1000);
         Player.updateInventory("Corn", 20);
-        Market m = new Market("Spring");
-        StoreBackend.initialize(m);
-        StoreBackend.restock();
     }
 
-    @Test
-    public void testSellSuccess() {
-
-        Player.initialize("Bob", 33.35);
-        String item = "Tomato";
-        assertEquals(false, StoreBackend.purchase(item, 3));
-    }
 
     //test for limit on irrigation and harvest
 
-    @Test
-    public void populatePlayerInventoryTest() {
-        Player.initialize("Manley", 1000);
-        StoreBackend.purchase("Soybeans", 15);
-        assertEquals(15, Player.getQuantityOf("Soybeans"));
-
-    }
 
     @Test
     public void regLimits() {
@@ -44,21 +27,57 @@ public class PlayerTest {
         assertEquals(5, Player.getCurrWater());
     }
 
+
     @Test
     public void maximizeYieldAndWaterTest() {
-        Player.initialize("Tracty Tractor and Eerie Irrigation", 1000);
-        StoreBackend.purchase("Tractor", 1);
-        StoreBackend.purchase("Irrigation", 1);
+        Player.updateInventory("Tractor", 1);
+        Player.updateInventory("Irrigation", 1);
         Player.resetWaterHarvest();
         assertEquals(6, Player.getCurrHarvest());
         assertEquals(10, Player.getCurrWater());
     }
 
     @Test
-    public void testPlayerBoughtTooMuch() {
-        Player.initialize("Extreme Consumer", 1000);
-        StoreBackend.purchase("Corn", 10000);
-        assertNotEquals(20, Player.getQuantityOf("Corn"));
+    public void testHarvest() {
+        Player.resetWaterHarvest();
+        Player.harvest();
+        assertEquals(1, Player.getCurrHarvest());
+        Player.harvest();
+        assertEquals(0, Player.getCurrHarvest());
+        Player.harvest();
+        assertEquals(0, Player.getCurrHarvest());
+    }
+
+    @Test
+    public void testWater() {
+        Player.resetWaterHarvest();
+        Player.water();
+        assertEquals(4, Player.getCurrWater());
+        Player.water();
+        assertEquals(3, Player.getCurrWater());
+        Player.water();
+        assertEquals(2, Player.getCurrWater());
+
+    }
+
+    @Test
+    public void testHarvestTooMuch() {
+        Player.resetWaterHarvest();
+        for (int i = 1; i <= 20; i++) {
+            Player.harvest();
+        }
+        assertNotEquals(-18, Player.getCurrHarvest());
+        assertEquals(0, Player.getCurrHarvest());
+    }
+
+    @Test
+    public void testWaterTooMuch() {
+        Player.resetWaterHarvest();
+        for (int i = 1; i <= 20; i++) {
+            Player.water();
+        }
+        assertNotEquals(-15, Player.getCurrWater());
+        assertEquals(0, Player.getCurrWater());
     }
 
 
