@@ -108,7 +108,10 @@ public class CropInfoScreen extends Application {
         }
 
 
+
         // Creates water button
+
+        //this is annoying
         Button waterButton = new Button(String.format("Water (%d left today)", Player.getCurrWater()));
         waterButton.setFont(new Font("Futura", 15));
         waterButton.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
