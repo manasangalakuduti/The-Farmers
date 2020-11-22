@@ -64,7 +64,8 @@ public class CropInfoScreen extends Application {
         name.setFont(new Font("Futura", 20));
         VBox leftSide = new VBox();
         leftSide.setSpacing(20);
-        leftSide.getChildren().addAll(currentCrop, currentStatus, waterStatus, fStatus, pStatus, closeButton);
+        leftSide.getChildren().addAll(currentCrop, currentStatus,
+                waterStatus, fStatus, pStatus, closeButton);
         bPane.setLeft(leftSide);
         VBox rightSide = new VBox();
 
@@ -76,7 +77,7 @@ public class CropInfoScreen extends Application {
             //if (!Player.getSpecialItemTypes().contains(type)) {
             //"SuperPower", "Locusticide", "Fertilizer"
             if (!type.equals("SuperPower") && !type.equals("Locusticide")
-                && !type.equals("Fertilizer")) {
+                    && !type.equals("Fertilizer") && !type.equals("Tractor") && !type.equals("Irrigation")) {
                 String displayText = String.format("Plant %s (%d in bag)", type,
                         Player.getQuantityOf(type));
                 Button plantButton = new Button(displayText);
@@ -114,15 +115,20 @@ public class CropInfoScreen extends Application {
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
         waterButton.setOnAction(e -> {
             if (!this.plot.getWateredToday()) {
-                this.plot.water();
-                this.plot.setWateredToday(true);
-                TransitionScene tScene = new TransitionScene();
-                Stage tStage = new Stage();
-                stage.close();
-                try {
-                    tScene.start(tStage, "Watering");
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                if (Player.getCurrWater() <= 0) {
+                    waterButton.setText("Water limit reached!");
+                } else if (Player.getCurrWater() > 0) {
+                    this.plot.water();
+                    this.plot.setWateredToday(true);
+                    TransitionScene tScene = new TransitionScene();
+                    Stage tStage = new Stage();
+                    stage.close();
+                    try {
+                        tScene.start(tStage, "Watering");
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    Player.water();
                 }
             } else {
                 waterButton.setText("Already watered today!");
@@ -196,18 +202,24 @@ public class CropInfoScreen extends Application {
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
         harvestButton.setOnAction(e -> {
             if (this.plot.getSeedStatus().equals("Mature")) {
-                if (Player.hasRoom(1)) {
-                    Player.updateInventory(this.plot.getSeedType(), this.plot.getHarvestQuantity());
-                    this.plot.clear();
-                    TransitionScene tScene = new TransitionScene();
-                    Stage tStage = new Stage();
-                    stage.close();
-                    try {
-                        tScene.start(tStage, "Harvest");
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
+                if (Player.getCurrHarvest() <= 0) {
+                    harvestButton.setText("Harvest limit reached!");
+                } else if (Player.hasRoom(1)) {
+                    if (Player.getCurrHarvest() > 0) {
+                        Player.updateInventory(this.plot.getSeedType(),
+                                this.plot.getHarvestQuantity());
+                        this.plot.clear();
+                        TransitionScene tScene = new TransitionScene();
+                        Stage tStage = new Stage();
+                        stage.close();
+                        try {
+                            tScene.start(tStage, "Harvest");
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        stage.close();
+                        Player.harvest();
                     }
-                    stage.close();
                 }
             } else if (this.plot.getSeedStatus().equals("Dead")) {
                 this.plot.clear();
@@ -216,7 +228,9 @@ public class CropInfoScreen extends Application {
         });
 
         //Creates purchase plot button button
-        Button purchasePlot = new Button(String.format("Purchase Plot: %d", PlotBackend.getPlotPrice()));
+        Button purchasePlot =
+                new Button(String.format("Purchase Plot: %d",
+                        PlotBackend.getPlotPrice()));
         purchasePlot.setFont(new Font("Futura", 15));
         purchasePlot.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
                 + "fx-border-radius: 20; -fx-background-radius: 10;");

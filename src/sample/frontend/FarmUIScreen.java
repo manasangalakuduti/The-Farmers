@@ -1,5 +1,4 @@
 package sample.frontend;
-
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,7 +11,6 @@ import javafx.stage.Stage;
 import sample.backend.Date;
 import sample.backend.Player;
 import sample.backend.PlotBackend;
-import java.util.Random;
 
 public class FarmUIScreen extends Application {
 
@@ -62,7 +60,7 @@ public class FarmUIScreen extends Application {
                 s.start(storeStage);
                 leftSide.getChildren().removeAll(moneys, currentDate, seasonLabel);
                 moneys.setText("Balance: $" + Math.round(Player.getBalance()));
-                currentDate.setText("Current day" + Date.getDate());
+                currentDate.setText("Current day: " + Date.getDate());
                 seasonLabel.setText("Season: " + Date.getSeason());
                 leftSide.getChildren().addAll(currentDate, seasonLabel, moneys);
 
@@ -115,29 +113,55 @@ public class FarmUIScreen extends Application {
         nextDayButton.setStyle("-fx-background-color: #f4a261; -fx-text-fill: black;"
                 + "fx-border-radius: 10; -fx-background-radius: 10;");
         nextDayButton.setOnAction(e -> {
+            boolean gameOver = false;
             Date.nextDay();
-            PlotBackend.naturalEvent();
-            for (int i = 0; i < 15; i++) {
-                int j = i / 5;
-                int k = i % 5;
-                PlotBackend.setPlots(j, k, (Plot) plotFrame.getChildren().get(i));
-            }
-            plotFrame.getChildren().clear();
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 3; j++) {
-                    Plot plot = PlotBackend.getPlots(j, i);
-                    plot.nextDay();
-                    plot.setPlotImage();
-                    plot.setWateredToday(false);
-                    plotFrame.getChildren().add(plot);
+            Player.resetWaterHarvest();
+            if (FarmUIScreen.endGame()) {
+                gameOver = true;
+                EndScreen endScene = new EndScreen();
+                Stage s = new Stage();
+                try {
+                    endScene.start(s);
+                    stage.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            } else if (FarmUIScreen.winGame()) {
+                gameOver = true;
+                System.out.println("You won");
+                WinScreen winScene = new WinScreen();
+                Stage s = new Stage();
+                try {
+                    winScene.start(s);
+                    stage.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
-            bPane.setCenter(plotFrame);
-            leftSide.getChildren().removeAll(currentDate, seasonLabel);
-            currentDate.setText("Current day: " + Date.getDate());
-            seasonLabel.setText("Season: " + Date.getSeason());
-            moneys.setText("Balance: $" + Math.round(Player.getBalance()));
-            leftSide.getChildren().addAll(currentDate, seasonLabel);
+            if (!gameOver) {
+                PlotBackend.naturalEvent();
+                for (int i = 0; i < 15; i++) {
+                    int j = i / 5;
+                    int k = i % 5;
+                    PlotBackend.setPlots(j, k, (Plot) plotFrame.getChildren().get(i));
+                }
+                plotFrame.getChildren().clear();
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        Plot plot = PlotBackend.getPlots(j, i);
+                        plot.nextDay();
+                        plot.setPlotImage();
+                        plot.setWateredToday(false);
+                        plotFrame.getChildren().add(plot);
+                    }
+                }
+                bPane.setCenter(plotFrame);
+                leftSide.getChildren().removeAll(currentDate, seasonLabel);
+                currentDate.setText("Current day: " + Date.getDate());
+                seasonLabel.setText("Season: " + Date.getSeason());
+                moneys.setText("Balance: $" + Math.round(Player.getBalance()));
+                leftSide.getChildren().addAll(currentDate, seasonLabel);
+            }
         });
 
 
@@ -183,11 +207,32 @@ public class FarmUIScreen extends Application {
 
 
 
+        Button bombButton = this.getButton("Bomb Farm", "75c69d");
+        bombButton.setMinWidth(80);
+        bombButton.setOnAction(e -> {
+            Stage storeStage = new Stage();
+            TransitionScene tScene = new TransitionScene();
+            Stage tStage = new Stage();
+            EndScreen s = new EndScreen();
+            try {
+                s.start(storeStage);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            try {
+                tScene.start(tStage, "bomb");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+
+
         VBox rightSide = new VBox();
         rightSide.setSpacing(20);
         rightSide.setAlignment(Pos.TOP_RIGHT);
         rightSide.getChildren().addAll(nextDayButton, storeButton,
-                inventoryButton, returnButton, superpowerButton);
+                inventoryButton, returnButton, superpowerButton, bombButton);
         PlotBackend.setFarmScreen(this);
 
         bPane.setCenter(plotFrame);
@@ -205,4 +250,47 @@ public class FarmUIScreen extends Application {
         return helperButton;
     }
 
+    public static boolean endGame() {
+        double balance = Player.getBalance();
+        Plot[][] plots = PlotBackend.plots;
+        for (int i = 0; i < plots.length; i++) {
+            for (int j = 0; j < plots[i].length; j++) {
+                if (balance > 10
+                    && (plots[i][j].getSeedStatus().equals("Mature")
+                    || plots[i][j].getSeedStatus().equals("Immature")
+                    || plots[i][j].getSeedStatus().equals("Seed"))) {
+                    return false;
+                } else if (balance <= 10 && (plots[i][j].getSeedStatus().equals("Mature")
+                    || plots[i][j].getSeedStatus().equals("Immature")
+                    || plots[i][j].getSeedStatus().equals("Seed"))) {
+                    return false;
+                } else if (balance > 10 && !(plots[i][j].getSeedStatus().equals("Mature")
+                    || plots[i][j].getSeedStatus().equals("Immature")
+                    || plots[i][j].getSeedStatus().equals("Seed"))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+       
+    }
+
+    public static boolean winGame() {
+        Plot[][] plots = PlotBackend.plots;
+        double balance = Player.getBalance();
+        int quantity = Player.getQuantityOf("Tomato") + Player.getQuantityOf("Soybeans")
+                + Player.getQuantityOf("Corn") + Player.getQuantityOf("Peas");
+        for (int i = 0; i < plots.length; i++) {
+            for (int j = 0; j < plots[i].length; j++) {
+                if (quantity < 10 && balance <= 10
+                        && Player.getQuantityOf("Superpower") == 0) {
+                    return false;
+                }
+            }
+        }
+        if (Player.getQuantityOf("SuperPower") < 1) {
+            return false;
+        }
+        return true;
+    }
 }

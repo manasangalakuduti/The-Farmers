@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class PlotBackend {
     private static String difficulty;
-    private static Plot[][] plots = new Plot[3][5];
+    public static Plot[][] plots = new Plot[3][5];
     private static double[] eventProbs = {0.1, 0.2, 0.3, 0.7};
     private static double[] initProbs = {0.1, 0.2, 0.3, 0.7};
     private static Map<String, String> imageMap = Map.of("Dirt", "sample/media/dirt.png",

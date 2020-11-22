@@ -9,9 +9,12 @@ import static org.junit.Assert.assertEquals;
 
 public class FarmUITest {
     //private Player obj;
+
+    private Date time;
     @Before
     public void setup() {
         Player.initialize("Bob", 33.01);
+        time = new Date();
     }
 
     @Test
@@ -39,8 +42,8 @@ public class FarmUITest {
 
     @Test
     public void testCurrentDate() {
-        Date.nextDay();
-        assertEquals(1, Date.getDate());
+        time.nextDay();
+        assertEquals(1, time.getDate());
     }
 
 }
