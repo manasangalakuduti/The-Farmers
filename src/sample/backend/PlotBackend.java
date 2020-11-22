@@ -169,9 +169,13 @@ public class PlotBackend {
             initialStatus = "Mature";
         }
         Plot newPlot = new Plot(i, j, Player.itemTypes()[n], initialStatus);
+        if (j > 3) {
+            newPlot.emptyLand();
+        }
         plots[i][j] = newPlot;
-
     }
+
+
 
 
     public static int getPlotPrice() {
