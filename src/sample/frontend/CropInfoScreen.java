@@ -108,8 +108,11 @@ public class CropInfoScreen extends Application {
         }
 
 
+
         // Creates water button
-        Button waterButton = new Button("Water");
+
+        //this is annoying
+        Button waterButton = new Button(String.format("Water (%d left today)", Player.getCurrWater()));
         waterButton.setFont(new Font("Futura", 15));
         waterButton.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
@@ -196,46 +199,52 @@ public class CropInfoScreen extends Application {
         });
 
         //Harvest button
-        Button harvestButton = new Button("Harvest");
+        Button harvestButton = new Button(String.format("Not harvestable", Player.getCurrHarvest()));
         harvestButton.setFont(new Font("Futura", 15));
-        harvestButton.setStyle("-fx-background-color: #2a9d8f; -fx-text-fill: black;"
+        harvestButton.setStyle("-fx-background-color: #B53737; -fx-text-fill: black;"
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
+        if (this.plot.getSeedStatus() == "Mature") {
+            harvestButton.setText(String.format("Harvest %d crops (%d left today)", this.plot.getHarvestQuantity(), Player.getCurrHarvest()));
+            harvestButton.setStyle("-fx-background-color: #2a9d8f; -fx-text-fill: black;"
+                    + "fx-border-radius: 20; -fx-background-radius: 10;");
+        }
         harvestButton.setOnAction(e -> {
-            if (this.plot.getSeedStatus().equals("Mature")) {
-                if (Player.getCurrHarvest() <= 0) {
-                    harvestButton.setText("Harvest limit reached!");
-                } else if (Player.hasRoom(1)) {
-                    if (Player.getCurrHarvest() > 0) {
-                        Player.updateInventory(this.plot.getSeedType(),
-                                this.plot.getHarvestQuantity());
-                        this.plot.clear();
-                        TransitionScene tScene = new TransitionScene();
-                        Stage tStage = new Stage();
-                        stage.close();
-                        try {
-                            tScene.start(tStage, "Harvest");
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
+                if (this.plot.getSeedStatus().equals("Mature")) {
+                    if (Player.getCurrHarvest() <= 0) {
+                        harvestButton.setText("Harvest limit reached!");
+                    } else if (Player.hasRoom(1)) {
+                        if (Player.getCurrHarvest() > 0) {
+                            Player.updateInventory(this.plot.getSeedType(),
+                                    this.plot.getHarvestQuantity());
+                            this.plot.clear();
+                            TransitionScene tScene = new TransitionScene();
+                            Stage tStage = new Stage();
+                            stage.close();
+                            try {
+                                tScene.start(tStage, "Harvest");
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                            stage.close();
+                            Player.harvest();
                         }
-                        stage.close();
-                        Player.harvest();
                     }
+                } else if (this.plot.getSeedStatus().equals("Dead")) {
+                    this.plot.clear();
+                    stage.close();
                 }
-            } else if (this.plot.getSeedStatus().equals("Dead")) {
-                this.plot.clear();
-                stage.close();
-            }
-        });
+            });
+
 
         //Creates purchase plot button button
         Button purchasePlot =
                 new Button(String.format("Purchase Plot: %d",
-                        PlotBackend.getPlotPrice()));
+                        (int) (PlotBackend.getPlotPrice() * 1.3)));
         purchasePlot.setFont(new Font("Futura", 15));
         purchasePlot.setStyle("-fx-background-color: #219ebc; -fx-text-fill: black;"
                 + "fx-border-radius: 20; -fx-background-radius: 10;");
         purchasePlot.setOnAction(e -> {
-            if (!this.plot.isPurchased() && Player.updateBalance(PlotBackend.getPlotPrice())) {
+            if (!this.plot.isPurchased() && Player.updateBalance((int)(PlotBackend.getPlotPrice() * 1.3))) {
                 this.plot.purchaseLand();
                 TransitionScene tScene = new TransitionScene();
                 Stage tStage = new Stage();

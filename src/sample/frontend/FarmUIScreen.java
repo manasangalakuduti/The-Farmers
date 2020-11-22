@@ -91,11 +91,8 @@ public class FarmUIScreen extends Application {
         for (int i = 0; i < 3; i++) {
             System.out.println("-------");
             for (int j = 0; j < 5; j++) {
-                System.out.printf("Setting i at %d and j at %d\n", i, j);
                 if (PlotBackend.getPlots(i, j) == null) {
                     PlotBackend.setNewPlot(i, j);
-                } else {
-                    System.out.println("Fucl");
                 }
                 Plot newPlot = PlotBackend.getPlots(i, j);
                 plotFrame.getChildren().addAll(newPlot);
@@ -216,6 +213,7 @@ public class FarmUIScreen extends Application {
             EndScreen s = new EndScreen();
             try {
                 s.start(storeStage);
+                stage.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -255,18 +253,20 @@ public class FarmUIScreen extends Application {
         Plot[][] plots = PlotBackend.plots;
         for (int i = 0; i < plots.length; i++) {
             for (int j = 0; j < plots[i].length; j++) {
-                if (balance > 10
+                if (balance > 100
                     && (plots[i][j].getSeedStatus().equals("Mature")
                     || plots[i][j].getSeedStatus().equals("Immature")
                     || plots[i][j].getSeedStatus().equals("Seed"))) {
                     return false;
-                } else if (balance <= 10 && (plots[i][j].getSeedStatus().equals("Mature")
+                } else if (balance <= 100 && (plots[i][j].getSeedStatus().equals("Mature")
                     || plots[i][j].getSeedStatus().equals("Immature")
                     || plots[i][j].getSeedStatus().equals("Seed"))) {
                     return false;
-                } else if (balance > 10 && !(plots[i][j].getSeedStatus().equals("Mature")
+                } else if (balance > 100 && !(plots[i][j].getSeedStatus().equals("Mature")
                     || plots[i][j].getSeedStatus().equals("Immature")
                     || plots[i][j].getSeedStatus().equals("Seed"))) {
+                    return false;
+                } else if (Player.getQuantityOf("Superpower") > 0) {
                     return false;
                 }
             }
