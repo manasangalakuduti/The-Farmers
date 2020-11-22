@@ -22,5 +22,7 @@ public class Date {
         season = startingSeason;
     }
 
-    public static void resetDate() {date = 0;}
+    public static void resetDate() {
+        date = 0;
+    }
 }

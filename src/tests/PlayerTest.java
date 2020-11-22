@@ -2,7 +2,6 @@ package tests;
 
 import org.junit.Before;
 import org.junit.Test;
-import sample.backend.Inventory;
 import sample.backend.Market;
 import sample.backend.Player;
 import sample.backend.StoreBackend;
