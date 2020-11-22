@@ -49,12 +49,4 @@ public class InventoryTest {
         assertEquals(930, inventory.getCurrOccupied());
     }
 
-
-
-
-
-    //check add and remove configurations. Use setters and getters to check
-    // has or quantity
-
-    //test current capacity and calculate remaining space
 }
