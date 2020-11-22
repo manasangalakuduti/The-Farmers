@@ -53,6 +53,7 @@ public class EndScreen extends Application {
             Date.resetDate();
             try {
                 c.start(returnStage);
+                stage.close();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

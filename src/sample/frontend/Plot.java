@@ -198,6 +198,18 @@ public class Plot extends Button {
         }
     }
 
+    public void emptyLand() {
+        this.isPurchased = false;
+        this.seedType = "Unpurchased land";
+        this.status = "Dead";
+        this.setPlotImage(this.status, this.seedType);
+        this.statusUpdateTime = 0;
+        this.waterLevel = 0;
+        this.isFertalized = false;
+        this.harvestQuantity = 0;
+        this.isProtected = false;
+    }
+
 
     public int getxIndex() {
         return this.xIndex;
